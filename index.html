@@ -54,7 +54,7 @@
 
     body:not(.dark-mode) .btn-primary:hover {
       background-color: var(--primary-dark);
-      box-shadow: 0 5px 15px rgba(254, 209, 0, 0.2);
+      box-shadow: 0 5px 15px rgba(0, 255, 10, 0.2);
     }
 
     /* إضافة تأثيرات حركية للقسم الرئيسي */
@@ -207,10 +207,10 @@ function animate(){
         ctx.beginPath();
         ctx.arc(p.x,p.y,p.size,0,Math.PI*2);
 
-        ctx.fillStyle = "rgba(255,196,0," + (p.life / 100) + ")";
+        ctx.fillStyle = "rgba(0,255,10," + (p.life / 100) + ")";
 
         ctx.shadowBlur = 15;
-        ctx.shadowColor = "#ffc400";
+        ctx.shadowColor = "#00ff0a";
 
         ctx.fill();
 
@@ -241,8 +241,8 @@ animate();
         <i class="fas fa-bars"></i>
       </div>
       <div class="logo">
-        <img src="1.png" alt="LCA Logo" class="dark-logo" style="height: 50px;">
-        <img src="1w.png" alt="LCA Logo" class="light-logo" style="height: 50px; display: none;">
+        <img src="1.png" alt="Tradegram Logo" class="dark-logo" style="height: 50px;">
+        <img src="1w.png" alt="Tradegram Logo" class="light-logo" style="height: 50px; display: none;">
       </div>
       <nav class="main-nav">
         <div class="close-menu">
@@ -280,6 +280,9 @@ animate();
       </div>
     </div>
   </header>
+</body>
+</html>
+
 
   <!-- هيدر باللغة الإنجليزية -->
   <header id="header-en" class="header" style="display: none;">
