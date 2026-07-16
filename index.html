@@ -1,0 +1,1525 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+  <meta name="google-site-verification" content="9ttPFsVh0-1SqRiVHu0HCuUHIRrff5-RSPN3sy1D5aY" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="مؤشر LCA Forex هو أداة تقنية على منصة TradingView تحدد لون الشمعة، يُستخدم في أسواق الفوركس والعملات الرقمية والأسهم لصفقات السكالبينج بنسبة نجاح عالية.">
+  <title>LCA </title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    /* تحديث ألوان الوضع الفاتح */
+    body:not(.dark-mode) {
+      background-color: var(--light-color);
+    }
+    
+    body:not(.dark-mode) .header {
+      background-color: var(--light-color);
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+    }
+
+    body:not(.dark-mode) .feature-card,
+    body:not(.dark-mode) .course-card,
+    body:not(.dark-mode) .forex-feature {
+      background-color: var(--light-color);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.03);
+    }
+
+    body:not(.dark-mode) .footer {
+      background-color: var(--light-color);
+      border-top: 1px solid rgba(0, 0, 0, 0.05);
+    }
+
+    /* تحديث ألوان النصوص في الوضع الفاتح */
+    body:not(.dark-mode) {
+      color: var(--dark-color);
+    }
+
+    body:not(.dark-mode) a {
+      color: var(--dark-color);
+    }
+
+    /* تحديث ألوان الأزرار في الوضع الفاتح */
+    body:not(.dark-mode) .btn-primary {
+      background-color: var(--primary-color);
+      color: var(--dark-color);
+    }
+
+    body:not(.dark-mode) .btn-primary:hover {
+      background-color: var(--primary-dark);
+      box-shadow: 0 5px 15px rgba(254, 209, 0, 0.2);
+    }
+
+    /* إضافة تأثيرات حركية للقسم الرئيسي */
+    .hero {
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* تحديث محتوى القسم الرئيسي */
+    .hero-content {
+      position: relative;
+      z-index: 1;
+    }
+
+    /* إضافة تأثيرات حركية للقسم الرئيسي */
+    .hero-content h1 {
+      animation: fadeInDown 1s ease-out;
+      position: relative;
+    }
+
+    .hero-content h2 {
+      animation: fadeInUp 1s ease-out 0.5s;
+      animation-fill-mode: both;
+      position: relative;
+    }
+
+    .hero-content .btn-primary {
+      animation: pulse 2s infinite;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-content .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .hero-content .btn-primary::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(
+        120deg,
+        transparent,
+        rgba(255, 255, 255, 0.3),
+        transparent
+      );
+      transition: 0.5s;
+    }
+
+    .hero-content .btn-primary:hover::before {
+      left: 100%;
+    }
+
+    @keyframes fadeInDown {
+      from {
+        opacity: 0;
+        transform: translateY(-30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes pulse {
+      0% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.05);
+      }
+      100% {
+        transform: scale(1);
+      }
+    }
+  </style>
+</head>
+<body class="dark-mode">
+  <canvas id="mouseParticles"></canvas>
+
+<style>
+#mouseParticles{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    pointer-events:none;
+    z-index:9999;
+}
+</style>
+
+<script>
+const canvas = document.getElementById("mouseParticles");
+const ctx = canvas.getContext("2d");
+
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+let particles = [];
+
+window.addEventListener("resize", function(){
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+});
+
+document.addEventListener("mousemove", function(e){
+
+    for(let i = 0; i < 5; i++){
+
+        particles.push({
+            x: e.clientX,
+            y: e.clientY,
+            size: Math.random() * 4 + 1,
+            speedX: (Math.random() - 0.5) * 3,
+            speedY: (Math.random() - 0.5) * 3,
+            life: 100
+        });
+
+    }
+
+});
+
+function animate(){
+
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+
+    particles.forEach(function(p,index){
+
+        p.x += p.speedX;
+        p.y += p.speedY;
+        p.life--;
+
+        ctx.beginPath();
+        ctx.arc(p.x,p.y,p.size,0,Math.PI*2);
+
+        ctx.fillStyle = "rgba(255,196,0," + (p.life / 100) + ")";
+
+        ctx.shadowBlur = 15;
+        ctx.shadowColor = "#ffc400";
+
+        ctx.fill();
+
+        if(p.life <= 0){
+            particles.splice(index,1);
+        }
+
+    });
+
+    requestAnimationFrame(animate);
+
+}
+
+animate();
+</script>
+  <!-- زر العودة للأعلى -->
+  <div class="scroll-to-top">
+    <i class="fas fa-chevron-up"></i>
+  </div>
+
+  <!-- إضافة خلفية شفافة للقائمة المتنقلة -->
+  <div class="mobile-menu-overlay"></div>
+
+  <!-- هيدر باللغة العربية -->
+  <header id="header-ar" class="header">
+    <div class="container">
+      <div class="mobile-menu-btn">
+        <i class="fas fa-bars"></i>
+      </div>
+      <div class="logo">
+        <img src="1.png" alt="LCA Logo" class="dark-logo" style="height: 50px;">
+        <img src="1w.png" alt="LCA Logo" class="light-logo" style="height: 50px; display: none;">
+      </div>
+      <nav class="main-nav">
+        <div class="close-menu">
+          <i class="fas fa-times"></i>
+        </div>
+        <ul>
+          <li><a href="#home" class="active">الرئيسية</a></li>
+          <li><a href="#courses">الإستراتيجية</a></li>
+          <li><a href="#features">المميزات</a></li>
+          <li><a href="#faq">الأسئلة الشائعة</a></li>
+        </ul>
+        <div class="mobile-language-switcher">
+          <h4>اختر اللغة</h4>
+          <div class="language-links">
+            <a href="#" id="ar-link-mobile" class="active">عربي</a>
+            <a href="#" id="en-link-mobile">English</a>
+            <a href="#" id="tr-link-mobile">Türkçe</a>
+          </div>
+        </div>
+        <div class="mobile-mode-toggle">
+          <h4>الوضع</h4>
+          <div class="toggle-switch">
+            <i class="fas fa-moon"></i>
+            <span>الوضع الداكن</span>
+          </div>
+        </div>
+      </nav>
+      <div class="language-switcher">
+        <a href="#" id="ar-link" class="active">عربي</a> | 
+        <a href="#" id="en-link">English</a> |
+        <a href="#" id="tr-link">Türkçe</a>
+      </div>
+      <div class="mode-toggle">
+        <i class="fas fa-moon"></i>
+      </div>
+    </div>
+  </header>
+
+  <!-- هيدر باللغة الإنجليزية -->
+  <header id="header-en" class="header" style="display: none;">
+    <div class="container">
+      <div class="mobile-menu-btn" style="float: right;">
+        <i class="fas fa-bars"></i>
+      </div>
+      <div class="logo">
+        <img src="1.png" alt="LCA Logo" class="dark-logo" style="height: 50px;">
+        <img src="1w.png" alt="LCA Logo" class="light-logo" style="height: 50px; display: none;">
+      </div>
+      <nav class="main-nav">
+        <div class="close-menu">
+          <i class="fas fa-times"></i>
+        </div>
+        <ul>
+          <li><a href="#home" class="active">Home</a></li>
+          <li><a href="#courses">Strategy</a></li>
+          <li><a href="#features">Features</a></li>
+          <li><a href="#faq">FAQ</a></li>
+        </ul>
+        <!-- إضافة مبدل اللغة للجوال -->
+        <div class="mobile-language-switcher">
+          <h4>Select Language</h4>
+          <div class="language-links">
+            <a href="#" id="ar-link-mobile-en">عربي</a>
+            <a href="#" id="en-link-mobile-en" class="active">English</a>
+            <a href="#" id="tr-link-mobile-en">Türkçe</a>
+          </div>
+        </div>
+        <!-- إضافة زر الوضع الداكن/الفاتح للجوال -->
+        <div class="mobile-mode-toggle">
+          <h4>Theme</h4>
+          <div class="toggle-switch">
+            <i class="fas fa-moon"></i>
+            <span>Dark Mode</span>
+          </div>
+        </div>
+      </nav>
+      <div class="language-switcher">
+        <a href="#" id="ar-link-en">عربي</a> | 
+        <a href="#" id="en-link-en" class="active">English</a> |
+        <a href="#" id="tr-link-en">Türkçe</a>
+      </div>
+      <div class="mode-toggle">
+        <i class="fas fa-moon"></i>
+      </div>
+    </div>
+  </header>
+
+  <!-- هيدر باللغة التركية -->
+  <header id="header-tr" class="header" style="display: none;">
+    <div class="container">
+      <div class="mobile-menu-btn" style="float: right;">
+        <i class="fas fa-bars"></i>
+      </div>
+      <div class="logo">
+        <img src="1.png" alt="LCA Logo" class="dark-logo" style="height: 50px;">
+        <img src="1w.png" alt="LCA Logo" class="light-logo" style="height: 50px; display: none;">
+      </div>
+      <nav class="main-nav">
+        <div class="close-menu">
+          <i class="fas fa-times"></i>
+        </div>
+        <ul>
+          <li><a href="#home" class="active">Ana Sayfa</a></li>
+          <li><a href="#courses">Strateji</a></li>
+          <li><a href="#features">Özellikler</a></li>
+          <li><a href="#faq">SSS</a></li>
+        </ul>
+        <!-- إضافة مبدل اللغة للجوال -->
+        <div class="mobile-language-switcher">
+          <h4>Dil Seçin</h4>
+          <div class="language-links">
+            <a href="#" id="ar-link-mobile-tr">عربي</a>
+            <a href="#" id="en-link-mobile-tr">English</a>
+            <a href="#" id="tr-link-mobile-tr" class="active">Türkçe</a>
+          </div>
+        </div>
+        <!-- إضافة زر الوضع الداكن/الفاتح للجوال -->
+        <div class="mobile-mode-toggle">
+          <h4>Tema</h4>
+          <div class="toggle-switch">
+            <i class="fas fa-moon"></i>
+            <span>Karanlık Mod</span>
+          </div>
+        </div>
+      </nav>
+      <div class="language-switcher">
+        <a href="#" id="ar-link-tr">عربي</a> | 
+        <a href="#" id="en-link-tr">English</a> |
+        <a href="#" id="tr-link-tr" class="active">Türkçe</a>
+      </div>
+      <div class="mode-toggle">
+        <i class="fas fa-moon"></i>
+      </div>
+    </div>
+  </header>
+
+  <!-- المحتوى باللغة العربية -->
+  <div id="content-ar">
+    <section class="hero" id="home">
+      <div class="container">
+        <div class="hero-content">
+          <h1>اهلا بكم في LCA</h1>
+          <h2>موشر تداول احترافي NEXT CANDEL🌍 </h2>
+          <a href="#courses" class="btn btn-primary">اشتري الموشر الآن</a>
+        </div>
+      </div>
+    </section>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+        }
+
+        .full-screen-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* يضمن أن الصورة تملأ الشاشة دون أن يتم تشويهها */
+        }
+    </style>
+
+
+    <img src="4.png" alt="صورة" class="full-screen-image">
+    <!-- شريط TradingView للوضع الفاتح -->
+    <div class="tradingview-widget-container light-mode-widget" style="display: none;">
+      <div id="tradingview_ticker_light"></div>
+      <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js" async>
+      {
+        "symbols": [
+          { "proName": "FOREXCOM:XAUUSD", "title": "Gold (XAU/USD)" },
+          { "proName": "FOREXCOM:EURUSD", "title": "EUR/USD" },
+          { "proName": "FOREXCOM:GBPUSD", "title": "GBP/USD" },
+          { "proName": "FOREXCOM:USDJPY", "title": "USD/JPY" },
+          { "proName": "FOREXCOM:USDCHF", "title": "USD/CHF" },
+          { "proName": "FOREXCOM:AUDUSD", "title": "AUD/USD" },
+          { "proName": "FOREXCOM:USDCAD", "title": "USD/CAD" },
+          { "proName": "FOREXCOM:NZDUSD", "title": "NZD/USD" },
+          { "proName": "FOREXCOM:EURJPY", "title": "EUR/JPY" },
+          { "proName": "FOREXCOM:GBPJPY", "title": "GBP/JPY" },
+          { "proName": "FOREXCOM:EURGBP", "title": "EUR/GBP" },
+          { "proName": "FOREXCOM:CHFJPY", "title": "CHF/JPY" },
+          { "proName": "FOREXCOM:EURCHF", "title": "EUR/CHF" },
+          { "proName": "FOREXCOM:EURAUD", "title": "EUR/AUD" },
+          { "proName": "FOREXCOM:GBPAUD", "title": "GBP/AUD" },
+          { "proName": "FOREXCOM:AUDJPY", "title": "AUD/JPY" },
+          { "proName": "FOREXCOM:GBPCAD", "title": "GBP/CAD" },
+          { "proName": "FOREXCOM:EURCAD", "title": "EUR/CAD" },
+          { "proName": "FOREXCOM:NZDJPY", "title": "NZD/JPY" },
+          { "proName": "FOREXCOM:AUDNZD", "title": "AUD/NZD" },
+          { "proName": "FOREXCOM:CADJPY", "title": "CAD/JPY" },
+          { "proName": "FOREXCOM:GBPNZD", "title": "GBP/NZD" }
+        ],
+        "showSymbolLogo": true,
+        "colorTheme": "light",
+        "isTransparent": false,
+        "displayMode": "regular",
+        "locale": "ar"
+      }
+      </script>
+    </div>
+
+    <!-- شريط TradingView للوضع الداكن -->
+    <div class="tradingview-widget-container dark-mode-widget">
+      <div id="tradingview_ticker_dark"></div>
+      <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js" async>
+      {
+        "symbols": [
+          { "proName": "FOREXCOM:XAUUSD", "title": "Gold (XAU/USD)" },
+          { "proName": "FOREXCOM:EURUSD", "title": "EUR/USD" },
+          { "proName": "FOREXCOM:GBPUSD", "title": "GBP/USD" },
+          { "proName": "FOREXCOM:USDJPY", "title": "USD/JPY" },
+          { "proName": "FOREXCOM:USDCHF", "title": "USD/CHF" },
+          { "proName": "FOREXCOM:AUDUSD", "title": "AUD/USD" },
+          { "proName": "FOREXCOM:USDCAD", "title": "USD/CAD" },
+          { "proName": "FOREXCOM:NZDUSD", "title": "NZD/USD" },
+          { "proName": "FOREXCOM:EURJPY", "title": "EUR/JPY" },
+          { "proName": "FOREXCOM:GBPJPY", "title": "GBP/JPY" },
+          { "proName": "FOREXCOM:EURGBP", "title": "EUR/GBP" },
+          { "proName": "FOREXCOM:CHFJPY", "title": "CHF/JPY" },
+          { "proName": "FOREXCOM:EURCHF", "title": "EUR/CHF" },
+          { "proName": "FOREXCOM:EURAUD", "title": "EUR/AUD" },
+          { "proName": "FOREXCOM:GBPAUD", "title": "GBP/AUD" },
+          { "proName": "FOREXCOM:AUDJPY", "title": "AUD/JPY" },
+          { "proName": "FOREXCOM:GBPCAD", "title": "GBP/CAD" },
+          { "proName": "FOREXCOM:EURCAD", "title": "EUR/CAD" },
+          { "proName": "FOREXCOM:NZDJPY", "title": "NZD/JPY" },
+          { "proName": "FOREXCOM:AUDNZD", "title": "AUD/NZD" },
+          { "proName": "FOREXCOM:CADJPY", "title": "CAD/JPY" },
+          { "proName": "FOREXCOM:GBPNZD", "title": "GBP/NZD" }
+        ],
+        "showSymbolLogo": true,
+        "colorTheme": "dark",
+        "isTransparent": false,
+        "displayMode": "regular",
+        "locale": "ar"
+      }
+      </script>
+    </div>
+
+<!-- قسم الفوركس — العربية -->
+<section class="forex" id="forex">
+  <div class="container">
+    <div class="section-header">
+      <h2>تداول الفوركس مع LCA</h2>
+      <p>مؤشر LCA هو مؤشر تقني على TradingView لتحديد لون الشمعة واتجاه السوق في أسواق الفوركس والعملات الرقمية والأسهم</p>
+    </div>
+    <div class="forex-features">
+      <div class="forex-feature">
+        <div class="forex-feature-icon"><i class="fas fa-globe"></i></div>
+        <h3>تداول عالمي</h3>
+        <p>تعلم التداول على العملات الأجنبية والمعادن والمؤشرات.</p>
+      </div>
+      <div class="forex-feature">
+        <div class="forex-feature-icon"><i class="fas fa-chart-line"></i></div>
+        <h3>تحليل السوق</h3>
+        <p>تعلم كيفية تحليل السوق واتخاذ القرارات بناءً على البيانات.</p>
+      </div>
+      <div class="forex-feature">
+        <div class="forex-feature-icon"><i class="fas fa-shield-alt"></i></div>
+        <h3>إدارة المخاطر</h3>
+        <p>تعلم استراتيجيات إدارة المخاطر لحماية حسابك.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+    <section class="features" id="features">
+      <div class="container">
+        <div class="section-header">
+          <h2>مميزات الموشر</h2>
+        </div>
+        <div class="features-grid">
+          <div class="feature-card">
+            <div class="feature-icon">
+              <i class="fas fa-chart-line"></i>
+            </div>
+            <h3>موشر تداول ذكي</h3>
+            <p> تداول باحتراف مع موشر LCA</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">
+              <i class="fas fa-video"></i>
+            </div>
+            <h3>فيديوهات شرح</h3>
+            <p>شرح عملي لاستخدام المؤشرات</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">
+              <i class="fas fa-headset"></i>
+            </div>
+            <h3>دعم فني</h3>
+            <p>دعم مباشر لمدة 3 أيام بعد الشراء</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="courses" id="courses">
+      <div class="container">
+        <div class="section-header">
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+        }
+
+        .full-screen-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* يضمن أن الصورة تملأ الشاشة دون أن يتم تشويهها */
+        }
+    </style>
+    <img src="lcaa.jpg" alt="صورة" class="full-screen-image">
+
+
+    <img src="lca22.jpg" alt="صورة" class="full-screen-image">
+<section class="indicator-benefits">
+  <div class="container">
+    <!-- الصورة -->
+    <div class="benefit-image">
+      <img src="5.png" alt="NEXT CANDEL Indicator">
+    </div>
+
+    <!-- المميزات -->
+    <div class="benefit-content">
+      <h2 class="glow-title">لماذا تختار مؤشر NEXT CANDEL؟</h2>
+      <p>مؤشر احترافي يُستخدم في الفوركس والخيارات الثنائية، يقدم تنبؤات دقيقة بلون الشمعة القادمة باستخدام خوارزميات ذكية.</p>
+      
+      <div class="feature-strips">
+        <div class="strip-item">
+          <i class="fas fa-bolt pulse-icon"></i>
+          <span>توقع لون الشمعة القادمة بدقة عالية</span>
+        </div>
+        <div class="strip-item">
+          <i class="fas fa-sync-alt pulse-icon"></i>
+          <span>مناسب لتداول الفوركس </span>
+        </div>
+        <div class="strip-item">
+          <i class="fas fa-bullseye pulse-icon"></i>
+          <span>إشارات فورية بدون إعادة رسم</span>
+        </div>
+        <div class="strip-item">
+          <i class="fas fa-layer-group pulse-icon"></i>
+          <span>يعمل على جميع الفريمات والأصول</span>
+        </div>
+        <div class="strip-item">
+          <i class="fas fa-user-shield pulse-icon"></i>
+          <span>سهل الاستخدام ولا يحتاج خبرة مسبقة</span>
+        </div>
+        <div class="strip-item">
+          <i class="fas fa-headset pulse-icon"></i>
+          <span>دعم فني مباشر + دليل شامل</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<h2>موشر LCA الحصري</h2>
+<p>احصل على الموشر كامل بخصم 34%</p>
+</div>
+
+<div class="courses-grid">
+  <!-- البطاقة الأولى: العرض الحصري -->
+  <div class="course-card featured">
+    <div class="course-badge">العرض الحصري</div>
+    <div class="course-header">
+      <h3>موشر LCA</h3>
+    </div>
+    <div class="course-price">
+      <h4>السعر: <span id="displayPrice">$66</span> بدلًا من <del>100$</del></h4>
+    </div>
+    <div class="course-details">
+      <ul>
+        <li><i class="fas fa-check"></i> التداول مع مؤشرات LCA</li>
+        <li><i class="fas fa-check"></i> دليل استخدام مفصل</li>
+        <li><i class="fas fa-check"></i> فيديو تعليمي</li>
+        <li><i class="fas fa-check"></i> دعم فني</li>
+      </ul>
+    </div>
+    <div class="course-actions">
+      <a href="https://t.me/LCAV99" class="btn btn-primary" target="_blank">شراء الحزمة</a>
+    </div>
+  </div>
+
+  <!-- البطاقة الثانية: مدى الحياة -->
+  <div class="course-card featured">
+    <div class="course-badge" style="background: linear-gradient(45deg, #4CAF50, #388E3C); color: white;">مدى الحياة</div>
+    <div class="course-header">
+      <h3>اشتراك LCA مدى الحياة</h3>
+    </div>
+    <div class="course-price">
+      <h4>السعر: <span>$1000</span></h4>
+    </div>
+    <div class="course-details">
+      <ul>
+        <li><i class="fas fa-check"></i> الوصول الكامل لجميع مؤشرات LCA</li>
+        <li><i class="fas fa-check"></i> تحديثات مدى الحياة</li>
+        <li><i class="fas fa-check"></i> دعم فني مستمر</li>
+        <li><i class="fas fa-check"></i> تفعيل فوري بعد الدفع</li>
+      </ul>
+    </div>
+    <div class="course-actions">
+      <a href="https://t.me/LCAV99" class="btn btn-primary" target="_blank">اشترك الآن</a>
+    </div>
+  </div>
+</div>
+</div>
+</section>
+
+    <!-- قسم الأسئلة الشائعة بالعربية -->
+    <section class="faq-section" id="faq">
+      <div class="container">
+        <div class="section-header">
+          <h2>الأسئلة الشائعة</h2>
+        </div>
+        <div class="faq-items">
+          <details>
+            <summary>كيف أشتري موشر التداول؟</summary>
+            <p>لشراء النظام، اضغط على زر "شراء الحزمة" في قسم الاستراتيجية وسيتم تحويلك إلى رابط تيليجرام.</p>
+          </details>
+          <details>
+            <summary>هل هناك دعم فني بعد الشراء؟</summary>
+            <p>نعم، نقدم دعمًا مباشرًا لمدة 3 أيام بعد الشراء.</p>
+          </details>
+          <details>
+            <summary>هل يتطلب موشر خبرة سابقة؟</summary>
+            <p>لا، موشر  مصمم للمبتدئين والمحترفين معًا، ويأتي مع دليل وفيديو شرح.</p>
+          </details>
+          <details>
+            <summary>ما هي طرق الدفع المتاحة؟</summary>
+            <p>نقبل الدفع باستخدام USDT , BTCUSD </p>
+          </details>
+          <details>
+            <summary>هل يعمل  الموشر على جميع الفريمات والاصول  ؟</summary>
+            <p>نعم موشر   مصمم للعمل على كلى الفريمات والاصول </p>
+          </details>
+          <details>
+            <summary>كيف أستلم موشر  بعد الشراء؟</summary>
+            <p>سيتم تفعيل الموشر على حساب تردنك فيو  </p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-content">
+          <div class="footer-logo">
+            <h3>LCA</h3>
+            <p>تداول بذكاء مع موشر NEXT CANDEL</p>
+          </div>
+          <div class="footer-links">
+            <h4>روابط سريعة</h4>
+            <ul>
+              <li><a href="#home">الرئيسية</a></li>
+              <li><a href="#courses">الشراء</a></li>
+              <li><a href="#features">المميزات</a></li>
+              <li><a href="#faq">الأسئلة الشائعة</a></li>
+            </ul>
+          </div>
+          <div class="footer-follow-us">
+            <h4>تواصل معنا</h4>
+            <div class="social-links">
+              <a href="https://t.me/LCAV99" class="social-link"><i class="fab fa-telegram-plane"></i> تليجرام</a>
+              <a href="https://wa.me/905393011147" class="social-link"><i class="fab fa-whatsapp"></i> واتساب</a>
+              <a href=https://www.instagram.com/alii_sameerr?igsh=MXZmMjdkb2J4bHVicA%3D%3D&utm_source=qr" class="social-link">
+                <i class="fab fa-instagram"></i> إنستقرام
+              </a>
+              
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy;  الاستاذ علي سمير </p>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <!-- المحتوى باللغة الإنجليزية -->
+  <div id="content-en" style="display: none;">
+    <section class="hero" id="home">
+      <div class="container">
+        <div class="hero-content">
+          <h1>Welcome to LCA</h1>
+          <h2>Professional Trading Indicator NEXT CANDEL</h2>
+          <a href="#courses" class="btn btn-primary">Buy Indicator Now</a>
+
+
+        </div>
+      </div>
+    </section>
+    <style>
+    body, html {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+    }
+
+    .background-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover; /* يضمن أن الصورة تملأ الشاشة دون أن يتم تشويهها */
+    }
+</style>
+
+<img src="4.png" alt="صورة" class="background-image">
+
+    <!-- شريط TradingView للوضع الفاتح -->
+    <div class="tradingview-widget-container light-mode-widget" style="display: none;">
+      <div id="tradingview_ticker_light"></div>
+      <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js" async>
+      {
+        "symbols": [
+          { "proName": "FOREXCOM:XAUUSD", "title": "Gold (XAU/USD)" },
+          { "proName": "FOREXCOM:EURUSD", "title": "EUR/USD" },
+          { "proName": "FOREXCOM:GBPUSD", "title": "GBP/USD" },
+          { "proName": "FOREXCOM:USDJPY", "title": "USD/JPY" },
+          { "proName": "FOREXCOM:USDCHF", "title": "USD/CHF" },
+          { "proName": "FOREXCOM:AUDUSD", "title": "AUD/USD" },
+          { "proName": "FOREXCOM:USDCAD", "title": "USD/CAD" },
+          { "proName": "FOREXCOM:NZDUSD", "title": "NZD/USD" },
+          { "proName": "FOREXCOM:EURJPY", "title": "EUR/JPY" },
+          { "proName": "FOREXCOM:GBPJPY", "title": "GBP/JPY" },
+          { "proName": "FOREXCOM:EURGBP", "title": "EUR/GBP" },
+          { "proName": "FOREXCOM:CHFJPY", "title": "CHF/JPY" },
+          { "proName": "FOREXCOM:EURCHF", "title": "EUR/CHF" },
+          { "proName": "FOREXCOM:EURAUD", "title": "EUR/AUD" },
+          { "proName": "FOREXCOM:GBPAUD", "title": "GBP/AUD" },
+          { "proName": "FOREXCOM:AUDJPY", "title": "AUD/JPY" },
+          { "proName": "FOREXCOM:GBPCAD", "title": "GBP/CAD" },
+          { "proName": "FOREXCOM:EURCAD", "title": "EUR/CAD" },
+          { "proName": "FOREXCOM:NZDJPY", "title": "NZD/JPY" },
+          { "proName": "FOREXCOM:AUDNZD", "title": "AUD/NZD" },
+          { "proName": "FOREXCOM:CADJPY", "title": "CAD/JPY" },
+          { "proName": "FOREXCOM:GBPNZD", "title": "GBP/NZD" }
+        ],
+        "showSymbolLogo": true,
+        "colorTheme": "light",
+        "isTransparent": false,
+        "displayMode": "regular",
+        "locale": "en"
+      }
+      </script>
+    </div>
+
+    <!-- شريط TradingView للوضع الداكن -->
+    <div class="tradingview-widget-container dark-mode-widget">
+      <div id="tradingview_ticker_dark"></div>
+      <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js" async>
+      {
+        "symbols": [
+          { "proName": "FOREXCOM:XAUUSD", "title": "Gold (XAU/USD)" },
+          { "proName": "FOREXCOM:EURUSD", "title": "EUR/USD" },
+          { "proName": "FOREXCOM:GBPUSD", "title": "GBP/USD" },
+          { "proName": "FOREXCOM:USDJPY", "title": "USD/JPY" },
+          { "proName": "FOREXCOM:USDCHF", "title": "USD/CHF" },
+          { "proName": "FOREXCOM:AUDUSD", "title": "AUD/USD" },
+          { "proName": "FOREXCOM:USDCAD", "title": "USD/CAD" },
+          { "proName": "FOREXCOM:NZDUSD", "title": "NZD/USD" },
+          { "proName": "FOREXCOM:EURJPY", "title": "EUR/JPY" },
+          { "proName": "FOREXCOM:GBPJPY", "title": "GBP/JPY" },
+          { "proName": "FOREXCOM:EURGBP", "title": "EUR/GBP" },
+          { "proName": "FOREXCOM:CHFJPY", "title": "CHF/JPY" },
+          { "proName": "FOREXCOM:EURCHF", "title": "EUR/CHF" },
+          { "proName": "FOREXCOM:EURAUD", "title": "EUR/AUD" },
+          { "proName": "FOREXCOM:GBPAUD", "title": "GBP/AUD" },
+          { "proName": "FOREXCOM:AUDJPY", "title": "AUD/JPY" },
+          { "proName": "FOREXCOM:GBPCAD", "title": "GBP/CAD" },
+          { "proName": "FOREXCOM:EURCAD", "title": "EUR/CAD" },
+          { "proName": "FOREXCOM:NZDJPY", "title": "NZD/JPY" },
+          { "proName": "FOREXCOM:AUDNZD", "title": "AUD/NZD" },
+          { "proName": "FOREXCOM:CADJPY", "title": "CAD/JPY" },
+          { "proName": "FOREXCOM:GBPNZD", "title": "GBP/NZD" }
+        ],
+        "showSymbolLogo": true,
+        "colorTheme": "dark",
+        "isTransparent": false,
+        "displayMode": "regular",
+        "locale": "en"
+      }
+      </script>
+    </div>
+
+<!-- Forex section — English -->
+<section class="forex" id="forex">
+  <div class="container">
+    <div class="section-header">
+      <h2>Forex Trading with LCA</h2>
+      <p>Forex is the foreign exchange market, the largest financial market in the world. With the LCA strategy, you'll learn how to trade forex professionally, understand market movements, and make the right decisions to generate profits.</p>
+    </div>
+    <div class="forex-features">
+      <div class="forex-feature">
+        <div class="forex-feature-icon"><i class="fas fa-globe"></i></div>
+        <h3>Global Trading</h3>
+        <p>Learn to trade currencies, metals, and indices.</p>
+      </div>
+      <div class="forex-feature">
+        <div class="forex-feature-icon"><i class="fas fa-chart-line"></i></div>
+        <h3>Market Analysis</h3>
+        <p>Learn how to analyze the market and make data-driven decisions.</p>
+      </div>
+      <div class="forex-feature">
+        <div class="forex-feature-icon"><i class="fas fa-shield-alt"></i></div>
+        <h3>Risk Management</h3>
+        <p>Learn risk-management strategies to protect your account.</p>
+      </div>
+    </div>
+  </div>
+</section>
+    <section class="features" id="features">
+      <div class="container">
+        <div class="section-header">
+          <h2>Indicator Features</h2>
+        </div>
+        <div class="features-grid">
+          <div class="feature-card">
+            <div class="feature-icon">
+              <i class="fas fa-chart-line"></i>
+            </div>
+            <h3>Smart Trading Indicator</h3>
+            <p>Trade professionally with LCA indicator</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">
+              <i class="fas fa-video"></i>
+            </div>
+            <h3>Tutorial Videos</h3>
+            <p>Practical explanation for using indicators</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">
+              <i class="fas fa-headset"></i>
+            </div>
+            <h3>Technical Support</h3>
+            <p>Direct support for 3 days after purchase</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="courses" id="courses">
+           <div class="container">
+        <div class="section-header">
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+        }
+
+        .full-screen-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* يضمن أن الصورة تملأ الشاشة دون أن يتم تشويهها */
+        }
+    </style>
+    <img src="lcaa.jpg" alt="صورة" class="full-screen-image">
+
+
+    <img src="lca22.jpg" alt="صورة" class="full-screen-image">
+<section class="indicator-benefits">
+  <div class="container">
+    <div class="benefit-image">
+      <img src="5.png" alt="NEXT CANDEL Indicator">
+    </div>
+
+    <div class="benefit-content">
+      <h2 class="glow-title">Why choose NEXT CANDEL Indicator?</h2>
+      <p>Professional tool for Forex, providing accurate predictions for the next candle color based on advanced algorithms.</p>
+
+      <div class="feature-strips">
+        <div class="strip-item">
+          <i class="fas fa-bolt pulse-icon"></i>
+          <span>Predict the next candle color with high accuracy</span>
+        </div>
+        <div class="strip-item">
+          <i class="fas fa-sync-alt pulse-icon"></i>
+          <span>Suitable for Forex trading </span>
+        </div>
+        <div class="strip-item">
+          <i class="fas fa-bullseye pulse-icon"></i>
+          <span>Instant signals with no repaint</span>
+        </div>
+        <div class="strip-item">
+          <i class="fas fa-layer-group pulse-icon"></i>
+          <span>Works on all timeframes and assets</span>
+        </div>
+        <div class="strip-item">
+          <i class="fas fa-user-shield pulse-icon"></i>
+          <span>No experience required</span>
+        </div>
+        <div class="strip-item">
+          <i class="fas fa-headset pulse-icon"></i>
+          <span>Direct support & full usage guide</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<h2>Exclusive LCA Indicator</h2>
+<p>Get the full indicator now with 34% off</p>
+</div>
+
+<div class="courses-grid">
+  <!-- Card 1: Exclusive Offer -->
+  <div class="course-card featured">
+    <div class="course-badge">Exclusive Offer</div>
+    <div class="course-header">
+      <h3>LCA Indicator</h3>
+    </div>
+    <div class="course-price">
+      <h4>Price: <span id="displayPrice">$66</span> instead of <del>$100</del></h4>
+    </div>
+    <div class="course-details">
+      <ul>
+        <li><i class="fas fa-check"></i> Trade with LCA indicators</li>
+        <li><i class="fas fa-check"></i> Detailed user guide</li>
+        <li><i class="fas fa-check"></i> Educational video</li>
+        <li><i class="fas fa-check"></i> Technical support</li>
+      </ul>
+    </div>
+    <div class="course-actions">
+      <a href="https://t.me/LCAV99" class="btn btn-primary" target="_blank">Buy Package</a>
+    </div>
+  </div>
+
+  <!-- Card 2: Lifetime Access -->
+  <div class="course-card featured">
+    <div class="course-badge" style="background: linear-gradient(45deg, #4CAF50, #388E3C); color: white;">Lifetime Access</div>
+    <div class="course-header">
+      <h3>LCA Lifetime Subscription</h3>
+    </div>
+    <div class="course-price">
+      <h4>Price: <span>$1000</span></h4>
+    </div>
+    <div class="course-details">
+      <ul>
+        <li><i class="fas fa-check"></i> Full access to all LCA indicators</li>
+        <li><i class="fas fa-check"></i> Lifetime updates</li>
+        <li><i class="fas fa-check"></i> Continuous technical support</li>
+        <li><i class="fas fa-check"></i> Instant activation after payment</li>
+      </ul>
+    </div>
+    <div class="course-actions">
+      <a href="https://t.me/LCAV99" class="btn btn-primary" target="_blank">Subscribe Now</a>
+    </div>
+  </div>
+</div>
+</div>
+</section>
+    <!-- قسم الأسئلة الشائعة بالإنجليزية -->
+    <section class="faq-section" id="faq">
+      <div class="container">
+        <div class="section-header">
+          <h2>Frequently Asked Questions</h2>
+        </div>
+        <div class="faq-items">
+          <details>
+            <summary>How do I purchase the trading indicator?</summary>
+            <p>To purchase the indicator, click the "Buy Package" button in the Strategy section and you'll be redirected to the Telegram link.</p>
+          </details>
+          <details>
+            <summary>Is technical support available after purchase?</summary>
+            <p>Yes, we offer 3 days of direct technical support after purchase.</p>
+          </details>
+          <details>
+            <summary>Does the indicator require prior experience?</summary>
+            <p>No, it's designed for both beginners and pros, and includes a guide and tutorial video.</p>
+          </details>
+          <details>
+            <summary>What payment methods are available?</summary>
+            <p>We support payment via USDT , BTCUSD</p>
+          </details>
+          <details>
+            <summary>Does the indicator work on all frames and assets?</summary>
+            <p>Yes, the indicator is designed to work on all different assets and frames.</p>
+          </details>
+          <details>
+            <summary>How do I receive the indicator after purchase?</summary>
+            <p>The indicator will be activated on your Tradenk View account.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-content">
+          <div class="footer-logo">
+            <h3>LCA</h3>
+            <p>Trade smartly with LCA indicators</p>
+          </div>
+          <div class="footer-links">
+            <h4>Quick Links</h4>
+            <ul>
+              <li><a href="#home">Home</a></li>
+              <li><a href="#courses">Purchase</a></li>
+              <li><a href="#features">Features</a></li>
+              <li><a href="#faq">FAQ</a></li>
+            </ul>
+          </div>
+          <div class="footer-follow-us">
+            <h4>Contact Us</h4>
+            <div class="social-links">
+              <a href="https://t.me/LCAV99" class="social-link"><i class="fab fa-telegram-plane"></i> Telegram</a>
+              <a href="https://wa.me/905393011147" class="social-link"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+              <a href=https://www.instagram.com/alii_sameerr?igsh=MXZmMjdkb2J4bHVicA%3D%3D&utm_source=qr" class="social-link">
+                <i class="fab fa-instagram"></i> Instagram
+              </a>
+             
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p>&copy; Ali Sameer </p>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <!-- المحتوى باللغة التركية -->
+  <div id="content-tr" style="display: none;">
+    <section class="hero" id="home">
+      <div class="container">
+        <div class="hero-content">
+          <h1>LCA'ya Hoş Geldiniz</h1>
+          <h2>Profesyonel Trading Göstergesi NEXT CANDEL</h2>
+          <a href="#courses" class="btn btn-primary">Göstergeyi Şimdi Satın Al</a>
+        </div>
+      </div>
+    </section>
+
+    <img src="4.png" alt="Trading" class="full-screen-image">
+
+    <!-- شريط TradingView للوضع الفاتح -->
+    <div class="tradingview-widget-container light-mode-widget" style="display: none;">
+      <div id="tradingview_ticker_light_tr"></div>
+      <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js" async>
+      {
+        "symbols": [
+          { "proName": "FOREXCOM:XAUUSD", "title": "Gold (XAU/USD)" },
+          { "proName": "FOREXCOM:EURUSD", "title": "EUR/USD" },
+          { "proName": "FOREXCOM:GBPUSD", "title": "GBP/USD" },
+          { "proName": "FOREXCOM:USDJPY", "title": "USD/JPY" },
+          { "proName": "FOREXCOM:USDCHF", "title": "USD/CHF" },
+          { "proName": "FOREXCOM:AUDUSD", "title": "AUD/USD" },
+          { "proName": "FOREXCOM:USDCAD", "title": "USD/CAD" },
+          { "proName": "FOREXCOM:NZDUSD", "title": "NZD/USD" },
+          { "proName": "FOREXCOM:EURJPY", "title": "EUR/JPY" },
+          { "proName": "FOREXCOM:GBPJPY", "title": "GBP/JPY" },
+          { "proName": "FOREXCOM:EURGBP", "title": "EUR/GBP" },
+          { "proName": "FOREXCOM:CHFJPY", "title": "CHF/JPY" },
+          { "proName": "FOREXCOM:EURCHF", "title": "EUR/CHF" },
+          { "proName": "FOREXCOM:EURAUD", "title": "EUR/AUD" },
+          { "proName": "FOREXCOM:GBPAUD", "title": "GBP/AUD" },
+          { "proName": "FOREXCOM:AUDJPY", "title": "AUD/JPY" },
+          { "proName": "FOREXCOM:GBPCAD", "title": "GBP/CAD" },
+          { "proName": "FOREXCOM:EURCAD", "title": "EUR/CAD" },
+          { "proName": "FOREXCOM:NZDJPY", "title": "NZD/JPY" },
+          { "proName": "FOREXCOM:AUDNZD", "title": "AUD/NZD" },
+          { "proName": "FOREXCOM:CADJPY", "title": "CAD/JPY" },
+          { "proName": "FOREXCOM:GBPNZD", "title": "GBP/NZD" }
+        ],
+        "showSymbolLogo": true,
+        "colorTheme": "light",
+        "isTransparent": false,
+        "displayMode": "regular",
+        "locale": "tr"
+      }
+      </script>
+    </div>
+
+    <!-- شريط TradingView للوضع الداكن -->
+    <div class="tradingview-widget-container dark-mode-widget">
+      <div id="tradingview_ticker_dark_tr"></div>
+      <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js" async>
+      {
+        "symbols": [
+          { "proName": "FOREXCOM:XAUUSD", "title": "Gold (XAU/USD)" },
+          { "proName": "FOREXCOM:EURUSD", "title": "EUR/USD" },
+          { "proName": "FOREXCOM:GBPUSD", "title": "GBP/USD" },
+          { "proName": "FOREXCOM:USDJPY", "title": "USD/JPY" },
+          { "proName": "FOREXCOM:USDCHF", "title": "USD/CHF" },
+          { "proName": "FOREXCOM:AUDUSD", "title": "AUD/USD" },
+          { "proName": "FOREXCOM:USDCAD", "title": "USD/CAD" },
+          { "proName": "FOREXCOM:NZDUSD", "title": "NZD/USD" },
+          { "proName": "FOREXCOM:EURJPY", "title": "EUR/JPY" },
+          { "proName": "FOREXCOM:GBPJPY", "title": "GBP/JPY" },
+          { "proName": "FOREXCOM:EURGBP", "title": "EUR/GBP" },
+          { "proName": "FOREXCOM:CHFJPY", "title": "CHF/JPY" },
+          { "proName": "FOREXCOM:EURCHF", "title": "EUR/CHF" },
+          { "proName": "FOREXCOM:EURAUD", "title": "EUR/AUD" },
+          { "proName": "FOREXCOM:GBPAUD", "title": "GBP/AUD" },
+          { "proName": "FOREXCOM:AUDJPY", "title": "AUD/JPY" },
+          { "proName": "FOREXCOM:GBPCAD", "title": "GBP/CAD" },
+          { "proName": "FOREXCOM:EURCAD", "title": "EUR/CAD" },
+          { "proName": "FOREXCOM:NZDJPY", "title": "NZD/JPY" },
+          { "proName": "FOREXCOM:AUDNZD", "title": "AUD/NZD" },
+          { "proName": "FOREXCOM:CADJPY", "title": "CAD/JPY" },
+          { "proName": "FOREXCOM:GBPNZD", "title": "GBP/NZD" }
+        ],
+        "showSymbolLogo": true,
+        "colorTheme": "dark",
+        "isTransparent": false,
+        "displayMode": "regular",
+        "locale": "tr"
+      }
+      </script>
+    </div>
+
+    <!-- قسم الفوركس — التركية -->
+    <section class="forex" id="forex">
+      <div class="container">
+        <div class="section-header">
+          <h2>LCA ile Forex Trading</h2>
+          <p>Forex, dünyanın en büyük finansal piyasası olan döviz ticaret piyasasıdır. LCA stratejisi ile forex piyasasında profesyonel olarak nasıl işlem yapılacağını, piyasa hareketlerini anlamayı ve kâr elde etmek için doğru kararları vermeyi öğreneceksiniz.</p>
+        </div>
+        <div class="forex-features">
+          <div class="forex-feature">
+            <div class="forex-feature-icon"><i class="fas fa-globe"></i></div>
+            <h3>Global Trading</h3>
+            <p>Döviz, emtia ve endekslerde işlem yapmayı öğrenin.</p>
+          </div>
+          <div class="forex-feature">
+            <div class="forex-feature-icon"><i class="fas fa-chart-line"></i></div>
+            <h3>Piyasa Analizi</h3>
+            <p>Piyasayı analiz etmeyi ve veriye dayalı kararlar almayı öğrenin.</p>
+          </div>
+          <div class="forex-feature">
+            <div class="forex-feature-icon"><i class="fas fa-shield-alt"></i></div>
+            <h3>Risk Yönetimi</h3>
+            <p>Hesabınızı korumak için risk yönetimi stratejilerini öğrenin.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="features" id="features">
+      <div class="container">
+        <div class="section-header">
+          <h2>Gösterge Özellikleri</h2>
+        </div>
+        <div class="features-grid">
+          <div class="feature-card">
+            <div class="feature-icon">
+              <i class="fas fa-chart-line"></i>
+            </div>
+            <h3>Akıllı Trading Göstergesi</h3>
+            <p>LCA göstergesi ile profesyonel işlem yapın</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">
+              <i class="fas fa-video"></i>
+            </div>
+            <h3>Eğitim Videoları</h3>
+            <p>Göstergelerin kullanımı için pratik açıklamalar</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">
+              <i class="fas fa-headset"></i>
+            </div>
+            <h3>Teknik Destek</h3>
+            <p>Satın alma sonrası 3 gün boyunca doğrudan destek</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="courses" id="courses">
+      <div class="container">
+        <div class="section-header">
+          <img src="lcaa.jpg" alt="Trading" class="full-screen-image">
+          <img src="lca22.jpg" alt="Trading" class="full-screen-image">
+          <h2>Özel LCA Göstergesi</h2>
+<section class="indicator-benefits">
+  <div class="container">
+    <div class="benefit-image">
+      <img src="5.png" alt="NEXT CANDEL Gösterge">
+    </div>
+
+    <div class="benefit-content">
+      <h2 class="glow-title">Neden NEXT CANDEL Göstergesini Seçmelisiniz?</h2>
+      <p>Forex  için profesyonel bir araç. Gelişmiş algoritmalar ile bir sonraki mumun rengini yüksek doğrulukla tahmin eder.</p>
+
+      <div class="feature-strips">
+        <div class="strip-item">
+          <i class="fas fa-bolt pulse-icon"></i>
+          <span>Bir sonraki mum rengini yüksek doğrulukla tahmin eder</span>
+        </div>
+        <div class="strip-item">
+          <i class="fas fa-sync-alt pulse-icon"></i>
+          <span>Forex için uygundur</span>
+        </div>
+        <div class="strip-item">
+          <i class="fas fa-bullseye pulse-icon"></i>
+          <span>Anlık sinyaller, yeniden çizim yok</span>
+        </div>
+        <div class="strip-item">
+          <i class="fas fa-layer-group pulse-icon"></i>
+          <span>Tüm zaman dilimlerinde ve varlıklarda çalışır</span>
+        </div>
+        <div class="strip-item">
+          <i class="fas fa-user-shield pulse-icon"></i>
+          <span>Deneyim gerektirmez</span>
+        </div>
+        <div class="strip-item">
+          <i class="fas fa-headset pulse-icon"></i>
+          <span>Canlı destek ve kapsamlı kullanım kılavuzu</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<h2>Özel LCA Göstergesi</h2>
+<p>LCA göstergesini %34 indirimle şimdi edinin</p>
+</div>
+
+<div class="courses-grid">
+  <!-- Kart 1: Özel Teklif -->
+  <div class="course-card featured">
+    <div class="course-badge">Özel Teklif</div>
+    <div class="course-header">
+      <h3>LCA Göstergesi</h3>
+    </div>
+    <div class="course-price">
+      <h4>Fiyat: <span id="displayPrice">$66</span> yerine <del>$100</del></h4>
+    </div>
+    <div class="course-details">
+      <ul>
+        <li><i class="fas fa-check"></i> LCA göstergeleriyle işlem yapma</li>
+        <li><i class="fas fa-check"></i> Detaylı kullanım kılavuzu</li>
+        <li><i class="fas fa-check"></i> Eğitim videosu</li>
+        <li><i class="fas fa-check"></i> Teknik destek</li>
+      </ul>
+    </div>
+    <div class="course-actions">
+      <a href="https://t.me/LCAV99" class="btn btn-primary" target="_blank">Paket Satın Al</a>
+    </div>
+  </div>
+
+  <!-- Kart 2: Ömür Boyu Üyelik -->
+  <div class="course-card featured">
+    <div class="course-badge" style="background: linear-gradient(45deg, #4CAF50, #388E3C); color: white;">Ömür Boyu</div>
+    <div class="course-header">
+      <h3>LCA Ömür Boyu Abonelik</h3>
+    </div>
+    <div class="course-price">
+      <h4>Fiyat: <span>$1000</span></h4>
+    </div>
+    <div class="course-details">
+      <ul>
+        <li><i class="fas fa-check"></i> Tüm LCA göstergelerine tam erişim</li>
+        <li><i class="fas fa-check"></i> Ömür boyu güncellemeler</li>
+        <li><i class="fas fa-check"></i> Sürekli teknik destek</li>
+        <li><i class="fas fa-check"></i> Ödeme sonrası anında etkinleştirme</li>
+      </ul>
+    </div>
+    <div class="course-actions">
+      <a href="https://t.me/LCAV99" class="btn btn-primary" target="_blank">Şimdi Abone Ol</a>
+    </div>
+  </div>
+</div>
+</div>
+</section>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // تفعيل القائمة في الأجهزة المحمولة
+      const mobileMenuBtns = document.querySelectorAll('.mobile-menu-btn');
+      const mainNavs = document.querySelectorAll('.main-nav');
+      const closeMenuBtns = document.querySelectorAll('.close-menu');
+      const overlay = document.querySelector('.mobile-menu-overlay');
+      const body = document.body;
+
+      function toggleMenu(event) {
+        const clickedBtn = event.currentTarget;
+        const currentHeader = clickedBtn.closest('header');
+        const currentNav = currentHeader.querySelector('.main-nav');
+        
+        currentNav.classList.toggle('active');
+        overlay.classList.toggle('active');
+        clickedBtn.classList.toggle('active');
+        body.style.overflow = currentNav.classList.contains('active') ? 'hidden' : '';
+      }
+
+      // إضافة مستمعي الأحداث لجميع أزرار القائمة
+      mobileMenuBtns.forEach(btn => {
+        btn.addEventListener('click', toggleMenu);
+      });
+
+      // إضافة مستمعي الأحداث لجميع أزرار الإغلاق
+      closeMenuBtns.forEach(btn => {
+        btn.addEventListener('click', toggleMenu);
+      });
+
+      overlay.addEventListener('click', () => {
+        mainNavs.forEach(nav => nav.classList.remove('active'));
+        mobileMenuBtns.forEach(btn => btn.classList.remove('active'));
+        overlay.classList.remove('active');
+        body.style.overflow = '';
+      });
+
+      // إغلاق القائمة عند النقر على أي رابط
+      document.querySelectorAll('.main-nav a').forEach(link => {
+        link.addEventListener('click', () => {
+          const currentNav = link.closest('.main-nav');
+          const currentBtn = currentNav.parentElement.querySelector('.mobile-menu-btn');
+          
+          if (currentNav.classList.contains('active')) {
+            currentNav.classList.remove('active');
+            currentBtn.classList.remove('active');
+            overlay.classList.remove('active');
+            body.style.overflow = '';
+          }
+        });
+      });
+
+      // وظائف تبديل اللغة
+      function switchToArabic() {
+        document.documentElement.lang = 'ar';
+        document.documentElement.dir = 'rtl';
+        document.getElementById('header-ar').style.display = 'block';
+        document.getElementById('header-en').style.display = 'none';
+        document.getElementById('header-tr').style.display = 'none';
+        document.getElementById('content-ar').style.display = 'block';
+        document.getElementById('content-en').style.display = 'none';
+        document.getElementById('content-tr').style.display = 'none';
+        
+        // تحديث الروابط النشطة
+        document.querySelectorAll('[id^="ar-link"]').forEach(link => link.classList.add('active'));
+        document.querySelectorAll('[id^="en-link"]').forEach(link => link.classList.remove('active'));
+        document.querySelectorAll('[id^="tr-link"]').forEach(link => link.classList.remove('active'));
+      }
+
+      function switchToEnglish() {
+        document.documentElement.lang = 'en';
+        document.documentElement.dir = 'ltr';
+        document.getElementById('header-ar').style.display = 'none';
+        document.getElementById('header-en').style.display = 'block';
+        document.getElementById('header-tr').style.display = 'none';
+        document.getElementById('content-ar').style.display = 'none';
+        document.getElementById('content-en').style.display = 'block';
+        document.getElementById('content-tr').style.display = 'none';
+        
+        // تحديث الروابط النشطة
+        document.querySelectorAll('[id^="ar-link"]').forEach(link => link.classList.remove('active'));
+        document.querySelectorAll('[id^="en-link"]').forEach(link => link.classList.add('active'));
+        document.querySelectorAll('[id^="tr-link"]').forEach(link => link.classList.remove('active'));
+      }
+
+      function switchToTurkish() {
+        document.documentElement.lang = 'tr';
+        document.documentElement.dir = 'ltr';
+        document.getElementById('header-ar').style.display = 'none';
+        document.getElementById('header-en').style.display = 'none';
+        document.getElementById('header-tr').style.display = 'block';
+        document.getElementById('content-ar').style.display = 'none';
+        document.getElementById('content-en').style.display = 'none';
+        document.getElementById('content-tr').style.display = 'block';
+        
+        // تحديث الروابط النشطة
+        document.querySelectorAll('[id^="ar-link"]').forEach(link => link.classList.remove('active'));
+        document.querySelectorAll('[id^="en-link"]').forEach(link => link.classList.remove('active'));
+        document.querySelectorAll('[id^="tr-link"]').forEach(link => link.classList.add('active'));
+      }
+
+      // إضافة مستمعي الأحداث لروابط اللغة
+      document.querySelectorAll('[id^="ar-link"]').forEach(link => {
+        link.addEventListener('click', function(e) {
+          e.preventDefault();
+          switchToArabic();
+        });
+      });
+
+      document.querySelectorAll('[id^="en-link"]').forEach(link => {
+        link.addEventListener('click', function(e) {
+          e.preventDefault();
+          switchToEnglish();
+        });
+      });
+
+      document.querySelectorAll('[id^="tr-link"]').forEach(link => {
+        link.addEventListener('click', function(e) {
+          e.preventDefault();
+          switchToTurkish();
+        });
+      });
+
+      // تحديث تبديل الوضع للجوال وسطح المكتب
+      function toggleDarkMode() {
+        document.body.classList.toggle('dark-mode');
+        const isDarkMode = document.body.classList.contains('dark-mode');
+        
+        // تحديث الأيقونات والنصوص
+        document.querySelectorAll('.mode-toggle i').forEach(icon => {
+          icon.className = isDarkMode ? 'fas fa-sun' : 'fas fa-moon';
+        });
+        
+        document.querySelectorAll('.mobile-mode-toggle .toggle-switch span').forEach(text => {
+          text.textContent = isDarkMode ? 
+            (document.documentElement.lang === 'ar' ? 'الوضع الفاتح' : 
+             document.documentElement.lang === 'tr' ? 'Aydınlık Mod' : 'Light Mode') :
+            (document.documentElement.lang === 'ar' ? 'الوضع الداكن' : 
+             document.documentElement.lang === 'tr' ? 'Karanlık Mod' : 'Dark Mode');
+        });
+        
+        // تحديث شعار الموقع
+        document.querySelectorAll('.dark-logo').forEach(logo => {
+          logo.style.display = isDarkMode ? 'block' : 'none';
+        });
+        document.querySelectorAll('.light-logo').forEach(logo => {
+          logo.style.display = isDarkMode ? 'none' : 'block';
+        });
+        
+        // تحديث شريط TradingView
+        document.querySelectorAll('.light-mode-widget').forEach(widget => {
+          widget.style.display = isDarkMode ? 'none' : 'block';
+        });
+        document.querySelectorAll('.dark-mode-widget').forEach(widget => {
+          widget.style.display = isDarkMode ? 'block' : 'none';
+        });
+      }
+
+      // إضافة مستمعي الأحداث لزر تبديل الوضع
+      document.querySelectorAll('.mode-toggle, .mobile-mode-toggle .toggle-switch').forEach(toggle => {
+        toggle.addEventListener('click', toggleDarkMode);
+      });
+
+      // زر العودة للأعلى
+      const scrollToTopBtn = document.querySelector('.scroll-to-top');
+      
+      window.addEventListener('scroll', () => {
+        if (window.pageYOffset > 300 && !document.querySelector('.main-nav.active')) {
+          scrollToTopBtn.style.opacity = '1';
+          scrollToTopBtn.style.visibility = 'visible';
+        } else {
+          scrollToTopBtn.style.opacity = '0';
+          scrollToTopBtn.style.visibility = 'hidden';
+        }
+      });
+
+      scrollToTopBtn.addEventListener('click', () => {
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth'
+        });
+      });
+
+      // التحقق من وضع الصيانة
+      function checkMaintenanceMode() {
+        const maintenanceMode = localStorage.getItem('maintenanceMode') === 'true';
+        if (maintenanceMode) {
+          window.location.href = 'maintenance.html';
+        }
+      }
+
+      // تحديث السعر المعروض
+      function updateDisplayPrice() {
+        const price = localStorage.getItem('currentPrice') || '66';
+        document.getElementById('displayPrice').textContent = price;
+      }
+
+      // تشغيل الدوال عند تحميل الصفحة
+      checkMaintenanceMode();
+      updateDisplayPrice();
+    });
+  </script>
+  
+</body>
+</html>
+
+
