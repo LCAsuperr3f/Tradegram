@@ -60,6 +60,7 @@
     .hero {
       position: relative;
       overflow: hidden;
+      background: #0a0a0a;
     }
 
     /* تحديث محتوى القسم الرئيسي */
@@ -145,6 +146,74 @@
         transform: scale(1);
       }
     }
+
+    /* ===== خلفية الخطوط المتحركة الخضراء - قسم الهيرو ===== */
+    .hero-lines-bg {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    .hero-lines-svg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    .hero-glow {
+      position: absolute;
+      width: 300px;
+      height: 300px;
+      background: rgba(0, 255, 10, 0.12);
+      border-radius: 50%;
+      filter: blur(80px);
+      animation: heroGlowPulse 4s ease-in-out infinite;
+    }
+
+    .hero-glow-1 { top: 0; left: 20%; }
+    .hero-glow-2 { bottom: 0; right: 20%; animation-delay: 2s; }
+
+    @keyframes heroGlowPulse {
+      0%, 100% { opacity: 0.4; }
+      50% { opacity: 0.9; }
+    }
+
+    @keyframes hlp0  { 0% { stroke-dashoffset: 230; } 100% { stroke-dashoffset: -230; } }
+    @keyframes hlp1  { 0% { stroke-dashoffset: 270; } 100% { stroke-dashoffset: -270; } }
+    @keyframes hlp2  { 0% { stroke-dashoffset: 310; } 100% { stroke-dashoffset: -310; } }
+    @keyframes hlp3  { 0% { stroke-dashoffset: 350; } 100% { stroke-dashoffset: -350; } }
+    @keyframes hlp4  { 0% { stroke-dashoffset: 290; } 100% { stroke-dashoffset: -290; } }
+    @keyframes hlp5  { 0% { stroke-dashoffset: 250; } 100% { stroke-dashoffset: -250; } }
+    @keyframes hlp6  { 0% { stroke-dashoffset: 290; } 100% { stroke-dashoffset: -290; } }
+    @keyframes hlp7  { 0% { stroke-dashoffset: 330; } 100% { stroke-dashoffset: -330; } }
+    @keyframes hlp8  { 0% { stroke-dashoffset: 370; } 100% { stroke-dashoffset: -370; } }
+    @keyframes hlp9  { 0% { stroke-dashoffset: 230; } 100% { stroke-dashoffset: -230; } }
+    @keyframes hlp10 { 0% { stroke-dashoffset: 270; } 100% { stroke-dashoffset: -270; } }
+    @keyframes hlp11 { 0% { stroke-dashoffset: 310; } 100% { stroke-dashoffset: -310; } }
+    @keyframes hlp12 { 0% { stroke-dashoffset: 350; } 100% { stroke-dashoffset: -350; } }
+    @keyframes hlp13 { 0% { stroke-dashoffset: 290; } 100% { stroke-dashoffset: -290; } }
+    @keyframes hlp14 { 0% { stroke-dashoffset: 250; } 100% { stroke-dashoffset: -250; } }
+    @keyframes hlp15 { 0% { stroke-dashoffset: 290; } 100% { stroke-dashoffset: -290; } }
+
+    @keyframes hln0  { 0% { stroke-dashoffset: 228; } 100% { stroke-dashoffset: -228; } }
+    @keyframes hln1  { 0% { stroke-dashoffset: 270; } 100% { stroke-dashoffset: -270; } }
+    @keyframes hln2  { 0% { stroke-dashoffset: 312; } 100% { stroke-dashoffset: -312; } }
+    @keyframes hln3  { 0% { stroke-dashoffset: 354; } 100% { stroke-dashoffset: -354; } }
+    @keyframes hln4  { 0% { stroke-dashoffset: 296; } 100% { stroke-dashoffset: -296; } }
+    @keyframes hln5  { 0% { stroke-dashoffset: 338; } 100% { stroke-dashoffset: -338; } }
+    @keyframes hln6  { 0% { stroke-dashoffset: 300; } 100% { stroke-dashoffset: -300; } }
+    @keyframes hln7  { 0% { stroke-dashoffset: 242; } 100% { stroke-dashoffset: -242; } }
+    @keyframes hln8  { 0% { stroke-dashoffset: 284; } 100% { stroke-dashoffset: -284; } }
+    @keyframes hln9  { 0% { stroke-dashoffset: 326; } 100% { stroke-dashoffset: -326; } }
+    @keyframes hln10 { 0% { stroke-dashoffset: 368; } 100% { stroke-dashoffset: -368; } }
+    @keyframes hln11 { 0% { stroke-dashoffset: 310; } 100% { stroke-dashoffset: -310; } }
+    @keyframes hln12 { 0% { stroke-dashoffset: 272; } 100% { stroke-dashoffset: -272; } }
+    @keyframes hln13 { 0% { stroke-dashoffset: 314; } 100% { stroke-dashoffset: -314; } }
+    @keyframes hln14 { 0% { stroke-dashoffset: 256; } 100% { stroke-dashoffset: -256; } }
+    @keyframes hln15 { 0% { stroke-dashoffset: 298; } 100% { stroke-dashoffset: -298; } }
   </style>
 </head>
 <body class="dark-mode">
@@ -377,6 +446,46 @@ animate();
   <!-- المحتوى باللغة العربية -->
   <div id="content-ar">
     <section class="hero" id="home">
+      <div class="hero-lines-bg">
+        <svg class="hero-lines-svg" viewBox="0 0 696 316" fill="none">
+          <path d="M-380 -189C-380 -189 -312 216 152 343C616 470 684 875 684 875" stroke="rgba(0, 255, 10, 0.65)" stroke-width="0.8" fill="none" style="stroke-dasharray:67 163;opacity:0.5;animation:hlp0 11s linear infinite;animation-delay:5s"></path>
+          <path d="M-375 -195C-375 -195 -307 210 147 337C611 464 679 869 679 869" stroke="rgba(0, 255, 10, 0.65)" stroke-width="0.82" fill="none" style="stroke-dasharray:84 186;opacity:0.52;animation:hlp1 10s linear infinite;animation-delay:4s"></path>
+          <path d="M-370 -201C-370 -201 -302 204 142 331C606 458 674 863 674 863" stroke="rgba(0, 255, 10, 0.65)" stroke-width="0.84" fill="none" style="stroke-dasharray:101 209;opacity:0.54;animation:hlp2 9s linear infinite;animation-delay:3s"></path>
+          <path d="M-365 -207C-365 -207 -297 198 137 325C601 452 669 857 669 857" stroke="rgba(0, 255, 10, 0.65)" stroke-width="0.86" fill="none" style="stroke-dasharray:118 232;opacity:0.56;animation:hlp3 8s linear infinite;animation-delay:2s"></path>
+          <path d="M-360 -213C-360 -213 -292 192 132 319C596 446 664 851 664 851" stroke="rgba(0, 255, 10, 0.65)" stroke-width="0.88" fill="none" style="stroke-dasharray:135 155;opacity:0.58;animation:hlp4 19s linear infinite;animation-delay:1s"></path>
+          <path d="M-355 -219C-355 -219 -287 186 127 313C591 440 659 845 659 845" stroke="rgba(0, 255, 10, 0.65)" stroke-width="0.9" fill="none" style="stroke-dasharray:72 178;opacity:0.6;animation:hlp5 18s linear infinite;animation-delay:0s"></path>
+          <path d="M-350 -225C-350 -225 -282 180 122 307C586 434 654 839 654 839" stroke="rgba(0, 255, 10, 0.65)" stroke-width="0.92" fill="none" style="stroke-dasharray:89 201;opacity:0.62;animation:hlp6 17s linear infinite;animation-delay:9s"></path>
+          <path d="M-345 -231C-345 -231 -277 174 117 301C581 428 649 833 649 833" stroke="rgba(0, 255, 10, 0.65)" stroke-width="0.94" fill="none" style="stroke-dasharray:106 224;opacity:0.64;animation:hlp7 16s linear infinite;animation-delay:8s"></path>
+          <path d="M-340 -237C-340 -237 -272 168 112 295C576 422 644 827 644 827" stroke="rgba(0, 255, 10, 0.65)" stroke-width="0.96" fill="none" style="stroke-dasharray:123 247;opacity:0.66;animation:hlp8 15s linear infinite;animation-delay:7s"></path>
+          <path d="M-335 -243C-335 -243 -267 162 107 289C571 416 639 821 639 821" stroke="rgba(0, 255, 10, 0.65)" stroke-width="0.98" fill="none" style="stroke-dasharray:60 170;opacity:0.68;animation:hlp9 14s linear infinite;animation-delay:6s"></path>
+          <path d="M-330 -249C-330 -249 -262 156 102 283C566 410 634 815 634 815" stroke="rgba(0, 255, 10, 0.65)" stroke-width="1" fill="none" style="stroke-dasharray:77 193;opacity:0.7;animation:hlp10 13s linear infinite;animation-delay:5s"></path>
+          <path d="M-325 -255C-325 -255 -257 150 97 277C561 404 629 809 629 809" stroke="rgba(0, 255, 10, 0.65)" stroke-width="1.02" fill="none" style="stroke-dasharray:94 216;opacity:0.72;animation:hlp11 12s linear infinite;animation-delay:4s"></path>
+          <path d="M-320 -261C-320 -261 -252 144 92 271C556 398 624 803 624 803" stroke="rgba(0, 255, 10, 0.65)" stroke-width="1.04" fill="none" style="stroke-dasharray:111 239;opacity:0.74;animation:hlp12 11s linear infinite;animation-delay:3s"></path>
+          <path d="M-315 -267C-315 -267 -247 138 87 265C551 392 619 797 619 797" stroke="rgba(0, 255, 10, 0.65)" stroke-width="1.06" fill="none" style="stroke-dasharray:128 162;opacity:0.76;animation:hlp13 10s linear infinite;animation-delay:2s"></path>
+          <path d="M-310 -273C-310 -273 -242 132 82 259C546 386 614 791 614 791" stroke="rgba(0, 255, 10, 0.65)" stroke-width="1.08" fill="none" style="stroke-dasharray:65 185;opacity:0.78;animation:hlp14 9s linear infinite;animation-delay:1s"></path>
+          <path d="M-305 -279C-305 -279 -237 126 77 253C541 380 609 785 609 785" stroke="rgba(0, 255, 10, 0.65)" stroke-width="1.1" fill="none" style="stroke-dasharray:82 208;opacity:0.8;animation:hlp15 8s linear infinite;animation-delay:0s"></path>
+        </svg>
+        <svg class="hero-lines-svg" viewBox="0 0 696 316" fill="none">
+          <path d="M1076 -189C1076 -189 1008 216 544 343C80 470 12 875 12 875" stroke="rgba(0, 255, 10, 0.65)" stroke-width="0.8" fill="none" style="stroke-dasharray:71 157;opacity:0.5;animation:hln0 13s linear infinite;animation-delay:3s"></path>
+          <path d="M1081 -195C1081 -195 1013 210 539 337C75 464 7 869 7 869" stroke="rgba(0, 255, 10, 0.65)" stroke-width="0.82" fill="none" style="stroke-dasharray:84 186;opacity:0.52;animation:hln1 8s linear infinite;animation-delay:4s"></path>
+          <path d="M1086 -201C1086 -201 1018 204 534 331C70 458 2 863 2 863" stroke="rgba(0, 255, 10, 0.65)" stroke-width="0.84" fill="none" style="stroke-dasharray:97 215;opacity:0.54;animation:hln2 15s linear infinite;animation-delay:5s"></path>
+          <path d="M1091 -207C1091 -207 1023 198 529 325C65 452 -3 857 -3 857" stroke="rgba(0, 255, 10, 0.65)" stroke-width="0.86" fill="none" style="stroke-dasharray:110 244;opacity:0.56;animation:hln3 10s linear infinite;animation-delay:6s"></path>
+          <path d="M1096 -213C1096 -213 1028 192 524 319C60 446 -8 851 -8 851" stroke="rgba(0, 255, 10, 0.65)" stroke-width="0.88" fill="none" style="stroke-dasharray:123 173;opacity:0.58;animation:hln4 17s linear infinite;animation-delay:7s"></path>
+          <path d="M1101 -219C1101 -219 1033 186 519 313C55 440 -13 845 -13 845" stroke="rgba(0, 255, 10, 0.65)" stroke-width="0.9" fill="none" style="stroke-dasharray:136 202;opacity:0.6;animation:hln5 12s linear infinite;animation-delay:8s"></path>
+          <path d="M1106 -225C1106 -225 1038 180 514 307C50 434 -18 839 -18 839" stroke="rgba(0, 255, 10, 0.65)" stroke-width="0.92" fill="none" style="stroke-dasharray:69 231;opacity:0.62;animation:hln6 19s linear infinite;animation-delay:9s"></path>
+          <path d="M1111 -231C1111 -231 1043 174 509 301C45 428 -23 833 -23 833" stroke="rgba(0, 255, 10, 0.65)" stroke-width="0.94" fill="none" style="stroke-dasharray:82 160;opacity:0.64;animation:hln7 14s linear infinite;animation-delay:0s"></path>
+          <path d="M1116 -237C1116 -237 1048 168 504 295C40 422 -28 827 -28 827" stroke="rgba(0, 255, 10, 0.65)" stroke-width="0.96" fill="none" style="stroke-dasharray:95 189;opacity:0.66;animation:hln8 9s linear infinite;animation-delay:1s"></path>
+          <path d="M1121 -243C1121 -243 1053 162 499 289C35 416 -33 821 -33 821" stroke="rgba(0, 255, 10, 0.65)" stroke-width="0.98" fill="none" style="stroke-dasharray:108 218;opacity:0.68;animation:hln9 16s linear infinite;animation-delay:2s"></path>
+          <path d="M1126 -249C1126 -249 1058 156 494 283C30 410 -38 815 -38 815" stroke="rgba(0, 255, 10, 0.65)" stroke-width="1" fill="none" style="stroke-dasharray:121 247;opacity:0.7;animation:hln10 11s linear infinite;animation-delay:3s"></path>
+          <path d="M1131 -255C1131 -255 1063 150 489 277C25 404 -43 809 -43 809" stroke="rgba(0, 255, 10, 0.65)" stroke-width="1.02" fill="none" style="stroke-dasharray:134 176;opacity:0.72;animation:hln11 18s linear infinite;animation-delay:4s"></path>
+          <path d="M1136 -261C1136 -261 1068 144 484 271C20 398 -48 803 -48 803" stroke="rgba(0, 255, 10, 0.65)" stroke-width="1.04" fill="none" style="stroke-dasharray:67 205;opacity:0.74;animation:hln12 13s linear infinite;animation-delay:5s"></path>
+          <path d="M1141 -267C1141 -267 1073 138 479 265C15 392 -53 797 -53 797" stroke="rgba(0, 255, 10, 0.65)" stroke-width="1.06" fill="none" style="stroke-dasharray:80 234;opacity:0.76;animation:hln13 8s linear infinite;animation-delay:6s"></path>
+          <path d="M1146 -273C1146 -273 1078 132 474 259C10 386 -58 791 -58 791" stroke="rgba(0, 255, 10, 0.65)" stroke-width="1.08" fill="none" style="stroke-dasharray:93 163;opacity:0.78;animation:hln14 15s linear infinite;animation-delay:7s"></path>
+          <path d="M1151 -279C1151 -279 1083 126 469 253C5 380 -63 785 -63 785" stroke="rgba(0, 255, 10, 0.65)" stroke-width="1.1" fill="none" style="stroke-dasharray:106 192;opacity:0.8;animation:hln15 10s linear infinite;animation-delay:8s"></path>
+        </svg>
+        <div class="hero-glow hero-glow-1"></div>
+        <div class="hero-glow hero-glow-2"></div>
+      </div>
       <div class="container">
         <div class="hero-content">
           <h1>اهلا بكم في Tradegram</h1>
@@ -613,6 +722,30 @@ Google Maps (مشاركة الموقع)
   <!-- المحتوى باللغة الإنجليزية -->
   <div id="content-en" style="display: none;">
     <section class="hero" id="home">
+      <div class="hero-lines-bg">
+        <svg class="hero-lines-svg" viewBox="0 0 696 316" fill="none">
+          <path d="M-380 -189C-380 -189 -312 216 152 343C616 470 684 875 684 875" stroke="rgba(0, 255, 10, 0.65)" stroke-width="0.8" fill="none" style="stroke-dasharray:67 163;opacity:0.5;animation:hlp0 11s linear infinite;animation-delay:5s"></path>
+          <path d="M-370 -201C-370 -201 -302 204 142 331C606 458 674 863 674 863" stroke="rgba(0, 255, 10, 0.65)" stroke-width="0.84" fill="none" style="stroke-dasharray:101 209;opacity:0.54;animation:hlp2 9s linear infinite;animation-delay:3s"></path>
+          <path d="M-360 -213C-360 -213 -292 192 132 319C596 446 664 851 664 851" stroke="rgba(0, 255, 10, 0.65)" stroke-width="0.88" fill="none" style="stroke-dasharray:135 155;opacity:0.58;animation:hlp4 19s linear infinite;animation-delay:1s"></path>
+          <path d="M-350 -225C-350 -225 -282 180 122 307C586 434 654 839 654 839" stroke="rgba(0, 255, 10, 0.65)" stroke-width="0.92" fill="none" style="stroke-dasharray:89 201;opacity:0.62;animation:hlp6 17s linear infinite;animation-delay:9s"></path>
+          <path d="M-340 -237C-340 -237 -272 168 112 295C576 422 644 827 644 827" stroke="rgba(0, 255, 10, 0.65)" stroke-width="0.96" fill="none" style="stroke-dasharray:123 247;opacity:0.66;animation:hlp8 15s linear infinite;animation-delay:7s"></path>
+          <path d="M-330 -249C-330 -249 -262 156 102 283C566 410 634 815 634 815" stroke="rgba(0, 255, 10, 0.65)" stroke-width="1" fill="none" style="stroke-dasharray:77 193;opacity:0.7;animation:hlp10 13s linear infinite;animation-delay:5s"></path>
+          <path d="M-320 -261C-320 -261 -252 144 92 271C556 398 624 803 624 803" stroke="rgba(0, 255, 10, 0.65)" stroke-width="1.04" fill="none" style="stroke-dasharray:111 239;opacity:0.74;animation:hlp12 11s linear infinite;animation-delay:3s"></path>
+          <path d="M-310 -273C-310 -273 -242 132 82 259C546 386 614 791 614 791" stroke="rgba(0, 255, 10, 0.65)" stroke-width="1.08" fill="none" style="stroke-dasharray:65 185;opacity:0.78;animation:hlp14 9s linear infinite;animation-delay:1s"></path>
+        </svg>
+        <svg class="hero-lines-svg" viewBox="0 0 696 316" fill="none">
+          <path d="M1076 -189C1076 -189 1008 216 544 343C80 470 12 875 12 875" stroke="rgba(0, 255, 10, 0.65)" stroke-width="0.8" fill="none" style="stroke-dasharray:71 157;opacity:0.5;animation:hln0 13s linear infinite;animation-delay:3s"></path>
+          <path d="M1086 -201C1086 -201 1018 204 534 331C70 458 2 863 2 863" stroke="rgba(0, 255, 10, 0.65)" stroke-width="0.84" fill="none" style="stroke-dasharray:97 215;opacity:0.54;animation:hln2 15s linear infinite;animation-delay:5s"></path>
+          <path d="M1096 -213C1096 -213 1028 192 524 319C60 446 -8 851 -8 851" stroke="rgba(0, 255, 10, 0.65)" stroke-width="0.88" fill="none" style="stroke-dasharray:123 173;opacity:0.58;animation:hln4 17s linear infinite;animation-delay:7s"></path>
+          <path d="M1106 -225C1106 -225 1038 180 514 307C50 434 -18 839 -18 839" stroke="rgba(0, 255, 10, 0.65)" stroke-width="0.92" fill="none" style="stroke-dasharray:69 231;opacity:0.62;animation:hln6 19s linear infinite;animation-delay:9s"></path>
+          <path d="M1116 -237C1116 -237 1048 168 504 295C40 422 -28 827 -28 827" stroke="rgba(0, 255, 10, 0.65)" stroke-width="0.96" fill="none" style="stroke-dasharray:95 189;opacity:0.66;animation:hln8 9s linear infinite;animation-delay:1s"></path>
+          <path d="M1126 -249C1126 -249 1058 156 494 283C30 410 -38 815 -38 815" stroke="rgba(0, 255, 10, 0.65)" stroke-width="1" fill="none" style="stroke-dasharray:121 247;opacity:0.7;animation:hln10 11s linear infinite;animation-delay:3s"></path>
+          <path d="M1136 -261C1136 -261 1068 144 484 271C20 398 -48 803 -48 803" stroke="rgba(0, 255, 10, 0.65)" stroke-width="1.04" fill="none" style="stroke-dasharray:67 205;opacity:0.74;animation:hln12 13s linear infinite;animation-delay:5s"></path>
+          <path d="M1146 -273C1146 -273 1078 132 474 259C10 386 -58 791 -58 791" stroke="rgba(0, 255, 10, 0.65)" stroke-width="1.08" fill="none" style="stroke-dasharray:93 163;opacity:0.78;animation:hln14 15s linear infinite;animation-delay:7s"></path>
+        </svg>
+        <div class="hero-glow hero-glow-1"></div>
+        <div class="hero-glow hero-glow-2"></div>
+      </div>
       <div class="container">
         <div class="hero-content">
           <h1>Welcome to Tradegram</h1>
@@ -848,6 +981,30 @@ Email: support@tradegram.app
   <!-- المحتوى باللغة التركية -->
   <div id="content-tr" style="display: none;">
     <section class="hero" id="home">
+      <div class="hero-lines-bg">
+        <svg class="hero-lines-svg" viewBox="0 0 696 316" fill="none">
+          <path d="M-380 -189C-380 -189 -312 216 152 343C616 470 684 875 684 875" stroke="rgba(0, 255, 10, 0.65)" stroke-width="0.8" fill="none" style="stroke-dasharray:67 163;opacity:0.5;animation:hlp0 11s linear infinite;animation-delay:5s"></path>
+          <path d="M-370 -201C-370 -201 -302 204 142 331C606 458 674 863 674 863" stroke="rgba(0, 255, 10, 0.65)" stroke-width="0.84" fill="none" style="stroke-dasharray:101 209;opacity:0.54;animation:hlp2 9s linear infinite;animation-delay:3s"></path>
+          <path d="M-360 -213C-360 -213 -292 192 132 319C596 446 664 851 664 851" stroke="rgba(0, 255, 10, 0.65)" stroke-width="0.88" fill="none" style="stroke-dasharray:135 155;opacity:0.58;animation:hlp4 19s linear infinite;animation-delay:1s"></path>
+          <path d="M-350 -225C-350 -225 -282 180 122 307C586 434 654 839 654 839" stroke="rgba(0, 255, 10, 0.65)" stroke-width="0.92" fill="none" style="stroke-dasharray:89 201;opacity:0.62;animation:hlp6 17s linear infinite;animation-delay:9s"></path>
+          <path d="M-340 -237C-340 -237 -272 168 112 295C576 422 644 827 644 827" stroke="rgba(0, 255, 10, 0.65)" stroke-width="0.96" fill="none" style="stroke-dasharray:123 247;opacity:0.66;animation:hlp8 15s linear infinite;animation-delay:7s"></path>
+          <path d="M-330 -249C-330 -249 -262 156 102 283C566 410 634 815 634 815" stroke="rgba(0, 255, 10, 0.65)" stroke-width="1" fill="none" style="stroke-dasharray:77 193;opacity:0.7;animation:hlp10 13s linear infinite;animation-delay:5s"></path>
+          <path d="M-320 -261C-320 -261 -252 144 92 271C556 398 624 803 624 803" stroke="rgba(0, 255, 10, 0.65)" stroke-width="1.04" fill="none" style="stroke-dasharray:111 239;opacity:0.74;animation:hlp12 11s linear infinite;animation-delay:3s"></path>
+          <path d="M-310 -273C-310 -273 -242 132 82 259C546 386 614 791 614 791" stroke="rgba(0, 255, 10, 0.65)" stroke-width="1.08" fill="none" style="stroke-dasharray:65 185;opacity:0.78;animation:hlp14 9s linear infinite;animation-delay:1s"></path>
+        </svg>
+        <svg class="hero-lines-svg" viewBox="0 0 696 316" fill="none">
+          <path d="M1076 -189C1076 -189 1008 216 544 343C80 470 12 875 12 875" stroke="rgba(0, 255, 10, 0.65)" stroke-width="0.8" fill="none" style="stroke-dasharray:71 157;opacity:0.5;animation:hln0 13s linear infinite;animation-delay:3s"></path>
+          <path d="M1086 -201C1086 -201 1018 204 534 331C70 458 2 863 2 863" stroke="rgba(0, 255, 10, 0.65)" stroke-width="0.84" fill="none" style="stroke-dasharray:97 215;opacity:0.54;animation:hln2 15s linear infinite;animation-delay:5s"></path>
+          <path d="M1096 -213C1096 -213 1028 192 524 319C60 446 -8 851 -8 851" stroke="rgba(0, 255, 10, 0.65)" stroke-width="0.88" fill="none" style="stroke-dasharray:123 173;opacity:0.58;animation:hln4 17s linear infinite;animation-delay:7s"></path>
+          <path d="M1106 -225C1106 -225 1038 180 514 307C50 434 -18 839 -18 839" stroke="rgba(0, 255, 10, 0.65)" stroke-width="0.92" fill="none" style="stroke-dasharray:69 231;opacity:0.62;animation:hln6 19s linear infinite;animation-delay:9s"></path>
+          <path d="M1116 -237C1116 -237 1048 168 504 295C40 422 -28 827 -28 827" stroke="rgba(0, 255, 10, 0.65)" stroke-width="0.96" fill="none" style="stroke-dasharray:95 189;opacity:0.66;animation:hln8 9s linear infinite;animation-delay:1s"></path>
+          <path d="M1126 -249C1126 -249 1058 156 494 283C30 410 -38 815 -38 815" stroke="rgba(0, 255, 10, 0.65)" stroke-width="1" fill="none" style="stroke-dasharray:121 247;opacity:0.7;animation:hln10 11s linear infinite;animation-delay:3s"></path>
+          <path d="M1136 -261C1136 -261 1068 144 484 271C20 398 -48 803 -48 803" stroke="rgba(0, 255, 10, 0.65)" stroke-width="1.04" fill="none" style="stroke-dasharray:67 205;opacity:0.74;animation:hln12 13s linear infinite;animation-delay:5s"></path>
+          <path d="M1146 -273C1146 -273 1078 132 474 259C10 386 -58 791 -58 791" stroke="rgba(0, 255, 10, 0.65)" stroke-width="1.08" fill="none" style="stroke-dasharray:93 163;opacity:0.78;animation:hln14 15s linear infinite;animation-delay:7s"></path>
+        </svg>
+        <div class="hero-glow hero-glow-1"></div>
+        <div class="hero-glow hero-glow-2"></div>
+      </div>
       <div class="container">
         <div class="hero-content">
           <h1>Tradegram'a Hoş Geldiniz</h1>
