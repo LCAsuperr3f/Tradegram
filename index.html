@@ -1,220 +1,1256 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="UTF-8">
-<title>Tradegram Hero</title>
-<style>
-  @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&display=swap');
+  <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+  <meta name="google-site-verification" content="9ttPFsVh0-1SqRiVHu0HCuUHIRrff5-RSPN3sy1D5aY" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Tradegram تطبيق تواصل اجتماعي خاص لمتداولين الفوركس ولاسهم والعمل الرقميه والمتسثمرين يجمع جميع متداولين العالم بمكان واحد.">
+  <title>Tradegram </title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    /* تحديث ألوان الوضع الفاتح */
+    body:not(.dark-mode) {
+      background-color: var(--light-color);
+    }
+    
+    body:not(.dark-mode) .header {
+      background-color: var(--light-color);
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+    }
 
-  * { margin: 0; padding: 0; box-sizing: border-box; }
+    body:not(.dark-mode) .feature-card,
+    body:not(.dark-mode) .course-card,
+    body:not(.dark-mode) .forex-feature {
+      background-color: var(--light-color);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.03);
+    }
 
-  html, body {
-    width: 100%;
-    height: 100%;
-    background: #050807;
-    overflow: hidden;
-    font-family: 'Tajawal', sans-serif;
-  }
+    body:not(.dark-mode) .footer {
+      background-color: var(--light-color);
+      border-top: 1px solid rgba(0, 0, 0, 0.05);
+    }
 
-  .hero {
-    position: relative;
-    width: 100%;
-    height: 100vh;
-    min-height: 500px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: radial-gradient(ellipse at center, #0a1410 0%, #050807 70%);
-  }
+    /* تحديث ألوان النصوص في الوضع الفاتح */
+    body:not(.dark-mode) {
+      color: var(--dark-color);
+    }
 
-  canvas#particles {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    display: block;
-  }
+    body:not(.dark-mode) a {
+      color: var(--dark-color);
+    }
 
-  .glow {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 60vw;
-    height: 60vw;
-    max-width: 700px;
-    max-height: 700px;
-    background: radial-gradient(circle, rgba(0,255,136,0.12) 0%, rgba(0,255,136,0) 70%);
-    pointer-events: none;
-  }
+    /* تحديث ألوان الأزرار في الوضع الفاتح */
+    body:not(.dark-mode) .btn-primary {
+      background-color: var(--primary-color);
+      color: var(--dark-color);
+    }
 
-  .content {
-    position: relative;
-    z-index: 2;
-    text-align: center;
-    padding: 0 24px;
-    max-width: 900px;
-  }
+    body:not(.dark-mode) .btn-primary:hover {
+      background-color: var(--primary-dark);
+      box-shadow: 0 5px 15px rgba(0, 255, 10, 0.2);
+    }
 
-  .brand {
-    display: inline-block;
-    font-family: 'Tajawal', sans-serif;
-    font-weight: 700;
-    font-size: 14px;
-    letter-spacing: 4px;
-    color: #00ff88;
-    border: 1px solid rgba(0,255,136,0.35);
-    padding: 6px 18px;
-    border-radius: 999px;
-    margin-bottom: 28px;
-    direction: ltr;
-    text-transform: uppercase;
-  }
+    /* إضافة تأثيرات حركية للقسم الرئيسي */
+    .hero {
+      position: relative;
+      overflow: hidden;
+    }
 
-  h1 {
-    font-weight: 900;
-    font-size: clamp(32px, 6vw, 68px);
-    line-height: 1.25;
-    color: #f2fff8;
-    text-shadow: 0 0 40px rgba(0,255,136,0.25);
-    margin-bottom: 22px;
-  }
+    /* تحديث محتوى القسم الرئيسي */
+    .hero-content {
+      position: relative;
+      z-index: 1;
+    }
 
-  h1 span {
-    color: #00ff88;
-    font-family: 'Tajawal', sans-serif;
-    direction: ltr;
-    display: inline-block;
-  }
+    /* إضافة تأثيرات حركية للقسم الرئيسي */
+    .hero-content h1 {
+      animation: fadeInDown 1s ease-out;
+      position: relative;
+    }
 
-  p.subtitle {
-    font-weight: 400;
-    font-size: clamp(15px, 2.2vw, 20px);
-    line-height: 1.9;
-    color: rgba(230, 245, 238, 0.75);
-    max-width: 640px;
-    margin: 0 auto;
-  }
+    .hero-content h2 {
+      animation: fadeInUp 1s ease-out 0.5s;
+      animation-fill-mode: both;
+      position: relative;
+    }
 
-  .cta {
-    margin-top: 40px;
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    background: #00ff88;
-    color: #04140c;
-    font-weight: 700;
-    font-size: 16px;
-    padding: 14px 34px;
-    border-radius: 999px;
-    box-shadow: 0 0 30px rgba(0,255,136,0.35);
-    cursor: pointer;
-    border: none;
-    font-family: 'Tajawal', sans-serif;
-  }
-</style>
+    .hero-content .btn-primary {
+      animation: pulse 2s infinite;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-content .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .hero-content .btn-primary::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(
+        120deg,
+        transparent,
+        rgba(255, 255, 255, 0.3),
+        transparent
+      );
+      transition: 0.5s;
+    }
+
+    .hero-content .btn-primary:hover::before {
+      left: 100%;
+    }
+
+    @keyframes fadeInDown {
+      from {
+        opacity: 0;
+        transform: translateY(-30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes pulse {
+      0% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.05);
+      }
+      100% {
+        transform: scale(1);
+      }
+    }
+  </style>
 </head>
-<body>
+<body class="dark-mode">
+  <canvas id="mouseParticles"></canvas>
 
-<div class="hero">
-  <canvas id="particles"></canvas>
-  <div class="glow"></div>
-
-  <div class="content">
-    <span class="brand">TRADEGRAM</span>
-    <h1>اهلاً بكم في <span>Tradegram</span></h1>
-    <p class="subtitle">اكبر منصة تواصل اجتماعي للمتداولين والمستثمرين في العالم</p>
-    <button class="cta">انضم الآن</button>
-  </div>
-</div>
+<style>
+#mouseParticles{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    pointer-events:none;
+    z-index:9999;
+}
+</style>
 
 <script>
-  const canvas = document.getElementById('particles');
-  const ctx = canvas.getContext('2d');
-  let width, height, particles;
+const canvas = document.getElementById("mouseParticles");
+const ctx = canvas.getContext("2d");
 
-  function resize() {
-    width = canvas.width = canvas.offsetWidth;
-    height = canvas.height = canvas.offsetHeight;
-  }
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
 
-  function createParticles() {
-    const count = Math.floor((width * height) / 9000);
-    particles = Array.from({ length: count }, () => ({
-      x: Math.random() * width,
-      y: Math.random() * height,
-      vx: (Math.random() - 0.5) * 0.4,
-      vy: (Math.random() - 0.5) * 0.4,
-      r: Math.random() * 1.8 + 0.6
-    }));
-  }
+let particles = [];
 
-  const mouse = { x: null, y: null, active: false };
-  canvas.addEventListener('mousemove', (e) => {
-    const rect = canvas.getBoundingClientRect();
-    mouse.x = e.clientX - rect.left;
-    mouse.y = e.clientY - rect.top;
-    mouse.active = true;
-  });
-  canvas.addEventListener('mouseleave', () => { mouse.active = false; });
+window.addEventListener("resize", function(){
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+});
 
-  function step() {
-    ctx.clearRect(0, 0, width, height);
+document.addEventListener("mousemove", function(e){
 
-    for (const p of particles) {
-      p.x += p.vx;
-      p.y += p.vy;
+    for(let i = 0; i < 5; i++){
 
-      if (mouse.active) {
-        const dx = p.x - mouse.x;
-        const dy = p.y - mouse.y;
-        const dist = Math.sqrt(dx * dx + dy * dy);
-        if (dist < 120) {
-          const force = (120 - dist) / 120;
-          p.x += (dx / dist) * force * 1.2;
-          p.y += (dy / dist) * force * 1.2;
-        }
-      }
+        particles.push({
+            x: e.clientX,
+            y: e.clientY,
+            size: Math.random() * 4 + 1,
+            speedX: (Math.random() - 0.5) * 3,
+            speedY: (Math.random() - 0.5) * 3,
+            life: 100
+        });
 
-      if (p.x < 0) p.x = width;
-      if (p.x > width) p.x = 0;
-      if (p.y < 0) p.y = height;
-      if (p.y > height) p.y = 0;
-
-      ctx.beginPath();
-      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-      ctx.fillStyle = 'rgba(0,255,136,0.85)';
-      ctx.fill();
     }
 
-    for (let i = 0; i < particles.length; i++) {
-      for (let j = i + 1; j < particles.length; j++) {
-        const a = particles[i], b = particles[j];
-        const dx = a.x - b.x, dy = a.y - b.y;
-        const dist = Math.sqrt(dx * dx + dy * dy);
-        if (dist < 110) {
-          ctx.beginPath();
-          ctx.moveTo(a.x, a.y);
-          ctx.lineTo(b.x, b.y);
-          ctx.strokeStyle = 'rgba(0,255,136,' + (0.16 * (1 - dist / 110)) + ')';
-          ctx.lineWidth = 1;
-          ctx.stroke();
+});
+
+function animate(){
+
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+
+    particles.forEach(function(p,index){
+
+        p.x += p.speedX;
+        p.y += p.speedY;
+        p.life--;
+
+        ctx.beginPath();
+        ctx.arc(p.x,p.y,p.size,0,Math.PI*2);
+
+        ctx.fillStyle = "rgba(0,255,10," + (p.life / 100) + ")";
+
+        ctx.shadowBlur = 15;
+        ctx.shadowColor = "#00ff0a";
+
+        ctx.fill();
+
+        if(p.life <= 0){
+            particles.splice(index,1);
         }
-      }
-    }
 
-    requestAnimationFrame(step);
-  }
+    });
 
-  window.addEventListener('resize', () => {
-    resize();
-    createParticles();
-  });
+    requestAnimationFrame(animate);
 
-  resize();
-  createParticles();
-  step();
+}
+
+animate();
 </script>
+  <!-- زر العودة للأعلى -->
+  <div class="scroll-to-top">
+    <i class="fas fa-chevron-up"></i>
+  </div>
 
+  <!-- إضافة خلفية شفافة للقائمة المتنقلة -->
+  <div class="mobile-menu-overlay"></div>
+
+  <!-- هيدر باللغة العربية -->
+  <header id="header-ar" class="header">
+    <div class="container">
+      <div class="mobile-menu-btn">
+        <i class="fas fa-bars"></i>
+      </div>
+      <div class="logo">
+        <img src="logod.png" alt="Tradegram Logo" class="dark-logo" style="height: 50px;">
+        <img src="logod.png" alt="Tradegram Logo" class="light-logo" style="height: 50px; display: none;">
+      </div>
+      <nav class="main-nav">
+        <div class="close-menu">
+          <i class="fas fa-times"></i>
+        </div>
+        <ul>
+          <li><a href="#home" class="active">الرئيسية</a></li>
+          <li><a href="#courses">التطبيق</a></li>
+          <li><a href="#features">المميزات</a></li>
+          <li><a href="#faq">سياسة خصوصية</a></li>
+        </ul>
+        <div class="mobile-language-switcher">
+          <h4>اختر اللغة</h4>
+          <div class="language-links">
+            <a href="#" id="ar-link-mobile" class="active">عربي</a>
+            <a href="#" id="en-link-mobile">English</a>
+            <a href="#" id="tr-link-mobile">Türkçe</a>
+          </div>
+        </div>
+        <div class="mobile-mode-toggle">
+          <h4>الوضع</h4>
+          <div class="toggle-switch">
+            <i class="fas fa-moon"></i>
+            <span>الوضع الداكن</span>
+          </div>
+        </div>
+      </nav>
+      <div class="language-switcher">
+        <a href="#" id="ar-link" class="active">عربي</a> | 
+        <a href="#" id="en-link">English</a> |
+        <a href="#" id="tr-link">Türkçe</a>
+      </div>
+      <div class="mode-toggle">
+        <i class="fas fa-moon"></i>
+      </div>
+    </div>
+  </header>
+
+  <!-- هيدر باللغة الإنجليزية -->
+  <header id="header-en" class="header" style="display: none;">
+    <div class="container">
+      <div class="mobile-menu-btn" style="float: right;">
+        <i class="fas fa-bars"></i>
+      </div>
+      <div class="logo">
+        <img src="logod.png" alt="LCA Logo" class="dark-logo" style="height: 50px;">
+        <img src="logod.png" alt="LCA Logo" class="light-logo" style="height: 50px; display: none;">
+      </div>
+      <nav class="main-nav">
+        <div class="close-menu">
+          <i class="fas fa-times"></i>
+        </div>
+        <ul>
+          <li><a href="#home" class="active">Home</a></li>
+          <li><a href="#courses">Strategy</a></li>
+          <li><a href="#features">Features</a></li>
+          <li><a href="#faq">FAQ</a></li>
+        </ul>
+        <div class="mobile-language-switcher">
+          <h4>Select Language</h4>
+          <div class="language-links">
+            <a href="#" id="ar-link-mobile-en">عربي</a>
+            <a href="#" id="en-link-mobile-en" class="active">English</a>
+            <a href="#" id="tr-link-mobile-en">Türkçe</a>
+          </div>
+        </div>
+        <div class="mobile-mode-toggle">
+          <h4>Theme</h4>
+          <div class="toggle-switch">
+            <i class="fas fa-moon"></i>
+            <span>Dark Mode</span>
+          </div>
+        </div>
+      </nav>
+      <div class="language-switcher">
+        <a href="#" id="ar-link-en">عربي</a> | 
+        <a href="#" id="en-link-en" class="active">English</a> |
+        <a href="#" id="tr-link-en">Türkçe</a>
+      </div>
+      <div class="mode-toggle">
+        <i class="fas fa-moon"></i>
+      </div>
+    </div>
+  </header>
+
+  <!-- هيدر باللغة التركية -->
+  <header id="header-tr" class="header" style="display: none;">
+    <div class="container">
+      <div class="mobile-menu-btn" style="float: right;">
+        <i class="fas fa-bars"></i>
+      </div>
+      <div class="logo">
+        <img src="logod.png" alt="Tradegram Logo" class="dark-logo" style="height: 50px;">
+        <img src="logod.png" alt="LCA Logo" class="light-logo" style="height: 50px; display: none;">
+      </div>
+      <nav class="main-nav">
+        <div class="close-menu">
+          <i class="fas fa-times"></i>
+        </div>
+        <ul>
+          <li><a href="#home" class="active">Ana Sayfa</a></li>
+          <li><a href="#courses">Strateji</a></li>
+          <li><a href="#features">Özellikler</a></li>
+          <li><a href="#faq">SSS</a></li>
+        </ul>
+        <div class="mobile-language-switcher">
+          <h4>Dil Seçin</h4>
+          <div class="language-links">
+            <a href="#" id="ar-link-mobile-tr">عربي</a>
+            <a href="#" id="en-link-mobile-tr">English</a>
+            <a href="#" id="tr-link-mobile-tr" class="active">Türkçe</a>
+          </div>
+        </div>
+        <div class="mobile-mode-toggle">
+          <h4>Tema</h4>
+          <div class="toggle-switch">
+            <i class="fas fa-moon"></i>
+            <span>Karanlık Mod</span>
+          </div>
+        </div>
+      </nav>
+      <div class="language-switcher">
+        <a href="#" id="ar-link-tr">عربي</a> | 
+        <a href="#" id="en-link-tr">English</a> |
+        <a href="#" id="tr-link-tr" class="active">Türkçe</a>
+      </div>
+      <div class="mode-toggle">
+        <i class="fas fa-moon"></i>
+      </div>
+    </div>
+  </header>
+
+  <!-- المحتوى باللغة العربية -->
+  <div id="content-ar">
+    <section class="hero" id="home">
+      <div class="container">
+        <div class="hero-content">
+          <h1>اهلا بكم في Tradegram</h1>
+          <h2> اكبر منصه تواصل اجتماعي للمتداولين والمستثمرين في العالم  </h2>
+    
+        </div>
+      </div>
+    </section>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+        }
+
+        .full-screen-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    </style>
+
+
+    <img src="jbg11.png" alt="صورة" class="full-screen-image">
+    <img src="jbg44.png" alt="صورة" class="full-screen-image">
+    
+<!-- البطاقة الأولى: العرض الحصري --> 
+  <div class="course-card featured"> 
+    <div class="course-badge"></div> 
+    <div class="course-header"> 
+      <h3> 🍏 Apple  </h3> 
+    </div> 
+    <div class="course-price"> 
+      <h4> <span id="displayPrice">Apple Store</span> <del></del></h4> 
+    </div> 
+    <div class="course-details"> 
+      <ul> 
+        <li><i class="fas fa-check"></i> تحديثات مدى الحياة</li> 
+        <li><i class="fas fa-check"></i>  دعم فني مستمر </li> 
+      </ul> 
+    </div> 
+    <div class="course-actions"> 
+      <a href="https://t.me/LCAV99" class="btn btn-primary" target="_blank">حمل التطبيق الان</a> 
+    </div> 
+  </div>
+  <!-- البطاقة الثانية: مدى الحياة -->
+  <div class="course-card featured">
+    <div class="course-badge" style="background: linear-gradient(45deg, #00ff0a, #009907); color: white;">حمل التطبيق الان</div>
+    <div class="course-header">
+      <h3> 🤖 Android </h3>
+    </div>
+    <div class="course-price">
+      <h4> <span>Google Play</span></h4>
+    </div>
+    <div class="course-details">
+      <ul>
+        <li><i class="fas fa-check"></i> تحديثات مدى الحياة</li>
+        <li><i class="fas fa-check"></i> دعم فني مستمر</li>
+      </ul>
+    </div>
+    <div class="course-actions">
+      <a href="https://t.me/LCAV99" class="btn btn-primary" target="_blank">حمل التطبيق الان</a>
+    </div>
+  </div>
+
+<!-- قسم الفوركس — العربية -->
+<section class="forex" id="forex">
+  <div class="container">
+    <div class="section-header">
+      <h2> تواصل وابني علاقات مع متداولين العالم</h2>
+      <p>تطبيق تريد كرام هوه تطبيق تواصل اجتماعي ويمكنكم من خلاله بناء علاقات وتواصل مع جميع المتداولين المحترفين من جميع انحاء العالم</p>
+    </div>
+    <div class="forex-features">
+      <div class="forex-feature">
+        <div class="forex-feature-icon"><i class="fas fa-globe"></i></div>
+        <h3>تواصل عالمي</h3>
+        <p>تواصل مع جميع المتداولين في جميع انحاء العالم .</p>
+      </div>
+      <div class="forex-feature">
+        <div class="forex-feature-icon"><i class="fas fa-chart-line"></i></div>
+        <h3>تحليل السوق</h3>
+        <p>اختر السوق والدوله التي تريد ان تبحث على محترفين  بها.</p>
+      </div>
+      <div class="forex-feature">
+        <div class="forex-feature-icon"><i class="fas fa-shield-alt"></i></div>
+        <h3>وسع علاقاتك</h3>
+        <p>انشر افكارك ووسع علاقاتك وتعلم  وانشر حرفك.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+    <section class="features" id="features">
+      <div class="container">
+        <div class="section-header">
+          <h2>مميزات التطبيق</h2>
+        </div>
+        <div class="features-grid">
+          <div class="feature-card">
+            <div class="feature-icon">
+              <i class="fas fa-chart-line"></i>
+            </div>
+            <h3>قسم التواصل الاجتماعي </h3>
+            <p> قم بنشر ما تريد من خلال الكتابه او الصور</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">
+              <i class="fas fa-video"></i>
+            </div>
+            <h3>قسم اختيار السوق </h3>
+            <p>اختار القسم المناسب لك عمل رقميه فوركس اسهم او اعمال اخرى</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">
+              <i class="fas fa-headset"></i>
+            </div>
+            <h3>دعم فني</h3>
+            <p>تواصل معنا على الايميل</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="courses" id="courses">
+      <div class="container">
+        <div class="section-header">
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+        }
+
+        .full-screen-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    </style>
+    <img src="tradeg1.png" alt="صورة" class="full-screen-image">
+    <img src="tradegr2.png" alt="صورة" class="full-screen-image">
+        </div>
+      </div>
+    </section>
+
+    <!-- قسم الأسئلة الشائعة بالعربية -->
+    <section class="faq-section" id="faq">
+      <div class="container">
+        <div class="section-header">
+          <h2>سياسة الخصوصية</h2>
+        </div>
+        <div class="faq-items">
+          <details> 
+            <summary>تفاصيل سياسة الخصوصية</summary>
+            <p>سياسة خصوصية Tradegram
+آخر تحديث: مايو 2026
+1. المعلومات التي يتم جمعها
+عند استخدامك لتطبيق Tradegram، قد نقوم بجمع المعلومات التالية:
+رقم الهاتف (للتحقق من الهوية)
+معلومات الملف الشخصي (الاسم، اسم المستخدم، الصورة الشخصية)
+الرسائل وملفات الوسائط
+معلومات الجهاز (الرمز المميز، طراز الجهاز)
+معلومات الموقع (فقط في حال منحتنا الإذن)
+2. استخدام المعلومات
+نستخدم المعلومات التي نجمعها للأغراض التالية:
+إنشاء الحساب والتحقق منه
+تقديم خدمات المراسلة
+إرسال الإشعارات
+تحسين أداء التطبيق
+الأمان ومنع الاحتيال
+3. أمان المعلومات
+لحماية بياناتك:
+الرسائل محمية بالتشفير من طرف إلى طرف
+يُستخدم البنية الأمنية الخاصة بـ Firebase
+لا تتم مشاركة بياناتك مع أطراف ثالثة
+يمكنك حذف حسابك في أي وقت تشاء
+4. الخدمات من أطراف ثالثة
+يستخدم التطبيق الخدمات التالية من أطراف ثالثة:
+Google Firebase (قاعدة البيانات والتحقق من الهوية)
+Twelve Data API (بيانات السوق)
+Google Maps (مشاركة الموقع)
+تسري سياسات الخصوصية الخاصة بهذه الخدمات.
+5. الاحتفاظ بالبيانات
+يتم الاحتفاظ ببيانات حسابك طالما أن حسابك نشط
+عند حذف حسابك، يتم حذف بياناتك بشكل نهائي
+تتم إزالة الرسائل عند حذفها من قبل الطرفين
+6. خصوصية الأطفال
+لا يستهدف Tradegram الأطفال دون سن 13 عامًا. إذا لاحظنا أننا جمعنا بيانات مستخدم نعتقد أنه دون سن 13 عامًا، سنقوم بحذف هذه البيانات.
+7. خصوصية رقم الهاتف
+يهدف تطبيقنا إلى الحفاظ على أعلى مستوى من خصوصية المستخدم. بناءً على ذلك، بعد تسجيل الدخول برقم هاتفك، لديك الحق في إخفاء رقم هاتفك بالكامل عن المستخدمين الآخرين وذلك عبر قسم الإعدادات > الخصوصية داخل التطبيق.
+عند اختيارك إخفاء رقم هاتفك، لن يتمكن المستخدمون الآخرون من عرضه أو الاستعلام عنه بأي شكل من الأشكال، ولن يظهر في ملفك الشخصي.
+يمكن للمستخدمين الآخرين التواصل معك فقط من خلال اسم المستخدم الذي تحدده.
+8. التواصل
+لأي أسئلة بخصوص سياسة الخصوصية الخاصة بنا:
+البريد الإلكتروني: support@tradegram.app
+.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-content">
+          <div class="footer-logo">
+            <h3>Tradegram</h3>
+            <p>تطبيق التواصل الاجتماعي للمتداولين Tradegram</p>
+          </div>
+          <div class="footer-links">
+            <h4>روابط سريعة</h4>
+            <ul>
+              <li><a href="#home">الرئيسية</a></li>
+              <li><a href="#courses">التطبيق</a></li>
+              <li><a href="#features">المميزات</a></li>
+              <li><a href="#faq">سياسة الخصوصية</a></li>
+            </ul>
+          </div>
+          <div class="footer-follow-us">
+            <h4>تواصل معنا</h4>
+            <div class="social-links">
+              <a href="https://www.instagram.com/tradegram.app?igsh=cnI1bjFueWtyOThj&utm_source=qr" class="social-link">
+                <i class="fab fa-instagram"></i> إنستقرام
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; Tradegram </p>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <!-- المحتوى باللغة الإنجليزية -->
+  <div id="content-en" style="display: none;">
+    <section class="hero" id="home">
+      <div class="container">
+        <div class="hero-content">
+          <h1>Welcome to Tradegram</h1>
+          <h2>The world's largest social network for traders and investors</h2>
+        </div>
+      </div>
+    </section>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+        }
+
+        .full-screen-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    </style>
+
+    <img src="jbg11.png" alt="Image" class="full-screen-image">
+    <img src="jbg44.png" alt="Image" class="full-screen-image">
+
+    <!-- Card 1: Apple -->
+    <div class="course-card featured">
+      <div class="course-badge"></div>
+      <div class="course-header">
+        <h3>🍏 Apple</h3>
+      </div>
+      <div class="course-price">
+        <h4><span id="displayPrice">Apple Store</span><del></del></h4>
+      </div>
+      <div class="course-details">
+        <ul>
+          <li><i class="fas fa-check"></i> Lifetime updates</li>
+          <li><i class="fas fa-check"></i> Continuous technical support</li>
+        </ul>
+      </div>
+      <div class="course-actions">
+        <a href="https://t.me/LCAV99" class="btn btn-primary" target="_blank">Download Now</a>
+      </div>
+    </div>
+    <!-- Card 2: Android -->
+    <div class="course-card featured">
+      <div class="course-badge" style="background: linear-gradient(45deg, #00ff0a, #009907); color: white;">Download Now</div>
+      <div class="course-header">
+        <h3>🤖 Android</h3>
+      </div>
+      <div class="course-price">
+        <h4><span>Google Play</span></h4>
+      </div>
+      <div class="course-details">
+        <ul>
+          <li><i class="fas fa-check"></i> Lifetime updates</li>
+          <li><i class="fas fa-check"></i> Continuous technical support</li>
+        </ul>
+      </div>
+      <div class="course-actions">
+        <a href="https://t.me/LCAV99" class="btn btn-primary" target="_blank">Download Now</a>
+      </div>
+    </div>
+
+    <!-- Forex section — English -->
+    <section class="forex" id="forex">
+      <div class="container">
+        <div class="section-header">
+          <h2>Connect and build relationships with traders worldwide</h2>
+          <p>Tradegram is a social networking app that lets you build relationships and connect with professional traders from all over the world.</p>
+        </div>
+        <div class="forex-features">
+          <div class="forex-feature">
+            <div class="forex-feature-icon"><i class="fas fa-globe"></i></div>
+            <h3>Global Connection</h3>
+            <p>Connect with traders all over the world.</p>
+          </div>
+          <div class="forex-feature">
+            <div class="forex-feature-icon"><i class="fas fa-chart-line"></i></div>
+            <h3>Market Analysis</h3>
+            <p>Choose the market and country where you want to find professionals.</p>
+          </div>
+          <div class="forex-feature">
+            <div class="forex-feature-icon"><i class="fas fa-shield-alt"></i></div>
+            <h3>Expand Your Network</h3>
+            <p>Share your ideas, expand your network, learn, and share your craft.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="features" id="features">
+      <div class="container">
+        <div class="section-header">
+          <h2>App Features</h2>
+        </div>
+        <div class="features-grid">
+          <div class="feature-card">
+            <div class="feature-icon">
+              <i class="fas fa-chart-line"></i>
+            </div>
+            <h3>Social Section</h3>
+            <p>Post whatever you want through writing or photos</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">
+              <i class="fas fa-video"></i>
+            </div>
+            <h3>Market Selection Section</h3>
+            <p>Choose the section that suits you: crypto, forex, stocks, or other businesses</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">
+              <i class="fas fa-headset"></i>
+            </div>
+            <h3>Technical Support</h3>
+            <p>Contact us by email</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="courses" id="courses">
+      <div class="container">
+        <div class="section-header">
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+        }
+
+        .full-screen-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    </style>
+    <img src="tradeg1.png" alt="Image" class="full-screen-image">
+    <img src="tradegr2.png" alt="Image" class="full-screen-image">
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ / Privacy Policy — English -->
+    <section class="faq-section" id="faq">
+      <div class="container">
+        <div class="section-header">
+          <h2>Privacy Policy</h2>
+        </div>
+        <div class="faq-items">
+          <details>
+            <summary>Privacy Policy Details</summary>
+            <p>Tradegram Privacy Policy
+Last updated: May 2026
+1. Information We Collect
+When you use the Tradegram app, we may collect the following information:
+Phone number (for identity verification)
+Profile information (name, username, profile photo)
+Messages and media files
+Device information (device token, device model)
+Location information (only if you grant us permission)
+2. Use of Information
+We use the information we collect for the following purposes:
+Creating and verifying your account
+Providing messaging services
+Sending notifications
+Improving app performance
+Security and fraud prevention
+3. Information Security
+To protect your data:
+Messages are protected with end-to-end encryption
+Firebase's security infrastructure is used
+Your data is not shared with third parties
+You can delete your account at any time
+4. Third-Party Services
+The app uses the following third-party services:
+Google Firebase (database and identity verification)
+Twelve Data API (market data)
+Google Maps (location sharing)
+The privacy policies of these services apply.
+5. Data Retention
+Your account data is retained as long as your account is active
+When you delete your account, your data is permanently deleted
+Messages are removed when deleted by both parties
+6. Children's Privacy
+Tradegram does not target children under the age of 13. If we discover that we have collected data from a user we believe to be under 13, we will delete that data.
+7. Phone Number Privacy
+Our app aims to maintain the highest level of user privacy. Accordingly, after logging in with your phone number, you have the right to fully hide your phone number from other users via Settings > Privacy within the app.
+When you choose to hide your phone number, other users will not be able to view or query it in any way, and it will not appear on your profile.
+Other users can only contact you through the username you set.
+8. Contact
+For any questions regarding our privacy policy:
+Email: support@tradegram.app
+.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-content">
+          <div class="footer-logo">
+            <h3>Tradegram</h3>
+            <p>Tradegram — the social networking app for traders</p>
+          </div>
+          <div class="footer-links">
+            <h4>Quick Links</h4>
+            <ul>
+              <li><a href="#home">Home</a></li>
+              <li><a href="#courses">App</a></li>
+              <li><a href="#features">Features</a></li>
+              <li><a href="#faq">Privacy Policy</a></li>
+            </ul>
+          </div>
+          <div class="footer-follow-us">
+            <h4>Contact Us</h4>
+            <div class="social-links">
+      
+              <a href="https://www.instagram.com/tradegram.app?igsh=cnI1bjFueWtyOThj&utm_source=qr" class="social-link">
+                <i class="fab fa-instagram"></i> Instagram
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p>&copy; Tradegram </p>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <!-- المحتوى باللغة التركية -->
+  <div id="content-tr" style="display: none;">
+    <section class="hero" id="home">
+      <div class="container">
+        <div class="hero-content">
+          <h1>Tradegram'a Hoş Geldiniz</h1>
+          <h2>Dünyanın en büyük trader ve yatırımcı sosyal ağı</h2>
+        </div>
+      </div>
+    </section>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+        }
+
+        .full-screen-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    </style>
+
+    <img src="jbg11.png" alt="Görsel" class="full-screen-image">
+    <img src="jbg44.png" alt="Görsel" class="full-screen-image">
+
+    <!-- Kart 1: Apple -->
+    <div class="course-card featured">
+      <div class="course-badge"></div>
+      <div class="course-header">
+        <h3>🍏 Apple</h3>
+      </div>
+      <div class="course-price">
+        <h4><span id="displayPrice">Apple Store</span><del></del></h4>
+      </div>
+      <div class="course-details">
+        <ul>
+          <li><i class="fas fa-check"></i> Ömür boyu güncellemeler</li>
+          <li><i class="fas fa-check"></i> Sürekli teknik destek</li>
+        </ul>
+      </div>
+      <div class="course-actions">
+        <a href="https://t.me/LCAV99" class="btn btn-primary" target="_blank">Şimdi İndir</a>
+      </div>
+    </div>
+    <!-- Kart 2: Android -->
+    <div class="course-card featured">
+      <div class="course-badge" style="background: linear-gradient(45deg, #00ff0a, #009907); color: white;">Şimdi İndir</div>
+      <div class="course-header">
+        <h3>🤖 Android</h3>
+      </div>
+      <div class="course-price">
+        <h4><span>Google Play</span></h4>
+      </div>
+      <div class="course-details">
+        <ul>
+          <li><i class="fas fa-check"></i> Ömür boyu güncellemeler</li>
+          <li><i class="fas fa-check"></i> Sürekli teknik destek</li>
+        </ul>
+      </div>
+      <div class="course-actions">
+        <a href="https://t.me/LCAV99" class="btn btn-primary" target="_blank">Şimdi İndir</a>
+      </div>
+    </div>
+
+    <!-- Forex bölümü — Türkçe -->
+    <section class="forex" id="forex">
+      <div class="container">
+        <div class="section-header">
+          <h2>Dünyanın dört bir yanındaki trader'larla iletişim kurun ve ilişkiler geliştirin</h2>
+          <p>Tradegram, dünyanın her yerinden profesyonel trader'larla ilişki kurup iletişime geçmenizi sağlayan bir sosyal ağ uygulamasıdır.</p>
+        </div>
+        <div class="forex-features">
+          <div class="forex-feature">
+            <div class="forex-feature-icon"><i class="fas fa-globe"></i></div>
+            <h3>Küresel Bağlantı</h3>
+            <p>Dünyanın her yerindeki trader'larla iletişim kurun.</p>
+          </div>
+          <div class="forex-feature">
+            <div class="forex-feature-icon"><i class="fas fa-chart-line"></i></div>
+            <h3>Piyasa Analizi</h3>
+            <p>Profesyonelleri bulmak istediğiniz piyasayı ve ülkeyi seçin.</p>
+          </div>
+          <div class="forex-feature">
+            <div class="forex-feature-icon"><i class="fas fa-shield-alt"></i></div>
+            <h3>Ağınızı Genişletin</h3>
+            <p>Fikirlerinizi paylaşın, ağınızı genişletin, öğrenin ve zanaatınızı paylaşın.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="features" id="features">
+      <div class="container">
+        <div class="section-header">
+          <h2>Uygulama Özellikleri</h2>
+        </div>
+        <div class="features-grid">
+          <div class="feature-card">
+            <div class="feature-icon">
+              <i class="fas fa-chart-line"></i>
+            </div>
+            <h3>Sosyal Paylaşım Bölümü</h3>
+            <p>Yazı veya fotoğraflarla istediğinizi paylaşın</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">
+              <i class="fas fa-video"></i>
+            </div>
+            <h3>Piyasa Seçim Bölümü</h3>
+            <p>Size uygun bölümü seçin: kripto, forex, hisse senedi veya diğer işler</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">
+              <i class="fas fa-headset"></i>
+            </div>
+            <h3>Teknik Destek</h3>
+            <p>Bizimle e-posta üzerinden iletişime geçin</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="courses" id="courses">
+      <div class="container">
+        <div class="section-header">
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+        }
+
+        .full-screen-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    </style>
+    <img src="tradeg1.png" alt="Görsel" class="full-screen-image">
+    <img src="tradegr2.png" alt="Görsel" class="full-screen-image">
+        </div>
+      </div>
+    </section>
+
+    <!-- SSS / Gizlilik Politikası — Türkçe -->
+    <section class="faq-section" id="faq">
+      <div class="container">
+        <div class="section-header">
+          <h2>Gizlilik Politikası</h2>
+        </div>
+        <div class="faq-items">
+          <details>
+            <summary>Gizlilik Politikası Detayları</summary>
+            <p>Tradegram Gizlilik Politikası
+Son güncelleme: Mayıs 2026
+1. Toplanan Bilgiler
+Tradegram uygulamasını kullandığınızda aşağıdaki bilgileri toplayabiliriz:
+Telefon numarası (kimlik doğrulama için)
+Profil bilgileri (ad, kullanıcı adı, profil fotoğrafı)
+Mesajlar ve medya dosyaları
+Cihaz bilgileri (cihaz belirteci, cihaz modeli)
+Konum bilgisi (yalnızca izin verirseniz)
+2. Bilgilerin Kullanımı
+Topladığımız bilgileri şu amaçlarla kullanırız:
+Hesap oluşturma ve doğrulama
+Mesajlaşma hizmetlerinin sunulması
+Bildirim gönderimi
+Uygulama performansının iyileştirilmesi
+Güvenlik ve dolandırıcılığın önlenmesi
+3. Bilgi Güvenliği
+Verilerinizi korumak için:
+Mesajlar uçtan uca şifreleme ile korunur
+Firebase'in güvenlik altyapısı kullanılır
+Verileriniz üçüncü taraflarla paylaşılmaz
+Hesabınızı istediğiniz zaman silebilirsiniz
+4. Üçüncü Taraf Hizmetleri
+Uygulama aşağıdaki üçüncü taraf hizmetlerini kullanır:
+Google Firebase (veritabanı ve kimlik doğrulama)
+Twelve Data API (piyasa verileri)
+Google Maps (konum paylaşımı)
+Bu hizmetlerin kendi gizlilik politikaları geçerlidir.
+5. Veri Saklama
+Hesap verileriniz, hesabınız aktif olduğu sürece saklanır
+Hesabınızı sildiğinizde verileriniz kalıcı olarak silinir
+Mesajlar her iki taraf tarafından silindiğinde kaldırılır
+6. Çocukların Gizliliği
+Tradegram, 13 yaşın altındaki çocukları hedeflemez. 13 yaşın altında olduğunu düşündüğümüz bir kullanıcıya ait veri topladığımızı fark edersek, bu verileri sileriz.
+7. Telefon Numarası Gizliliği
+Uygulamamız, kullanıcı gizliliğini en üst düzeyde tutmayı amaçlar. Bu doğrultuda, telefon numaranızla giriş yaptıktan sonra, uygulama içindeki Ayarlar > Gizlilik bölümünden telefon numaranızı diğer kullanıcılardan tamamen gizleme hakkına sahipsiniz.
+Telefon numaranızı gizlemeyi seçtiğinizde, diğer kullanıcılar bunu hiçbir şekilde görüntüleyemez veya sorgulayamaz ve profilinizde görünmez.
+Diğer kullanıcılar sizinle yalnızca belirlediğiniz kullanıcı adı üzerinden iletişim kurabilir.
+8. İletişim
+Gizlilik politikamızla ilgili sorularınız için:
+E-posta: support@tradegram.app
+.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-content">
+          <div class="footer-logo">
+            <h3>Tradegram</h3>
+            <p>Tradegram — trader'lar için sosyal ağ uygulaması</p>
+          </div>
+          <div class="footer-links">
+            <h4>Hızlı Bağlantılar</h4>
+            <ul>
+              <li><a href="#home">Ana Sayfa</a></li>
+              <li><a href="#courses">Uygulama</a></li>
+              <li><a href="#features">Özellikler</a></li>
+              <li><a href="#faq">Gizlilik Politikası</a></li>
+            </ul>
+          </div>
+          <div class="footer-follow-us">
+            <h4>Bize Ulaşın</h4>
+            <div class="social-links">
+      
+              <a href="https://www.instagram.com/tradegram.app?igsh=cnI1bjFueWtyOThj&utm_source=qr" class="social-link">
+                <i class="fab fa-instagram"></i> Instagram
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p>&copy; Tradegram </p>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const mobileMenuBtns = document.querySelectorAll('.mobile-menu-btn');
+      const mainNavs = document.querySelectorAll('.main-nav');
+      const closeMenuBtns = document.querySelectorAll('.close-menu');
+      const overlay = document.querySelector('.mobile-menu-overlay');
+      const body = document.body;
+
+      function toggleMenu(event) {
+        const clickedBtn = event.currentTarget;
+        const currentHeader = clickedBtn.closest('header');
+        const currentNav = currentHeader.querySelector('.main-nav');
+        
+        currentNav.classList.toggle('active');
+        overlay.classList.toggle('active');
+        clickedBtn.classList.toggle('active');
+        body.style.overflow = currentNav.classList.contains('active') ? 'hidden' : '';
+      }
+
+      mobileMenuBtns.forEach(btn => {
+        btn.addEventListener('click', toggleMenu);
+      });
+
+      closeMenuBtns.forEach(btn => {
+        btn.addEventListener('click', toggleMenu);
+      });
+
+      overlay.addEventListener('click', () => {
+        mainNavs.forEach(nav => nav.classList.remove('active'));
+        mobileMenuBtns.forEach(btn => btn.classList.remove('active'));
+        overlay.classList.remove('active');
+        body.style.overflow = '';
+      });
+
+      document.querySelectorAll('.main-nav a').forEach(link => {
+        link.addEventListener('click', () => {
+          const currentNav = link.closest('.main-nav');
+          const currentBtn = currentNav.parentElement.querySelector('.mobile-menu-btn');
+          
+          if (currentNav.classList.contains('active')) {
+            currentNav.classList.remove('active');
+            currentBtn.classList.remove('active');
+            overlay.classList.remove('active');
+            body.style.overflow = '';
+          }
+        });
+      });
+
+      function switchToArabic() {
+        document.documentElement.lang = 'ar';
+        document.documentElement.dir = 'rtl';
+        document.getElementById('header-ar').style.display = 'block';
+        document.getElementById('header-en').style.display = 'none';
+        document.getElementById('header-tr').style.display = 'none';
+        document.getElementById('content-ar').style.display = 'block';
+        document.getElementById('content-en').style.display = 'none';
+        document.getElementById('content-tr').style.display = 'none';
+        
+        document.querySelectorAll('[id^="ar-link"]').forEach(link => link.classList.add('active'));
+        document.querySelectorAll('[id^="en-link"]').forEach(link => link.classList.remove('active'));
+        document.querySelectorAll('[id^="tr-link"]').forEach(link => link.classList.remove('active'));
+      }
+
+      function switchToEnglish() {
+        document.documentElement.lang = 'en';
+        document.documentElement.dir = 'ltr';
+        document.getElementById('header-ar').style.display = 'none';
+        document.getElementById('header-en').style.display = 'block';
+        document.getElementById('header-tr').style.display = 'none';
+        document.getElementById('content-ar').style.display = 'none';
+        document.getElementById('content-en').style.display = 'block';
+        document.getElementById('content-tr').style.display = 'none';
+        
+        document.querySelectorAll('[id^="ar-link"]').forEach(link => link.classList.remove('active'));
+        document.querySelectorAll('[id^="en-link"]').forEach(link => link.classList.add('active'));
+        document.querySelectorAll('[id^="tr-link"]').forEach(link => link.classList.remove('active'));
+      }
+
+      function switchToTurkish() {
+        document.documentElement.lang = 'tr';
+        document.documentElement.dir = 'ltr';
+        document.getElementById('header-ar').style.display = 'none';
+        document.getElementById('header-en').style.display = 'none';
+        document.getElementById('header-tr').style.display = 'block';
+        document.getElementById('content-ar').style.display = 'none';
+        document.getElementById('content-en').style.display = 'none';
+        document.getElementById('content-tr').style.display = 'block';
+        
+        document.querySelectorAll('[id^="ar-link"]').forEach(link => link.classList.remove('active'));
+        document.querySelectorAll('[id^="en-link"]').forEach(link => link.classList.remove('active'));
+        document.querySelectorAll('[id^="tr-link"]').forEach(link => link.classList.add('active'));
+      }
+
+      document.querySelectorAll('[id^="ar-link"]').forEach(link => {
+        link.addEventListener('click', function(e) {
+          e.preventDefault();
+          switchToArabic();
+        });
+      });
+
+      document.querySelectorAll('[id^="en-link"]').forEach(link => {
+        link.addEventListener('click', function(e) {
+          e.preventDefault();
+          switchToEnglish();
+        });
+      });
+
+      document.querySelectorAll('[id^="tr-link"]').forEach(link => {
+        link.addEventListener('click', function(e) {
+          e.preventDefault();
+          switchToTurkish();
+        });
+      });
+
+      function toggleDarkMode() {
+        document.body.classList.toggle('dark-mode');
+        const isDarkMode = document.body.classList.contains('dark-mode');
+        
+        document.querySelectorAll('.mode-toggle i').forEach(icon => {
+          icon.className = isDarkMode ? 'fas fa-sun' : 'fas fa-moon';
+        });
+        
+        document.querySelectorAll('.mobile-mode-toggle .toggle-switch span').forEach(text => {
+          text.textContent = isDarkMode ? 
+            (document.documentElement.lang === 'ar' ? 'الوضع الفاتح' : 
+             document.documentElement.lang === 'tr' ? 'Aydınlık Mod' : 'Light Mode') :
+            (document.documentElement.lang === 'ar' ? 'الوضع الداكن' : 
+             document.documentElement.lang === 'tr' ? 'Karanlık Mod' : 'Dark Mode');
+        });
+        
+        document.querySelectorAll('.dark-logo').forEach(logo => {
+          logo.style.display = isDarkMode ? 'block' : 'none';
+        });
+        document.querySelectorAll('.light-logo').forEach(logo => {
+          logo.style.display = isDarkMode ? 'none' : 'block';
+        });
+      }
+
+      document.querySelectorAll('.mode-toggle, .mobile-mode-toggle .toggle-switch').forEach(toggle => {
+        toggle.addEventListener('click', toggleDarkMode);
+      });
+
+      const scrollToTopBtn = document.querySelector('.scroll-to-top');
+      
+      window.addEventListener('scroll', () => {
+        if (window.pageYOffset > 300 && !document.querySelector('.main-nav.active')) {
+          scrollToTopBtn.style.opacity = '1';
+          scrollToTopBtn.style.visibility = 'visible';
+        } else {
+          scrollToTopBtn.style.opacity = '0';
+          scrollToTopBtn.style.visibility = 'hidden';
+        }
+      });
+
+      scrollToTopBtn.addEventListener('click', () => {
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth'
+        });
+      });
+
+      function checkMaintenanceMode() {
+        const maintenanceMode = localStorage.getItem('maintenanceMode') === 'true';
+        if (maintenanceMode) {
+          window.location.href = 'maintenance.html';
+        }
+      }
+
+      checkMaintenanceMode();
+    });
+  </script>
+  
 </body>
 </html>
