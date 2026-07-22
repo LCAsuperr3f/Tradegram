@@ -1823,3 +1823,31 @@ body.dark-mode .strip-item:hover {
     display: none !important;
   }
 }
+/* ===== Dil değiştirici: her zaman sağda ve alt alta ===== */
+
+/* Header'daki (masaüstü) dil değiştirici */
+.header .language-switcher {
+  order: -1;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 6px;
+  font-size: 0; /* "|" ayraçlarını gizle */
+  margin-right: 0;
+}
+
+.header .language-switcher a {
+  font-size: 14px;
+  margin: 0;
+}
+
+/* Mobil menü içindeki dil kutusu (mobile-language-switcher) */
+.mobile-language-switcher .language-links {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 8px;
+}
+
+.mobile-language-switcher {
+  text-align: right;
+}
