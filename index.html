@@ -293,9 +293,8 @@ function animate(){
         const tailY = p.y - Math.sin(p.angle) * p.length * lifeRatio;
 
         const gradient = ctx.createLinearGradient(tailX, tailY, p.x, p.y);
-        gradient.addColorStop(0, "rgba(0,255,10,0)");
-        gradient.addColorStop(1, "rgba(190,255,180," + lifeRatio + ")");
-
+        gradient.addColorStop(0, "rgba(159,3,255,0)");
+        gradient.addColorStop(1, "rgba(159,3,255," + lifeRatio + ")");
         ctx.beginPath();
         ctx.moveTo(tailX, tailY);
         ctx.lineTo(p.x, p.y);
