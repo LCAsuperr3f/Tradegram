@@ -11,6 +11,7 @@
   --box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
   --transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
   
+  /* ألوان الوضع الداكن */
   --dark-bg: #000000;
   --dark-surface: #121212;
   --dark-surface-lighter: #1A1A1A;
@@ -54,6 +55,7 @@ ul {
   padding: 0 20px;
 }
 
+/* ===== الأزرار ===== */
 .btn {
   display: inline-block;
   padding: 12px 25px;
@@ -76,6 +78,7 @@ ul {
   box-shadow: 0 5px 15px rgba(0, 255, 10, 0.3);
 }
 
+/* ===== رأس الصفحة ===== */
 .header {
   background-color: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(10px);
@@ -135,6 +138,7 @@ ul {
   transform-origin: left;
 }
 
+/* ===== مبدل اللغة والوضع ===== */
 .language-switcher {
   margin-right: 15px;
   font-size: 1rem;
@@ -184,6 +188,7 @@ ul {
   background-color: rgba(0, 255, 10, 0.1);
 }
 
+/* تنسيق النصوص حسب اللغة */
 [lang="ar"] {
   font-family: 'Tajawal', sans-serif;
   direction: rtl;
@@ -194,6 +199,7 @@ ul {
   direction: ltr;
 }
 
+/* تعديل اتجاه العناصر حسب اللغة */
 [lang="tr"] .header .container {
   flex-direction: row-reverse;
 }
@@ -213,6 +219,7 @@ ul {
   margin-right: 0;
 }
 
+/* تعديل اتجاه العناصر في الوضع الداكن للغة التركية */
 body.dark-mode [lang="tr"] .language-switcher a {
   color: var(--dark-text);
 }
@@ -243,6 +250,7 @@ body.dark-mode [lang="tr"] .language-switcher a.active {
   background: rgba(0, 255, 10, 0.1);
 }
 
+/* ===== الأجهزة المحمولة ===== */
 .mobile-menu-btn,
 .mobile-menu-overlay,
 .mobile-language-switcher,
@@ -250,6 +258,7 @@ body.dark-mode [lang="tr"] .language-switcher a.active {
   display: none;
 }
 
+/* ===== قسم الفوركس ===== */
 .forex {
   background-color: var(--light-color);
   padding: 80px 0;
@@ -392,6 +401,7 @@ body.dark-mode [lang="tr"] .language-switcher a.active {
   transition: all 0.3s ease;
 }
 
+/* تأثيرات الوضع الداكن */
 body.dark-mode .forex {
   background-color: var(--dark-bg);
 }
@@ -425,6 +435,7 @@ body.dark-mode .forex-feature p {
   color: var(--dark-text-secondary);
 }
 
+/* تأثيرات حركية إضافية */
 @keyframes fadeInUp {
   from {
     opacity: 0;
@@ -463,6 +474,7 @@ body.dark-mode .forex-feature p {
   }
 }
 
+/* ===== الأقسام الرئيسية ===== */
 .hero {
   background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)), url('/api/placeholder/1200/800') center/cover;
   height: 100vh;
@@ -595,6 +607,7 @@ body.dark-mode .forex-feature p {
   margin-bottom: 15px;
 }
 
+/* ===== قسم الفوركس ===== */
 .forex {
   background-color: var(--light-color);
 }
@@ -623,6 +636,7 @@ body.dark-mode .forex-feature p {
   display: block;
 }
 
+/* ===== قسم الدورات ===== */
 .courses-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -824,6 +838,7 @@ body.dark-mode .forex-feature p {
   box-shadow: 0 15px 30px rgba(0, 255, 10, 0.3);
 }
 
+/* تعديلات الوضع الداكن */
 body.dark-mode .course-card {
   background: linear-gradient(145deg, var(--dark-surface), var(--dark-surface-lighter));
   border-color: rgba(0, 255, 10, 0.1);
@@ -851,6 +866,7 @@ body.dark-mode .course-actions {
   background: linear-gradient(to bottom, var(--dark-surface-lighter), var(--dark-surface));
 }
 
+/* ===== قسم الأسئلة الشائعة ===== */
 .faq-section {
   padding: 80px 0;
   background-color: var(--light-color);
@@ -938,6 +954,7 @@ body.dark-mode .course-actions {
   animation: fadeIn 0.5s ease-in-out;
 }
 
+/* تأثيرات النيون والأنيميشن */
 @keyframes glowText {
   from {
     text-shadow: 0 0 5px rgba(0, 255, 10, 0.3),
@@ -977,6 +994,7 @@ body.dark-mode .course-actions {
   }
 }
 
+/* تعديلات الوضع الداكن */
 body.dark-mode .faq-section {
   background-color: var(--dark-bg);
 }
@@ -1002,6 +1020,7 @@ body.dark-mode .faq-section .faq-items p {
   color: var(--dark-text-secondary);
 }
 
+/* ===== قسم التذييل ===== */
 .footer {
   background-color: var(--light-color);
   border-top: 1px solid rgba(0, 0, 0, 0.05);
@@ -1066,6 +1085,7 @@ body.dark-mode .faq-section .faq-items p {
   transform: translateY(-3px);
 }
 
+/* ===== الوضع الداكن (Dark Mode) - تحسين الألوان ===== */
 body.dark-mode {
   background-color: var(--dark-bg);
   color: var(--dark-text);
@@ -1075,6 +1095,7 @@ body.dark-mode a {
   color: var(--dark-text);
 }
 
+/* تحسين رأس الصفحة في الوضع الداكن */
 body.dark-mode .header {
   background-color: rgba(18, 18, 18, 0.95);
   backdrop-filter: blur(10px);
@@ -1099,6 +1120,7 @@ body.dark-mode .mode-toggle {
   color: var(--primary-color);
 }
 
+/* تحسين الأزرار في الوضع الداكن */
 body.dark-mode .btn-primary {
   background-color: var(--primary-color);
   color: var(--dark-color);
@@ -1109,6 +1131,7 @@ body.dark-mode .btn-primary:hover {
   box-shadow: 0 5px 15px rgba(0, 255, 10, 0.3);
 }
 
+/* تحسين قسم الفوركس في الوضع الداكن */
 body.dark-mode .forex {
   background-color: var(--dark-bg);
 }
@@ -1128,6 +1151,7 @@ body.dark-mode .forex-feature-icon {
   color: var(--primary-color);
 }
 
+/* تحسين عناوين الأقسام في الوضع الداكن */
 body.dark-mode .section-header h2 {
   color: var(--dark-text);
 }
@@ -1136,6 +1160,7 @@ body.dark-mode .section-header p {
   color: var(--dark-text-secondary);
 }
 
+/* تحسين بطاقات الميزات في الوضع الداكن */
 body.dark-mode .feature-card {
   background-color: var(--dark-surface);
   box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
@@ -1150,6 +1175,7 @@ body.dark-mode .feature-icon {
   color: var(--primary-color);
 }
 
+/* تحسين قسم الدورات في الوضع الداكن */
 body.dark-mode .course-card {
   background-color: var(--dark-surface);
   box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
@@ -1213,6 +1239,7 @@ body.dark-mode .course-meta p i {
   color: var(--primary-color);
 }
 
+/* تحسين قسم التذييل في الوضع الداكن */
 body.dark-mode .footer {
   background-color: var(--dark-bg);
   color: var(--dark-text);
@@ -1244,12 +1271,14 @@ body.dark-mode .footer-follow-us .social-link:hover i {
   color: var(--dark-color);
 }
 
+/* تحسين تجربة المستخدم في الجوال في الوضع الداكن */
 @media (max-width: 768px) {
   body.dark-mode .mobile-menu-btn {
     color: var(--primary-color);
   }
 }
 
+/* تحديث الوضع الداكن */
 body.dark-mode .hero {
   background: linear-gradient(135deg, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url('/api/placeholder/1200/800') center/cover;
   color: var(--light-color);
@@ -1261,6 +1290,7 @@ body.dark-mode .hero-content p {
   color: var(--light-color);
 }
 
+/* ===== القائمة المتنقلة ===== */
 @media (max-width: 768px) {
   .header .container {
     display: flex;
@@ -1418,11 +1448,13 @@ body.dark-mode .hero-content p {
     box-shadow: 0 3px 10px rgba(0, 255, 10, 0.2);
   }
 
+  /* إخفاء مبدل اللغة والوضع من القائمة المتنقلة */
   .mobile-language-switcher,
   .mobile-mode-toggle {
     display: none;
   }
 
+  /* تعديلات الوضع الداكن */
   body.dark-mode .main-nav {
     background: var(--dark-bg);
     box-shadow: -5px 0 25px rgba(0, 0, 0, 0.3);
@@ -1458,6 +1490,7 @@ body.dark-mode .hero-content p {
   }
 }
 
+/* ===== زر العودة للأعلى ===== */
 .scroll-to-top {
   position: fixed;
   bottom: 30px;
@@ -1479,6 +1512,7 @@ body.dark-mode .hero-content p {
   border: 2px solid var(--primary-color);
 }
 
+/* إخفاء زر الصعود للأعلى عند فتح القائمة المتنقلة */
 .main-nav.active ~ .scroll-to-top,
 .mobile-menu-btn.active ~ .scroll-to-top {
   opacity: 0;
@@ -1494,11 +1528,13 @@ body.dark-mode .hero-content p {
   transform: translateY(-2px);
 }
 
+/* تعديلات للغة التركية */
 [lang="tr"] .scroll-to-top {
   left: 30px;
   right: auto;
 }
 
+/* ===== مبدل الوضع الداكن/الفاتح ===== */
 .mode-toggle {
   cursor: pointer;
   font-size: 1.5rem;
@@ -1520,6 +1556,7 @@ body.dark-mode .hero-content p {
   background: rgba(0, 255, 10, 0.1);
 }
 
+/* تعديلات الوضع الداكن */
 body.dark-mode .mode-toggle {
   color: var(--primary-color);
 }
@@ -1528,11 +1565,13 @@ body.dark-mode .mode-toggle:hover {
   background: rgba(0, 255, 10, 0.1);
 }
 
+/* تعديلات للغة التركية */
 [lang="tr"] .mode-toggle {
   margin-left: 15px;
   margin-right: 0;
 }
 
+/* تحديث ألوان الوضع الفاتح */
 body:not(.dark-mode) .mode-toggle {
   color: var(--dark-color);
 }
@@ -1541,6 +1580,7 @@ body:not(.dark-mode) .mode-toggle:hover {
   background: rgba(0, 0, 0, 0.05);
 }
 
+/* تأثيرات الانتقال للعناصر */
 .header,
 .main-nav,
 .feature-card,
@@ -1555,6 +1595,7 @@ body:not(.dark-mode) .mode-toggle:hover {
   transition: var(--transition);
 }
 
+/* تأثير دوران أيقونة الوضع */
 .mode-toggle i {
   transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -1563,6 +1604,7 @@ body.dark-mode .mode-toggle i {
   transform: rotate(360deg);
 }
 
+/* تأثير توهج عند التبديل */
 @keyframes modeSwitchGlow {
   0% {
     box-shadow: 0 0 5px rgba(0, 255, 10, 0.3);
@@ -1579,6 +1621,7 @@ body.dark-mode .mode-toggle i {
   animation: modeSwitchGlow 0.5s ease-in-out;
 }
 
+/* تأثير تغير لون الخلفية */
 .feature-card,
 .course-card,
 .forex-feature {
@@ -1587,10 +1630,12 @@ body.dark-mode .mode-toggle i {
               transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+/* تأثير تغير لون النصوص */
 h1, h2, h3, h4, p, a, span {
   transition: color 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+/* تأثير تغير لون الأيقونات */
 .feature-icon,
 .forex-feature-icon {
   transition: background-color 0.5s cubic-bezier(0.4, 0, 0.2, 1),
@@ -1598,6 +1643,7 @@ h1, h2, h3, h4, p, a, span {
               box-shadow 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+/* تأثير تغير لون الأزرار */
 .btn {
   transition: background-color 0.5s cubic-bezier(0.4, 0, 0.2, 1),
               color 0.5s cubic-bezier(0.4, 0, 0.2, 1),
@@ -1605,11 +1651,13 @@ h1, h2, h3, h4, p, a, span {
               box-shadow 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+/* تأثير تغير لون القائمة */
 .main-nav ul li a {
   transition: color 0.5s cubic-bezier(0.4, 0, 0.2, 1),
               background-color 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+/* تأثير تغير لون التذييل */
 .footer {
   transition: background-color 0.5s cubic-bezier(0.4, 0, 0.2, 1),
               border-color 0.5s cubic-bezier(0.4, 0, 0.2, 1);
@@ -1677,6 +1725,7 @@ body.dark-mode .benefit-content p {
   color: var(--dark-text-secondary);
 }
 
+/* شرائط المميزات */
 .feature-strips {
   display: flex;
   flex-direction: column;
@@ -1727,6 +1776,7 @@ body.dark-mode .strip-item:hover {
   color: var(--dark-color);
 }
 
+/* أنيميشن */
 @keyframes pulseIcon {
   0%, 100% {
     transform: scale(1);
@@ -1767,20 +1817,21 @@ body.dark-mode .strip-item:hover {
   }
 }
 
+/* إخفاء زر إغلاق القائمة في الشاشات الكبيرة */
 @media (min-width: 768px) {
   .close-menu {
     display: none !important;
   }
 }
-
 /* ===== Dil değiştirici: her zaman sağda ve alt alta ===== */
 
+/* Header'daki (masaüstü) dil değiştirici */
 .header .language-switcher {
   order: -1;
   flex-direction: column;
   align-items: flex-end;
   gap: 6px;
-  font-size: 0;
+  font-size: 0; /* "|" ayraçlarını gizle */
   margin-right: 0;
 }
 
@@ -1789,6 +1840,7 @@ body.dark-mode .strip-item:hover {
   margin: 0;
 }
 
+/* Mobil menü içindeki dil kutusu (mobile-language-switcher) */
 .mobile-language-switcher .language-links {
   display: flex;
   flex-direction: column;
@@ -1798,18 +1850,4 @@ body.dark-mode .strip-item:hover {
 
 .mobile-language-switcher {
   text-align: right;
-}
-
-/* ===== Hero arka plan efekti düzenlemeleri ===== */
-
-.hero-glow {
-  display: none;
-}
-
-.hero-lines-bg {
-  z-index: 2;
-}
-
-.hero-content {
-  z-index: 1;
 }
