@@ -1853,7 +1853,6 @@ body.dark-mode .strip-item:hover {
   inherits: false;
   initial-value: 0deg;
 }
-
 .led-frame {
   position: fixed;
   inset: 0;
@@ -1861,7 +1860,6 @@ body.dark-mode .strip-item:hover {
   pointer-events: none;
   padding: 6px;
 }
-
 .led-frame::before {
   content: "";
   position: absolute;
@@ -1869,10 +1867,10 @@ body.dark-mode .strip-item:hover {
   padding: 6px;
   background: conic-gradient(
     from var(--angle),
-    #a855f7,
-    #3b82f6,
-    #4ade80,
-    #a855f7
+    #9f03ff,
+    #0020ff,
+    #00ff0a,
+    #9f03ff
   );
   -webkit-mask:
     linear-gradient(#000 0 0) content-box,
@@ -1880,9 +1878,8 @@ body.dark-mode .strip-item:hover {
   -webkit-mask-composite: xor;
   mask-composite: exclude;
   animation: ledSpin 10s linear infinite;
-  filter: blur(0.5px) drop-shadow(0 0 8px rgba(168,85,247,0.5));
+  filter: blur(0.5px) drop-shadow(0 0 8px rgba(159,3,255,0.5));
 }
-
 @keyframes ledSpin {
   to { --angle: 360deg; }
 }
