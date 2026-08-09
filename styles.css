@@ -1848,37 +1848,42 @@ body.dark-mode .strip-item:hover {
   gap: 8px;
 }
 /* ===== LED ÇERÇEVE ===== */
-.led-frame {
-  position: fixed;
-  top: 0; left: 0; right: 0; bottom: 0;
-  pointer-events: none;
-  z-index: 99999;
-  border: 6px solid #a855f7;
-  box-shadow:
-    inset 0 0 25px 5px #a855f7,
-    0 0 25px 5px #a855f7;
-  animation: ledColorCycle 6s ease-in-out infinite;
+@property --angle {
+  syntax: '<angle>';
+  inherits: false;
+  initial-value: 0deg;
 }
 
-@keyframes ledColorCycle {
-  0% {
-    border-color: #a855f7; /* mor */
-    box-shadow: inset 0 0 25px 5px #a855f7, 0 0 25px 5px #a855f7;
-  }
-  33% {
-    border-color: #3b82f6; /* mavi */
-    box-shadow: inset 0 0 25px 5px #3b82f6, 0 0 25px 5px #3b82f6;
-  }
-  66% {
-    border-color: #ec4899; /* pembe */
-    box-shadow: inset 0 0 25px 5px #ec4899, 0 0 25px 5px #ec4899;
-  }
-  100% {
-    border-color: #a855f7;
-    box-shadow: inset 0 0 25px 5px #a855f7, 0 0 25px 5px #a855f7;
-  }
+.led-frame {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  pointer-events: none;
+  padding: 6px;
+}
+
+.led-frame::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  padding: 6px;
+  background: conic-gradient(
+    from var(--angle),
+    #a855f7,
+    #3b82f6,
+    #22c55e,
+    #a855f7
+  );
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  animation: ledSpin 10s linear infinite;
+  filter: blur(0.5px) drop-shadow(0 0 8px rgba(168,85,247,0.5));
+}
+
+@keyframes ledSpin {
+  to { --angle: 360deg; }
 }
 /* ===== /LED ÇERÇEVE ===== */
-.mobile-language-switcher {
-  text-align: right;
-}
