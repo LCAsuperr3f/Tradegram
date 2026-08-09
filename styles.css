@@ -1877,7 +1877,7 @@ body.dark-mode .strip-item:hover {
     linear-gradient(#000 0 0);
   -webkit-mask-composite: xor;
   mask-composite: exclude;
-  animation: ledSpin 5s linear infinite;
+  animation: ledSpin 3s linear infinite;
   filter: blur(0.5px) drop-shadow(0 0 8px rgba(159,3,255,0.5));
 }
 @keyframes ledSpin {
