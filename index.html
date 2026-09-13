@@ -1412,3 +1412,278 @@ E-posta: support@tradegram.app
   
 </body>
 </html>
+<!-- TRADEGRAM ROZET KODLARI BAŞLANGICI -->
+<style>
+  :root{
+    --cyan: #4de8ff;
+    --violet: #8b7cff;
+    --diamond-blue: #4fb2ff;
+  }
+
+  .stage{
+    position:relative;
+    width:340px;
+    max-width: 92vw;
+    margin: 20px auto;
+  }
+
+  .card{
+    position:relative;
+    width:100%;
+    aspect-ratio: 4 / 2.55;
+    border-radius: 28px;
+    background:
+      radial-gradient(120% 140% at 10% 0%, rgba(255,255,255,0.10), rgba(255,255,255,0) 45%),
+      linear-gradient(155deg, #14181f 0%, #0a0c10 55%, #050608 100%);
+    overflow: hidden;
+    isolation: isolate;
+    box-shadow: 0 30px 60px -20px rgba(0,0,0,0.8), 0 0 0 1px rgba(255,255,255,0.03) inset;
+    cursor: pointer;
+    user-select: none;
+  }
+
+  .card::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    border-radius: inherit;
+    padding: 1.5px;
+    background: linear-gradient(135deg, rgba(255,255,255,0.55) 0%, rgba(255,255,255,0.06) 22%, rgba(255,255,255,0.02) 50%, rgba(255,255,255,0.16) 78%, rgba(255,255,255,0.5) 100%);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events:none;
+    z-index: 5;
+  }
+
+  .card::after{
+    content:"";
+    position:absolute;
+    top:-40%; left:-30%; width:60%; height:220%;
+    background: linear-gradient(115deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.05) 45%, rgba(255,255,255,0.12) 50%, rgba(255,255,255,0.05) 55%, rgba(255,255,255,0) 100%);
+    transform: rotate(8deg);
+    pointer-events:none;
+    z-index: 4;
+  }
+
+  .stars{ position:absolute; inset:0; z-index:1; pointer-events:none; }
+  .stars span{
+    position:absolute; width:3px; height:3px; border-radius:50%;
+    background: var(--cyan); box-shadow: 0 0 6px 1px var(--cyan);
+    opacity:0.85; animation: twinkle 2.6s ease-in-out infinite;
+  }
+  @keyframes twinkle{
+    0%,100%{ opacity:0.25; transform:scale(0.8); }
+    50%{ opacity:1; transform:scale(1.15); }
+  }
+
+  .content{
+    position: relative; z-index: 3; height:100%;
+    display:flex; flex-direction: column; align-items:center; justify-content:center;
+    gap: 10px; padding: 20px;
+  }
+
+  .badge-icon-btn{
+    position:relative; width: 84px; height: 84px; border-radius:50%;
+    background:#000; display:flex; align-items:center; justify-content:center;
+    border: none; outline: none; cursor: pointer; padding: 0; transition: transform 0.2s ease;
+  }
+  .badge-icon-btn:active { transform: scale(0.95); }
+
+  .badge-icon-btn .ring{
+    position:absolute; inset:-6px; border-radius:50%;
+    background: conic-gradient(from 200deg, var(--cyan), var(--violet) 35%, var(--cyan) 55%, transparent 75%, var(--cyan) 100%);
+    filter: blur(3px); opacity:0.9; animation: spin 6s linear infinite; transition: opacity 0.3s ease;
+  }
+
+  .badge-icon-btn.led-off .ring { opacity: 0 !important; animation-play-state: paused; }
+
+  .badge-icon-btn .ring-mask{ position:absolute; inset:2px; border-radius:50%; background:#000; }
+  @keyframes spin{ to{ transform: rotate(360deg); } }
+  .badge-icon-btn svg{ position:relative; z-index:2; width: 50px; height: 50px; }
+
+  .handle{
+    display:flex; align-items:center; gap:6px; font-size: 20px; font-weight: 700;
+    color:#f2f4f7; letter-spacing: 0.2px; text-decoration: none; cursor: pointer;
+  }
+  .handle:hover{ opacity: 0.85; }
+  .diamond{ width:16px; height:16px; display:inline-block; }
+  .tier{ font-size: 14px; font-weight: 600; color: var(--diamond-blue); letter-spacing: 0.3px; }
+  .app-name{ font-size: 12.5px; color: rgba(255,255,255,0.45); letter-spacing: 0.4px; margin-top: 2px; }
+  .hint{ margin-top: 22px; text-align:center; font-size: 12.5px; color: rgba(255,255,255,0.35); letter-spacing: 0.2px; }
+
+  .loupe{
+    position: absolute; width: 130px; height: 130px; border-radius: 50%;
+    pointer-events: none; z-index: 20; opacity: 0;
+    transform: translate(-50%, -50%) scale(0.6);
+    transition: opacity 0.16s ease, transform 0.16s cubic-bezier(.2,1.4,.4,1);
+    box-shadow: 0 0 0 1.5px rgba(255,255,255,0.55), 0 0 0 4px rgba(255,255,255,0.06), 0 18px 34px -8px rgba(0,0,0,0.65), inset 0 0 20px rgba(255,255,255,0.08);
+    overflow: hidden; background: #05060a;
+  }
+  .loupe.active{ opacity: 1; transform: translate(-50%, -50%) scale(1); }
+  .loupe::before{
+    content:""; position:absolute; inset:0; border-radius:50%;
+    background: radial-gradient(circle at 32% 28%, rgba(255,255,255,0.22), rgba(255,255,255,0) 45%);
+    z-index: 3; pointer-events:none;
+  }
+  .loupe::after{
+    content:""; position:absolute; inset:-1.5px; border-radius:50%; padding: 1.5px;
+    background: linear-gradient(135deg, rgba(255,255,255,0.9), rgba(255,255,255,0.1) 40%, rgba(255,255,255,0.05) 60%, rgba(255,255,255,0.7));
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor; mask-composite: exclude; z-index: 4; pointer-events:none;
+  }
+  .loupe-inner{ position:absolute; top:0; left:0; transform-origin: 0 0; z-index: 1; }
+</style>
+
+<div class="stage">
+  <div class="card" id="card">
+    <div class="stars" id="stars"></div>
+    <div class="content">
+      <button class="badge-icon-btn" id="logoBtn" title="LED Işığı Aç/Kapat">
+        <div class="ring"></div>
+        <div class="ring-mask"></div>
+        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+          <path d="M 30 20 A 32 32 0 1 0 70 20" fill="none" stroke="#f5c518" stroke-width="13" stroke-linecap="round"/>
+          <rect x="45" y="12" width="10" height="34" rx="2" fill="#34d97b"/>
+          <line x1="50" y1="6" x2="50" y2="52" stroke="#34d97b" stroke-width="3"/>
+        </svg>
+      </button>
+
+      <a href="https://tradegramapp.com/" target="_blank" class="handle">
+        @tradegram
+        <svg class="diamond" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 2L4 9l8 13 8-13-8-7z" fill="#4fb2ff"/>
+          <path d="M4 9h16M8.5 9L12 2l3.5 7M12 22L8.5 9M12 22l3.5-13" stroke="#bfe6ff" stroke-width="0.6" fill="none"/>
+        </svg>
+      </a>
+
+      <div class="tier">Elmas</div>
+      <div class="app-name">Tradegram App</div>
+    </div>
+  </div>
+  <div class="hint">LED'i açıp kapatmak için logoya tıklayın<br>Büyüteç için karta basılı tutun</div>
+</div>
+
+<div class="loupe" id="loupe">
+  <div class="loupe-inner" id="loupeInner"></div>
+</div>
+
+<script>
+  const card = document.getElementById('card');
+  const loupe = document.getElementById('loupe');
+  const loupeInner = document.getElementById('loupeInner');
+  const logoBtn = document.getElementById('logoBtn');
+  const ZOOM = 2.4;
+
+  if (logoBtn) {
+    logoBtn.addEventListener('click', (e) => {
+      e.stopPropagation(); 
+      logoBtn.classList.toggle('led-off');
+    });
+  }
+
+  const starsWrap = document.getElementById('stars');
+  if (starsWrap) {
+    const starPositions = [
+      [12,18],[85,10],[90,55],[8,60],[78,75],[20,82],[55,8],[65,90],[35,30],[92,30]
+    ];
+    starPositions.forEach(([x,y])=>{
+      const s = document.createElement('span');
+      s.style.left = x+'%';
+      s.style.top = y+'%';
+      s.style.animationDelay = (Math.random()*2)+'s';
+      starsWrap.appendChild(s);
+    });
+  }
+
+  let clone = null;
+  let active = false;
+
+  function buildClone(){
+    if(!card) return;
+    clone = card.cloneNode(true);
+    clone.style.width = card.offsetWidth + 'px';
+    clone.style.height = card.offsetHeight + 'px';
+    clone.style.cursor = 'default';
+    clone.removeAttribute('id');
+    
+    const cloneBtn = clone.querySelector('#logoBtn');
+    if(cloneBtn) cloneBtn.removeAttribute('id');
+
+    loupeInner.innerHTML = '';
+    loupeInner.appendChild(clone);
+  }
+
+  function updateLoupe(clientX, clientY){
+    if(!card) return;
+    const rect = card.getBoundingClientRect();
+    const x = clientX - rect.left;
+    const y = clientY - rect.top;
+
+    loupe.style.left = clientX + 'px';
+    loupe.style.top = (clientY - 90) + 'px';
+
+    const loupeSize = loupe.offsetWidth;
+    loupeInner.style.width = rect.width + 'px';
+    loupeInner.style.height = rect.height + 'px';
+    loupeInner.style.transform =
+      `translate(${loupeSize/2 - x*ZOOM}px, ${loupeSize/2 - y*ZOOM}px) scale(${ZOOM})`;
+  }
+
+  function startLoupe(clientX, clientY){
+    buildClone();
+    active = true;
+    loupe.classList.add('active');
+    updateLoupe(clientX, clientY);
+  }
+
+  function moveLoupe(clientX, clientY){
+    if(!active) return;
+    updateLoupe(clientX, clientY);
+  }
+
+  function endLoupe(){
+    active = false;
+    loupe.classList.remove('active');
+  }
+
+  if (card) {
+    card.addEventListener('touchstart', (e)=>{
+      if(e.target.closest('#logoBtn') || e.target.closest('.handle')) return;
+      e.preventDefault();
+      const t = e.touches[0];
+      startLoupe(t.clientX, t.clientY);
+    }, {passive:false});
+
+    card.addEventListener('touchmove', (e)=>{
+      if(!active) return;
+      e.preventDefault();
+      const t = e.touches[0];
+      moveLoupe(t.clientX, t.clientY);
+    }, {passive:false});
+
+    card.addEventListener('touchend', endLoupe);
+    card.addEventListener('touchcancel', endLoupe);
+
+    let mouseDown = false;
+    card.addEventListener('mousedown', (e)=>{
+      if(e.target.closest('#logoBtn') || e.target.closest('.handle')) return;
+      mouseDown = true;
+      startLoupe(e.clientX, e.clientY);
+    });
+    
+    window.addEventListener('mousemove', (e)=>{
+      if(mouseDown) moveLoupe(e.clientX, e.clientY);
+    });
+    
+    window.addEventListener('mouseup', ()=>{
+      mouseDown = false;
+      endLoupe();
+    });
+    
+    card.addEventListener('mouseleave', ()=>{
+      if(mouseDown){ mouseDown = false; endLoupe(); }
+    });
+  }
+</script>
+<!-- TRADEGRAM ROZET KODLARI BİTİŞİ -->
