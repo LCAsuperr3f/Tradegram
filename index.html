@@ -1412,7 +1412,7 @@ E-posta: support@tradegram.app
   
 </body>
 </html>
-<!-- TRADEGRAM BÜTÜNLEŞİK LED VE ROZET SİSTEMİ (GÜNCEL FİX) -->
+<!-- TRADEGRAM LED KONTROL VE SADE KART SİSTEMİ -->
 <style>
   :root{
     --cyan: #4de8ff;
@@ -1420,18 +1420,26 @@ E-posta: support@tradegram.app
     --diamond-blue: #4fb2ff;
   }
 
-  /* Sitenin Etrafındaki LED / Şerit / Border Efektlerini Kapatma Kuralları */
+  /* Sitenin Etrafındaki Mavi-Sarı-Mor LED / Şerit / Çerçeve Efektlerini Gizleme Kuralı (Rozetimiz Hariç) */
   body.site-led-off::before,
   body.site-led-off::after,
   html.site-led-off::before,
-  html.site-led-off::after {
+  html.site-led-off::after,
+  body.site-led-off [class*="led"]:not(.stage *, .stage),
+  body.site-led-off [class*="border"]:not(.stage *, .stage),
+  body.site-led-off [class*="neon"]:not(.stage *, .stage),
+  body.site-led-off [class*="glow"]:not(.stage *, .stage),
+  body.site-led-off [class*="strip"]:not(.stage *, .stage),
+  body.site-led-off [id*="led"]:not(.stage *, .stage),
+  body.site-led-off [id*="border"]:not(.stage *, .stage) {
     display: none !important;
     opacity: 0 !important;
     animation: none !important;
     visibility: hidden !important;
+    box-shadow: none !important;
   }
 
-  /* Rozet İçindeki LED / Halka Kapandığında */
+  /* Rozet İçindeki Dönen LED Halka Kapandığında */
   .badge-icon-btn.led-off .ring { 
     opacity: 0 !important; 
     animation-play-state: paused !important; 
@@ -1498,7 +1506,7 @@ E-posta: support@tradegram.app
   .content{
     position: relative; z-index: 3; height:100%;
     display:flex; flex-direction: column; align-items:center; justify-content:center;
-    gap: 10px; padding: 20px;
+    gap: 14px; padding: 20px;
   }
 
   .badge-icon-btn{
@@ -1520,13 +1528,11 @@ E-posta: support@tradegram.app
   .badge-icon-btn svg{ position:relative; z-index:2; width: 50px; height: 50px; display: block !important; opacity: 1 !important; visibility: visible !important; }
 
   .handle{
-    display:flex; align-items:center; gap:6px; font-size: 20px; font-weight: 700;
+    display:flex; align-items:center; gap:6px; font-size: 22px; font-weight: 700;
     color:#f2f4f7; letter-spacing: 0.2px; text-decoration: none; cursor: pointer;
   }
   .handle:hover{ opacity: 0.85; }
-  .diamond{ width:16px; height:16px; display:inline-block; }
-  .tier{ font-size: 14px; font-weight: 600; color: var(--diamond-blue); letter-spacing: 0.3px; }
-  .app-name{ font-size: 12.5px; color: rgba(255,255,255,0.45); letter-spacing: 0.4px; margin-top: 2px; }
+  .diamond{ width:18px; height:18px; display:inline-block; }
   .hint{ margin-top: 22px; text-align:center; font-size: 12.5px; color: rgba(255,255,255,0.35); letter-spacing: 0.2px; }
 
   /* Büyüteç */
@@ -1575,9 +1581,6 @@ E-posta: support@tradegram.app
           <path d="M4 9h16M8.5 9L12 2l3.5 7M12 22L8.5 9M12 22l3.5-13" stroke="#bfe6ff" stroke-width="0.6" fill="none"/>
         </svg>
       </a>
-
-      <div class="tier">Elmas</div>
-      <div class="app-name">Tradegram App</div>
     </div>
   </div>
   <div class="hint">LED'i açıp kapatmak için logoya tıklayın<br>Büyüteç için karta basılı tutun</div>
