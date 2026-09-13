@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-
   <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96">
   <link rel="shortcut icon" href="/favicon.ico">
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
@@ -488,315 +487,6 @@ animate();
       </div>
       <div class="container">
         <div class="hero-content">
-
-            <!-- TRADEGRAM LED KONTROL VE SADE KART SİSTEMİ -->
-<style>
-  :root{
-    --cyan: #4de8ff;
-    --violet: #8b7cff;
-    --diamond-blue: #4fb2ff;
-  }
-
- /* Sitenin Etrafındaki LED / Çerçeve Efektlerini Gizleme Kuralı (Genişletilmiş Dil Desteği) */
-  body.site-led-off::before,
-  body.site-led-off::after,
-  html.site-led-off::before,
-  html.site-led-off::after,
-  body.site-led-off [class*="led"]:not(.stage *, .stage),
-  body.site-led-off [class*="border"]:not(.stage *, .stage),
-  body.site-led-off [class*="neon"]:not(.stage *, .stage),
-  body.site-led-off [class*="glow"]:not(.stage *, .stage),
-  body.site-led-off [class*="strip"]:not(.stage *, .stage),
-  body.site-led-off [class*="frame"]:not(.stage *, .stage),
-  body.site-led-off [class*="light"]:not(.stage *, .stage),
-  body.site-led-off [class*="cerceve"]:not(.stage *, .stage),
-  body.site-led-off [class*="isik"]:not(.stage *, .stage),
-  body.site-led-off [id*="led"]:not(.stage *, .stage),
-  body.site-led-off [id*="border"]:not(.stage *, .stage),
-  body.site-led-off [id*="frame"]:not(.stage *, .stage) {
-    display: none !important;
-    opacity: 0 !important;
-    animation: none !important;
-    visibility: hidden !important;
-    box-shadow: none !important;
-  }
-
-  /* Rozet İçindeki Dönen LED Halka Kapandığında */
-  .badge-icon-btn.led-off .ring { 
-    opacity: 0 !important; 
-    animation-play-state: paused !important; 
-  }
-
- /* Kart İçi Tasarım - Tradegram yazısının hemen üstü */
-  .stage{
-    position: relative;
-    width: 340px;
-    max-width: 92vw;
-    margin: 70px auto 20px auto; /* 70px değerini site tasarımınıza göre artırıp azaltabilirsiniz */
-  }
-
-  .card{
-    position:relative;
-    width:100%;
-    aspect-ratio: 4 / 2.55;
-    border-radius: 28px;
-    background:
-      radial-gradient(120% 140% at 10% 0%, rgba(255,255,255,0.10), rgba(255,255,255,0) 45%),
-      linear-gradient(155deg, #14181f 0%, #0a0c10 55%, #050608 100%);
-    overflow: hidden;
-    isolation: isolate;
-    box-shadow: 0 30px 60px -20px rgba(0,0,0,0.8), 0 0 0 1px rgba(255,255,255,0.03) inset;
-    cursor: pointer;
-    user-select: none;
-  }
-
-  .card::before{
-    content:"";
-    position:absolute;
-    inset:0;
-    border-radius: inherit;
-    padding: 1.5px;
-    background: linear-gradient(135deg, rgba(255,255,255,0.55) 0%, rgba(255,255,255,0.06) 22%, rgba(255,255,255,0.02) 50%, rgba(255,255,255,0.16) 78%, rgba(255,255,255,0.5) 100%);
-    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-    -webkit-mask-composite: xor;
-    mask-composite: exclude;
-    pointer-events:none;
-    z-index: 5;
-  }
-
-  .card::after{
-    content:"";
-    position:absolute;
-    top:-40%; left:-30%; width:60%; height:220%;
-    background: linear-gradient(115deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.05) 45%, rgba(255,255,255,0.12) 50%, rgba(255,255,255,0.05) 55%, rgba(255,255,255,0) 100%);
-    transform: rotate(8deg);
-    pointer-events:none;
-    z-index: 4;
-  }
-
-  .stars{ position:absolute; inset:0; z-index:1; pointer-events:none; }
-  .stars span{
-    position:absolute; width:3px; height:3px; border-radius:50%;
-    background: var(--cyan); box-shadow: 0 0 6px 1px var(--cyan);
-    opacity:0.85; animation: twinkle 2.6s ease-in-out infinite;
-  }
-  @keyframes twinkle{
-    0%,100%{ opacity:0.25; transform:scale(0.8); }
-    50%{ opacity:1; transform:scale(1.15); }
-  }
-
-  .content{
-    position: relative; z-index: 3; height:100%;
-    display:flex; flex-direction: column; align-items:center; justify-content:center;
-    gap: 14px; padding: 20px;
-  }
-
-  .badge-icon-btn{
-    position:relative; width: 84px; height: 84px; border-radius:50%;
-    background:#000; display:flex; align-items:center; justify-content:center;
-    border: none; outline: none; cursor: pointer; padding: 0; transition: transform 0.2s ease;
-    z-index: 10;
-  }
-  .badge-icon-btn:active { transform: scale(0.95); }
-
-  .badge-icon-btn .ring{
-    position:absolute; inset:-6px; border-radius:50%;
-    background: conic-gradient(from 200deg, var(--cyan), var(--violet) 35%, var(--cyan) 55%, transparent 75%, var(--cyan) 100%);
-    filter: blur(3px); opacity:0.9; animation: spin 6s linear infinite; transition: opacity 0.3s ease;
-  }
-
-  .badge-icon-btn .ring-mask{ position:absolute; inset:2px; border-radius:50%; background:#000; }
-  @keyframes spin{ to{ transform: rotate(360deg); } }
-  .badge-icon-btn svg{ position:relative; z-index:2; width: 50px; height: 50px; display: block !important; opacity: 1 !important; visibility: visible !important; }
-
-  .handle{
-    display:flex; align-items:center; gap:6px; font-size: 22px; font-weight: 700;
-    color:#f2f4f7; letter-spacing: 0.2px; text-decoration: none; cursor: pointer;
-  }
-  .handle:hover{ opacity: 0.85; }
-  .diamond{ width:18px; height:18px; display:inline-block; }
-  .hint{ margin-top: 22px; text-align:center; font-size: 12.5px; color: rgba(255,255,255,0.35); letter-spacing: 0.2px; }
-
-  /* Büyüteç */
-  .loupe{
-    position: absolute; width: 130px; height: 130px; border-radius: 50%;
-    pointer-events: none; z-index: 20; opacity: 0;
-    transform: translate(-50%, -50%) scale(0.6);
-    transition: opacity 0.16s ease, transform 0.16s cubic-bezier(.2,1.4,.4,1);
-    box-shadow: 0 0 0 1.5px rgba(255,255,255,0.55), 0 0 0 4px rgba(255,255,255,0.06), 0 18px 34px -8px rgba(0,0,0,0.65), inset 0 0 20px rgba(255,255,255,0.08);
-    overflow: hidden; background: #05060a;
-  }
-  .loupe.active{ opacity: 1; transform: translate(-50%, -50%) scale(1); }
-  .loupe::before{
-    content:""; position:absolute; inset:0; border-radius:50%;
-    background: radial-gradient(circle at 32% 28%, rgba(255,255,255,0.22), rgba(255,255,255,0) 45%);
-    z-index: 3; pointer-events:none;
-  }
-  .loupe::after{
-    content:""; position:absolute; inset:-1.5px; border-radius:50%; padding: 1.5px;
-    background: linear-gradient(135deg, rgba(255,255,255,0.9), rgba(255,255,255,0.1) 40%, rgba(255,255,255,0.05) 60%, rgba(255,255,255,0.7));
-    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-    -webkit-mask-composite: xor; mask-composite: exclude; z-index: 4; pointer-events:none;
-  }
-  .loupe-inner{ position:absolute; top:0; left:0; transform-origin: 0 0; z-index: 1; }
-</style>
-
-<!-- ROZET HTML YAPISI -->
-<div class="stage">
-  <div class="card" id="card">
-    <div class="stars" id="stars"></div>
-    <div class="content">
-      <button type="button" class="badge-icon-btn" id="logoBtn" title="LED Işığı Aç/Kapat">
-        <div class="ring"></div>
-        <div class="ring-mask"></div>
-        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-          <path d="M 30 20 A 32 32 0 1 0 70 20" fill="none" stroke="#f5c518" stroke-width="13" stroke-linecap="round"/>
-          <rect x="45" y="12" width="10" height="34" rx="2" fill="#34d97b"/>
-          <line x1="50" y1="6" x2="50" y2="52" stroke="#34d97b" stroke-width="3"/>
-        </svg>
-      </button>
-
-      <a href="https://tradegramapp.com/" target="_blank" class="handle">
-        Tradegram
-        <svg class="diamond" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <path d="M12 2L4 9l8 13 8-13-8-7z" fill="#4fb2ff"/>
-          <path d="M4 9h16M8.5 9L12 2l3.5 7M12 22L8.5 9M12 22l3.5-13" stroke="#bfe6ff" stroke-width="0.6" fill="none"/>
-        </svg>
-      </a>
-    </div>
-  </div>
-  <div class="hint">LED'i açıp kapatmak için logoya tıklayın<br>Büyüteç için karta basılı tutun</div>
-</div>
-
-<div class="loupe" id="loupe">
-  <div class="loupe-inner" id="loupeInner"></div>
-</div>
-
-<!-- JAVASCRIPT MANTIĞI -->
-<script>
-  const card = document.getElementById('card');
-  const loupe = document.getElementById('loupe');
-  const loupeInner = document.getElementById('loupeInner');
-  const logoBtn = document.getElementById('logoBtn');
-  const ZOOM = 2.4;
-
-  if (logoBtn) {
-    logoBtn.addEventListener('click', (e) => {
-      e.preventDefault();
-      e.stopPropagation(); 
-      logoBtn.classList.toggle('led-off');
-      document.body.classList.toggle('site-led-off');
-      document.documentElement.classList.toggle('site-led-off');
-    });
-  }
-
-  // Yıldızlar
-  const starsWrap = document.getElementById('stars');
-  if (starsWrap) {
-    const starPositions = [
-      [12,18],[85,10],[90,55],[8,60],[78,75],[20,82],[55,8],[65,90],[35,30],[92,30]
-    ];
-    starPositions.forEach(([x,y])=>{
-      const s = document.createElement('span');
-      s.style.left = x+'%';
-      s.style.top = y+'%';
-      s.style.animationDelay = (Math.random()*2)+'s';
-      starsWrap.appendChild(s);
-    });
-  }
-
-  // Büyüteç Mekanizması
-  let clone = null;
-  let active = false;
-
-  function buildClone(){
-    if(!card) return;
-    clone = card.cloneNode(true);
-    clone.style.width = card.offsetWidth + 'px';
-    clone.style.height = card.offsetHeight + 'px';
-    clone.style.cursor = 'default';
-    clone.removeAttribute('id');
-    
-    const cloneBtn = clone.querySelector('#logoBtn');
-    if(cloneBtn) cloneBtn.removeAttribute('id');
-
-    loupeInner.innerHTML = '';
-    loupeInner.appendChild(clone);
-  }
-
-  function updateLoupe(clientX, clientY){
-    if(!card) return;
-    const rect = card.getBoundingClientRect();
-    const x = clientX - rect.left;
-    const y = clientY - rect.top;
-
-    loupe.style.left = clientX + 'px';
-    loupe.style.top = (clientY - 90) + 'px';
-
-    const loupeSize = loupe.offsetWidth;
-    loupeInner.style.width = rect.width + 'px';
-    loupeInner.style.height = rect.height + 'px';
-    loupeInner.style.transform =
-      `translate(${loupeSize/2 - x*ZOOM}px, ${loupeSize/2 - y*ZOOM}px) scale(${ZOOM})`;
-  }
-
-  function startLoupe(clientX, clientY){
-    buildClone();
-    active = true;
-    loupe.classList.add('active');
-    updateLoupe(clientX, clientY);
-  }
-
-  function moveLoupe(clientX, clientY){
-    if(!active) return;
-    updateLoupe(clientX, clientY);
-  }
-
-  function endLoupe(){
-    active = false;
-    loupe.classList.remove('active');
-  }
-
-  if (card) {
-    card.addEventListener('touchstart', (e)=>{
-      if(e.target.closest('#logoBtn') || e.target.closest('.handle')) return;
-      e.preventDefault();
-      const t = e.touches[0];
-      startLoupe(t.clientX, t.clientY);
-    }, {passive:false});
-
-    card.addEventListener('touchmove', (e)=>{
-      if(!active) return;
-      e.preventDefault();
-      const t = e.touches[0];
-      moveLoupe(t.clientX, t.clientY);
-    }, {passive:false});
-
-    card.addEventListener('touchend', endLoupe);
-    card.addEventListener('touchcancel', endLoupe);
-
-    let mouseDown = false;
-    card.addEventListener('mousedown', (e)=>{
-      if(e.target.closest('#logoBtn') || e.target.closest('.handle')) return;
-      mouseDown = true;
-      startLoupe(e.clientX, e.clientY);
-    });
-    
-    window.addEventListener('mousemove', (e)=>{
-      if(mouseDown) moveLoupe(e.clientX, e.clientY);
-    });
-    
-    window.addEventListener('mouseup', ()=>{
-      mouseDown = false;
-      endLoupe();
-    });
-    
-    card.addEventListener('mouseleave', ()=>{
-      if(mouseDown){ mouseDown = false; endLoupe(); }
-    });
-  }
-</script>
-
           <h1> Tradegram</h1>
           <h2> اكبر منصه تواصل اجتماعي للمتداولين والمستثمرين في العالم  </h2>
     
@@ -1000,64 +690,7 @@ Google Maps (مشاركة الموقع)
       <div class="container">
         <div class="footer-content">
           <div class="footer-logo">
-            <h3>Tradegram</h3>
-            <p>تطبيق التواصل الاجتماعي للمتداولين Tradegram</p>
-          </div>
-          <div class="footer-links">
-            <h4>روابط سريعة</h4>
-            <ul>
-              <li><a href="#home">الرئيسية</a></li>
-              <li><a href="#courses">التطبيق</a></li>
-              <li><a href="#features">المميزات</a></li>
-              <li><a href="#faq">سياسة الخصوصية</a></li>
-            </ul>
-          </div>
-          <div class="footer-follow-us">
-            <h4>تواصل معنا</h4>
-            <div class="social-links">
-              <a href="https://www.instagram.com/tradegrammobil?igsh=MWRwb3RkOTlrdHN5dQ%3D%3D&utm_source=qr" class="social-link">
-                <i class="fab fa-instagram"></i> إنستقرام
-              </a>
-            </div>
-          </div>
-        </div>
-        <div class="footer-bottom">
-            <p>&copy; Tradegram </p>
-        </div>
-      </div>
-    </footer>
-  </div>
-
-  <!-- المحتوى باللغة الإنجليزية -->
-  <div id="content-en" style="display: none;">
-    <section class="hero" id="home">
-      <div class="hero-lines-bg">
-        <svg class="hero-lines-svg" viewBox="0 0 696 316" fill="none">
-          <path d="M-380 -189C-380 -189 -312 216 152 343C616 470 684 875 684 875" stroke="rgba(0, 255, 10, 0.65)" stroke-width="0.8" fill="none" style="stroke-dasharray:67 163;opacity:0.5;animation:hlp0 11s linear infinite;animation-delay:5s"></path>
-          <path d="M-370 -201C-370 -201 -302 204 142 331C606 458 674 863 674 863" stroke="rgba(0, 255, 10, 0.65)" stroke-width="0.84" fill="none" style="stroke-dasharray:101 209;opacity:0.54;animation:hlp2 9s linear infinite;animation-delay:3s"></path>
-          <path d="M-360 -213C-360 -213 -292 192 132 319C596 446 664 851 664 851" stroke="rgba(0, 255, 10, 0.65)" stroke-width="0.88" fill="none" style="stroke-dasharray:135 155;opacity:0.58;animation:hlp4 19s linear infinite;animation-delay:1s"></path>
-          <path d="M-350 -225C-350 -225 -282 180 122 307C586 434 654 839 654 839" stroke="rgba(0, 255, 10, 0.65)" stroke-width="0.92" fill="none" style="stroke-dasharray:89 201;opacity:0.62;animation:hlp6 17s linear infinite;animation-delay:9s"></path>
-          <path d="M-340 -237C-340 -237 -272 168 112 295C576 422 644 827 644 827" stroke="rgba(0, 255, 10, 0.65)" stroke-width="0.96" fill="none" style="stroke-dasharray:123 247;opacity:0.66;animation:hlp8 15s linear infinite;animation-delay:7s"></path>
-          <path d="M-330 -249C-330 -249 -262 156 102 283C566 410 634 815 634 815" stroke="rgba(0, 255, 10, 0.65)" stroke-width="1" fill="none" style="stroke-dasharray:77 193;opacity:0.7;animation:hlp10 13s linear infinite;animation-delay:5s"></path>
-          <path d="M-320 -261C-320 -261 -252 144 92 271C556 398 624 803 624 803" stroke="rgba(0, 255, 10, 0.65)" stroke-width="1.04" fill="none" style="stroke-dasharray:111 239;opacity:0.74;animation:hlp12 11s linear infinite;animation-delay:3s"></path>
-          <path d="M-310 -273C-310 -273 -242 132 82 259C546 386 614 791 614 791" stroke="rgba(0, 255, 10, 0.65)" stroke-width="1.08" fill="none" style="stroke-dasharray:65 185;opacity:0.78;animation:hlp14 9s linear infinite;animation-delay:1s"></path>
-        </svg>
-        <svg class="hero-lines-svg" viewBox="0 0 696 316" fill="none">
-          <path d="M1076 -189C1076 -189 1008 216 544 343C80 470 12 875 12 875" stroke="rgba(0, 255, 10, 0.65)" stroke-width="0.8" fill="none" style="stroke-dasharray:71 157;opacity:0.5;animation:hln0 13s linear infinite;animation-delay:3s"></path>
-          <path d="M1086 -201C1086 -201 1018 204 534 331C70 458 2 863 2 863" stroke="rgba(0, 255, 10, 0.65)" stroke-width="0.84" fill="none" style="stroke-dasharray:97 215;opacity:0.54;animation:hln2 15s linear infinite;animation-delay:5s"></path>
-          <path d="M1096 -213C1096 -213 1028 192 524 319C60 446 -8 851 -8 851" stroke="rgba(0, 255, 10, 0.65)" stroke-width="0.88" fill="none" style="stroke-dasharray:123 173;opacity:0.58;animation:hln4 17s linear infinite;animation-delay:7s"></path>
-          <path d="M1106 -225C1106 -225 1038 180 514 307C50 434 -18 839 -18 839" stroke="rgba(0, 255, 10, 0.65)" stroke-width="0.92" fill="none" style="stroke-dasharray:69 231;opacity:0.62;animation:hln6 19s linear infinite;animation-delay:9s"></path>
-          <path d="M1116 -237C1116 -237 1048 168 504 295C40 422 -28 827 -28 827" stroke="rgba(0, 255, 10, 0.65)" stroke-width="0.96" fill="none" style="stroke-dasharray:95 189;opacity:0.66;animation:hln8 9s linear infinite;animation-delay:1s"></path>
-          <path d="M1126 -249C1126 -249 1058 156 494 283C30 410 -38 815 -38 815" stroke="rgba(0, 255, 10, 0.65)" stroke-width="1" fill="none" style="stroke-dasharray:121 247;opacity:0.7;animation:hln10 11s linear infinite;animation-delay:3s"></path>
-          <path d="M1136 -261C1136 -261 1068 144 484 271C20 398 -48 803 -48 803" stroke="rgba(0, 255, 10, 0.65)" stroke-width="1.04" fill="none" style="stroke-dasharray:67 205;opacity:0.74;animation:hln12 13s linear infinite;animation-delay:5s"></path>
-          <path d="M1146 -273C1146 -273 1078 132 474 259C10 386 -58 791 -58 791" stroke="rgba(0, 255, 10, 0.65)" stroke-width="1.08" fill="none" style="stroke-dasharray:93 163;opacity:0.78;animation:hln14 15s linear infinite;animation-delay:7s"></path>
-        </svg>
-        <div class="hero-glow hero-glow-1"></div>
-        <div class="hero-glow hero-glow-2"></div>
-      </div>
-      <div class="container">
-        <div class="hero-content">
-<!-- TRADEGRAM ROZET VE LED KONTROL SİSTEMİ (İNGİLİZCE SAYFA İÇİN) -->
+            <!-- TRADEGRAM LED KONTROL VE SADE KART SİSTEMİ -->
 <style>
   :root{
     --cyan: #4de8ff;
@@ -1065,17 +698,23 @@ Google Maps (مشاركة الموقع)
     --diamond-blue: #4fb2ff;
   }
 
-  /* İngilizce Sayfadaki LED / Çizgi / Parlama Efektlerini Kapatma Kuralı */
-  body.site-led-off .hero-lines-bg,
-  body.site-led-off .hero-glow,
-  html.site-led-off .hero-lines-bg,
-  html.site-led-off .hero-glow,
-  body.site-led-off [class*="hero-lines"],
-  body.site-led-off [class*="hero-glow"] {
+  /* Sitenin Etrafındaki Mavi-Sarı-Mor LED / Şerit / Çerçeve Efektlerini Gizleme Kuralı (Rozetimiz Hariç) */
+  body.site-led-off::before,
+  body.site-led-off::after,
+  html.site-led-off::before,
+  html.site-led-off::after,
+  body.site-led-off [class*="led"]:not(.stage *, .stage),
+  body.site-led-off [class*="border"]:not(.stage *, .stage),
+  body.site-led-off [class*="neon"]:not(.stage *, .stage),
+  body.site-led-off [class*="glow"]:not(.stage *, .stage),
+  body.site-led-off [class*="strip"]:not(.stage *, .stage),
+  body.site-led-off [id*="led"]:not(.stage *, .stage),
+  body.site-led-off [id*="border"]:not(.stage *, .stage) {
     display: none !important;
     opacity: 0 !important;
     animation: none !important;
     visibility: hidden !important;
+    box-shadow: none !important;
   }
 
   /* Rozet İçindeki Dönen LED Halka Kapandığında */
@@ -1084,11 +723,10 @@ Google Maps (مشاركة الموقع)
     animation-play-state: paused !important; 
   }
 
-  /* Rozet Tasarım ve Akış Yerleşimi */
+  /* Kart İçi Tasarım */
   .stage{
-    display: inline-block;
-    vertical-align: middle;
-    width: 340px;
+    position:relative;
+    width:340px;
     max-width: 92vw;
     margin: 20px auto;
   }
@@ -1173,7 +811,7 @@ Google Maps (مشاركة الموقع)
   }
   .handle:hover{ opacity: 0.85; }
   .diamond{ width:18px; height:18px; display:inline-block; }
-  .hint{ margin-top: 15px; text-align:center; font-size: 12px; color: rgba(255,255,255,0.4); letter-spacing: 0.2px; }
+  .hint{ margin-top: 22px; text-align:center; font-size: 12.5px; color: rgba(255,255,255,0.35); letter-spacing: 0.2px; }
 
   /* Büyüteç */
   .loupe{
@@ -1199,132 +837,218 @@ Google Maps (مشاركة الموقع)
   .loupe-inner{ position:absolute; top:0; left:0; transform-origin: 0 0; z-index: 1; }
 </style>
 
-<!-- İNGİLİZCE SAYFA İÇİN HTML YERLEŞİMİ (Başlığın Altı) -->
-<!-- <div id="content-en" style="..."> içindeki hero-content kısmına bunu ekleyebilirsiniz: -->
-<div class="hero-content">
-  <h1> Tradegram</h1>
-  
-  <!-- BURAYA YERLEŞTİRİYORUZ -->
-  <div class="stage">
-    <div class="card" id="cardEn">
-      <div class="stars" id="starsEn"></div>
-      <div class="content">
-        <button type="button" class="badge-icon-btn" id="logoBtnEn" title="Toggle LED">
-          <div class="ring"></div>
-          <div class="ring-mask"></div>
-          <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-            <path d="M 30 20 A 32 32 0 1 0 70 20" fill="none" stroke="#f5c518" stroke-width="13" stroke-linecap="round"/>
-            <rect x="45" y="12" width="10" height="34" rx="2" fill="#34d97b"/>
-            <line x1="50" y1="6" x2="50" y2="52" stroke="#34d97b" stroke-width="3"/>
-          </svg>
-        </button>
+<!-- ROZET HTML YAPISI -->
+<div class="stage">
+  <div class="card" id="card">
+    <div class="stars" id="stars"></div>
+    <div class="content">
+      <button type="button" class="badge-icon-btn" id="logoBtn" title="LED Işığı Aç/Kapat">
+        <div class="ring"></div>
+        <div class="ring-mask"></div>
+        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+          <path d="M 30 20 A 32 32 0 1 0 70 20" fill="none" stroke="#f5c518" stroke-width="13" stroke-linecap="round"/>
+          <rect x="45" y="12" width="10" height="34" rx="2" fill="#34d97b"/>
+          <line x1="50" y1="6" x2="50" y2="52" stroke="#34d97b" stroke-width="3"/>
+        </svg>
+      </button>
 
-        <a href="https://tradegramapp.com/" target="_blank" class="handle">
-          @tradegram
-          <svg class="diamond" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path d="M12 2L4 9l8 13 8-13-8-7z" fill="#4fb2ff"/>
-            <path d="M4 9h16M8.5 9L12 2l3.5 7M12 22L8.5 9M12 22l3.5-13" stroke="#bfe6ff" stroke-width="0.6" fill="none"/>
-          </svg>
-        </a>
-      </div>
+      <a href="https://tradegramapp.com/" target="_blank" class="handle">
+       Tradegram
+        <svg class="diamond" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 2L4 9l8 13 8-13-8-7z" fill="#4fb2ff"/>
+          <path d="M4 9h16M8.5 9L12 2l3.5 7M12 22L8.5 9M12 22l3.5-13" stroke="#bfe6ff" stroke-width="0.6" fill="none"/>
+        </svg>
+      </a>
     </div>
   </div>
-
-  <h2></h2>
+  <div class="hint">LED'i açıp kapatmak için logoya tıklayın<br>Büyüteç için karta basılı tutun</div>
 </div>
 
-<div class="loupe" id="loupeEn">
-  <div class="loupe-inner" id="loupeInnerEn"></div>
+<div class="loupe" id="loupe">
+  <div class="loupe-inner" id="loupeInner"></div>
 </div>
 
 <!-- JAVASCRIPT MANTIĞI -->
 <script>
-  const cardEn = document.getElementById('cardEn');
-  const loupeEn = document.getElementById('loupeEn');
-  const loupeInnerEn = document.getElementById('loupeInnerEn');
-  const logoBtnEn = document.getElementById('logoBtnEn');
+  const card = document.getElementById('card');
+  const loupe = document.getElementById('loupe');
+  const loupeInner = document.getElementById('loupeInner');
+  const logoBtn = document.getElementById('logoBtn');
   const ZOOM = 2.4;
 
-  if (logoBtnEn) {
-    logoBtnEn.addEventListener('click', (e) => {
+  if (logoBtn) {
+    logoBtn.addEventListener('click', (e) => {
       e.preventDefault();
       e.stopPropagation(); 
-      logoBtnEn.classList.toggle('led-off');
+      logoBtn.classList.toggle('led-off');
       document.body.classList.toggle('site-led-off');
       document.documentElement.classList.toggle('site-led-off');
     });
   }
 
   // Yıldızlar
-  const starsWrapEn = document.getElementById('starsEn');
-  if (starsWrapEn) {
-    const starPositions = [[12,18],[85,10],[90,55],[8,60],[78,75],[20,82],[55,8],[65,90],[35,30],[92,30]];
+  const starsWrap = document.getElementById('stars');
+  if (starsWrap) {
+    const starPositions = [
+      [12,18],[85,10],[90,55],[8,60],[78,75],[20,82],[55,8],[65,90],[35,30],[92,30]
+    ];
     starPositions.forEach(([x,y])=>{
       const s = document.createElement('span');
-      s.style.left = x+'%'; s.style.top = y+'%';
+      s.style.left = x+'%';
+      s.style.top = y+'%';
       s.style.animationDelay = (Math.random()*2)+'s';
-      starsWrapEn.appendChild(s);
+      starsWrap.appendChild(s);
     });
   }
 
   // Büyüteç Mekanizması
-  let cloneEn = null;
-  let activeEn = false;
+  let clone = null;
+  let active = false;
 
-  function buildCloneEn(){
-    if(!cardEn) return;
-    cloneEn = cardEn.cloneNode(true);
-    cloneEn.style.width = cardEn.offsetWidth + 'px';
-    cloneEn.style.height = cardEn.offsetHeight + 'px';
-    cloneEn.style.cursor = 'default';
-    cloneEn.removeAttribute('id');
-    const cb = cloneEn.querySelector('#logoBtnEn');
-    if(cb) cb.removeAttribute('id');
-    loupeInnerEn.innerHTML = '';
-    loupeInnerEn.appendChild(cloneEn);
+  function buildClone(){
+    if(!card) return;
+    clone = card.cloneNode(true);
+    clone.style.width = card.offsetWidth + 'px';
+    clone.style.height = card.offsetHeight + 'px';
+    clone.style.cursor = 'default';
+    clone.removeAttribute('id');
+    
+    const cloneBtn = clone.querySelector('#logoBtn');
+    if(cloneBtn) cloneBtn.removeAttribute('id');
+
+    loupeInner.innerHTML = '';
+    loupeInner.appendChild(clone);
   }
 
-  function updateLoupeEn(clientX, clientY){
-    if(!cardEn) return;
-    const rect = cardEn.getBoundingClientRect();
+  function updateLoupe(clientX, clientY){
+    if(!card) return;
+    const rect = card.getBoundingClientRect();
     const x = clientX - rect.left;
     const y = clientY - rect.top;
-    loupeEn.style.left = clientX + 'px';
-    loupeEn.style.top = (clientY - 90) + 'px';
-    const loupeSize = loupeEn.offsetWidth;
-    loupeInnerEn.style.width = rect.width + 'px';
-    loupeInnerEn.style.height = rect.height + 'px';
-    loupeInnerEn.style.transform = `translate(${loupeSize/2 - x*ZOOM}px, ${loupeSize/2 - y*ZOOM}px) scale(${ZOOM})`;
+
+    loupe.style.left = clientX + 'px';
+    loupe.style.top = (clientY - 90) + 'px';
+
+    const loupeSize = loupe.offsetWidth;
+    loupeInner.style.width = rect.width + 'px';
+    loupeInner.style.height = rect.height + 'px';
+    loupeInner.style.transform =
+      `translate(${loupeSize/2 - x*ZOOM}px, ${loupeSize/2 - y*ZOOM}px) scale(${ZOOM})`;
   }
 
-  if (cardEn) {
-    cardEn.addEventListener('touchstart', (e)=>{
-      if(e.target.closest('#logoBtnEn') || e.target.closest('.handle')) return;
+  function startLoupe(clientX, clientY){
+    buildClone();
+    active = true;
+    loupe.classList.add('active');
+    updateLoupe(clientX, clientY);
+  }
+
+  function moveLoupe(clientX, clientY){
+    if(!active) return;
+    updateLoupe(clientX, clientY);
+  }
+
+  function endLoupe(){
+    active = false;
+    loupe.classList.remove('active');
+  }
+
+  if (card) {
+    card.addEventListener('touchstart', (e)=>{
+      if(e.target.closest('#logoBtn') || e.target.closest('.handle')) return;
       e.preventDefault();
       const t = e.touches[0];
-      buildCloneEn(); activeEn = true; loupeEn.classList.add('active'); updateLoupeEn(t.clientX, t.clientY);
+      startLoupe(t.clientX, t.clientY);
     }, {passive:false});
 
-    cardEn.addEventListener('touchmove', (e)=>{
-      if(!activeEn) return;
+    card.addEventListener('touchmove', (e)=>{
+      if(!active) return;
       e.preventDefault();
       const t = e.touches[0];
-      updateLoupeEn(t.clientX, t.clientY);
+      moveLoupe(t.clientX, t.clientY);
     }, {passive:false});
 
-    cardEn.addEventListener('touchend', ()=>{ activeEn = false; loupeEn.classList.remove('active'); });
-    cardEn.addEventListener('touchcancel', ()=>{ activeEn = false; loupeEn.classList.remove('active'); });
+    card.addEventListener('touchend', endLoupe);
+    card.addEventListener('touchcancel', endLoupe);
 
-    let md = false;
-    cardEn.addEventListener('mousedown', (e)=>{
-      if(e.target.closest('#logoBtnEn') || e.target.closest('.handle')) return;
-      md = true; buildCloneEn(); activeEn = true; loupeEn.classList.add('active'); updateLoupeEn(e.clientX, e.clientY);
+    let mouseDown = false;
+    card.addEventListener('mousedown', (e)=>{
+      if(e.target.closest('#logoBtn') || e.target.closest('.handle')) return;
+      mouseDown = true;
+      startLoupe(e.clientX, e.clientY);
     });
-    window.addEventListener('mousemove', (e)=>{ if(md) updateLoupeEn(e.clientX, e.clientY); });
-    window.addEventListener('mouseup', ()=>{ md = false; activeEn = false; loupeEn.classList.remove('active'); });
-    cardEn.addEventListener('mouseleave', ()=>{ if(md){ md = false; activeEn = false; loupeEn.classList.remove('active'); } });
+    
+    window.addEventListener('mousemove', (e)=>{
+      if(mouseDown) moveLoupe(e.clientX, e.clientY);
+    });
+    
+    window.addEventListener('mouseup', ()=>{
+      mouseDown = false;
+      endLoupe();
+    });
+    
+    card.addEventListener('mouseleave', ()=>{
+      if(mouseDown){ mouseDown = false; endLoupe(); }
+    });
   }
 </script>
+            <h3>Tradegram</h3>
+            <p>تطبيق التواصل الاجتماعي للمتداولين Tradegram</p>
+          </div>
+          <div class="footer-links">
+            <h4>روابط سريعة</h4>
+            <ul>
+              <li><a href="#home">الرئيسية</a></li>
+              <li><a href="#courses">التطبيق</a></li>
+              <li><a href="#features">المميزات</a></li>
+              <li><a href="#faq">سياسة الخصوصية</a></li>
+            </ul>
+          </div>
+          <div class="footer-follow-us">
+            <h4>تواصل معنا</h4>
+            <div class="social-links">
+              <a href="https://www.instagram.com/tradegrammobil?igsh=MWRwb3RkOTlrdHN5dQ%3D%3D&utm_source=qr" class="social-link">
+                <i class="fab fa-instagram"></i> إنستقرام
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; Tradegram </p>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <!-- المحتوى باللغة الإنجليزية -->
+  <div id="content-en" style="display: none;">
+    <section class="hero" id="home">
+      <div class="hero-lines-bg">
+        <svg class="hero-lines-svg" viewBox="0 0 696 316" fill="none">
+          <path d="M-380 -189C-380 -189 -312 216 152 343C616 470 684 875 684 875" stroke="rgba(0, 255, 10, 0.65)" stroke-width="0.8" fill="none" style="stroke-dasharray:67 163;opacity:0.5;animation:hlp0 11s linear infinite;animation-delay:5s"></path>
+          <path d="M-370 -201C-370 -201 -302 204 142 331C606 458 674 863 674 863" stroke="rgba(0, 255, 10, 0.65)" stroke-width="0.84" fill="none" style="stroke-dasharray:101 209;opacity:0.54;animation:hlp2 9s linear infinite;animation-delay:3s"></path>
+          <path d="M-360 -213C-360 -213 -292 192 132 319C596 446 664 851 664 851" stroke="rgba(0, 255, 10, 0.65)" stroke-width="0.88" fill="none" style="stroke-dasharray:135 155;opacity:0.58;animation:hlp4 19s linear infinite;animation-delay:1s"></path>
+          <path d="M-350 -225C-350 -225 -282 180 122 307C586 434 654 839 654 839" stroke="rgba(0, 255, 10, 0.65)" stroke-width="0.92" fill="none" style="stroke-dasharray:89 201;opacity:0.62;animation:hlp6 17s linear infinite;animation-delay:9s"></path>
+          <path d="M-340 -237C-340 -237 -272 168 112 295C576 422 644 827 644 827" stroke="rgba(0, 255, 10, 0.65)" stroke-width="0.96" fill="none" style="stroke-dasharray:123 247;opacity:0.66;animation:hlp8 15s linear infinite;animation-delay:7s"></path>
+          <path d="M-330 -249C-330 -249 -262 156 102 283C566 410 634 815 634 815" stroke="rgba(0, 255, 10, 0.65)" stroke-width="1" fill="none" style="stroke-dasharray:77 193;opacity:0.7;animation:hlp10 13s linear infinite;animation-delay:5s"></path>
+          <path d="M-320 -261C-320 -261 -252 144 92 271C556 398 624 803 624 803" stroke="rgba(0, 255, 10, 0.65)" stroke-width="1.04" fill="none" style="stroke-dasharray:111 239;opacity:0.74;animation:hlp12 11s linear infinite;animation-delay:3s"></path>
+          <path d="M-310 -273C-310 -273 -242 132 82 259C546 386 614 791 614 791" stroke="rgba(0, 255, 10, 0.65)" stroke-width="1.08" fill="none" style="stroke-dasharray:65 185;opacity:0.78;animation:hlp14 9s linear infinite;animation-delay:1s"></path>
+        </svg>
+        <svg class="hero-lines-svg" viewBox="0 0 696 316" fill="none">
+          <path d="M1076 -189C1076 -189 1008 216 544 343C80 470 12 875 12 875" stroke="rgba(0, 255, 10, 0.65)" stroke-width="0.8" fill="none" style="stroke-dasharray:71 157;opacity:0.5;animation:hln0 13s linear infinite;animation-delay:3s"></path>
+          <path d="M1086 -201C1086 -201 1018 204 534 331C70 458 2 863 2 863" stroke="rgba(0, 255, 10, 0.65)" stroke-width="0.84" fill="none" style="stroke-dasharray:97 215;opacity:0.54;animation:hln2 15s linear infinite;animation-delay:5s"></path>
+          <path d="M1096 -213C1096 -213 1028 192 524 319C60 446 -8 851 -8 851" stroke="rgba(0, 255, 10, 0.65)" stroke-width="0.88" fill="none" style="stroke-dasharray:123 173;opacity:0.58;animation:hln4 17s linear infinite;animation-delay:7s"></path>
+          <path d="M1106 -225C1106 -225 1038 180 514 307C50 434 -18 839 -18 839" stroke="rgba(0, 255, 10, 0.65)" stroke-width="0.92" fill="none" style="stroke-dasharray:69 231;opacity:0.62;animation:hln6 19s linear infinite;animation-delay:9s"></path>
+          <path d="M1116 -237C1116 -237 1048 168 504 295C40 422 -28 827 -28 827" stroke="rgba(0, 255, 10, 0.65)" stroke-width="0.96" fill="none" style="stroke-dasharray:95 189;opacity:0.66;animation:hln8 9s linear infinite;animation-delay:1s"></path>
+          <path d="M1126 -249C1126 -249 1058 156 494 283C30 410 -38 815 -38 815" stroke="rgba(0, 255, 10, 0.65)" stroke-width="1" fill="none" style="stroke-dasharray:121 247;opacity:0.7;animation:hln10 11s linear infinite;animation-delay:3s"></path>
+          <path d="M1136 -261C1136 -261 1068 144 484 271C20 398 -48 803 -48 803" stroke="rgba(0, 255, 10, 0.65)" stroke-width="1.04" fill="none" style="stroke-dasharray:67 205;opacity:0.74;animation:hln12 13s linear infinite;animation-delay:5s"></path>
+          <path d="M1146 -273C1146 -273 1078 132 474 259C10 386 -58 791 -58 791" stroke="rgba(0, 255, 10, 0.65)" stroke-width="1.08" fill="none" style="stroke-dasharray:93 163;opacity:0.78;animation:hln14 15s linear infinite;animation-delay:7s"></path>
+        </svg>
+        <div class="hero-glow hero-glow-1"></div>
+        <div class="hero-glow hero-glow-2"></div>
+      </div>
+      <div class="container">
+        <div class="hero-content">
           <h1> Tradegram</h1>
           <h2>The world's largest social network for traders and investors</h2>
         </div>
@@ -1584,270 +1308,6 @@ Email: support@tradegram.app
       </div>
       <div class="container">
         <div class="hero-content">
-<!-- TRADEGRAM ROZET VE LED KONTROL SİSTEMİ (TÜRKÇE SAYFA İÇİN) -->
-<style>
-  :root{
-    --cyan: #4de8ff;
-    --violet: #8b7cff;
-    --diamond-blue: #4fb2ff;
-  }
-
-  /* Türkçe Sayfadaki LED / Çizgi / Parlama Efektlerini Kapatma Kuralı */
-  body.site-led-off-tr .hero-lines-bg,
-  body.site-led-off-tr .hero-glow,
-  html.site-led-off-tr .hero-lines-bg,
-  html.site-led-off-tr .hero-glow,
-  body.site-led-off-tr [class*="hero-lines"],
-  body.site-led-off-tr [class*="hero-glow"] {
-    display: none !important;
-    opacity: 0 !important;
-    animation: none !important;
-    visibility: hidden !important;
-  }
-
-  .badge-icon-btn-tr.led-off-tr .ring-tr { 
-    opacity: 0 !important; 
-    animation-play-state: paused !important; 
-  }
-
-  .stage-tr{
-    display: inline-block;
-    vertical-align: middle;
-    width: 340px;
-    max-width: 92vw;
-    margin: 20px auto;
-  }
-
-  .card-tr{
-    position:relative;
-    width:100%;
-    aspect-ratio: 4 / 2.55;
-    border-radius: 28px;
-    background:
-      radial-gradient(120% 140% at 10% 0%, rgba(255,255,255,0.10), rgba(255,255,255,0) 45%),
-      linear-gradient(155deg, #14181f 0%, #0a0c10 55%, #050608 100%);
-    overflow: hidden;
-    isolation: isolate;
-    box-shadow: 0 30px 60px -20px rgba(0,0,0,0.8), 0 0 0 1px rgba(255,255,255,0.03) inset;
-    cursor: pointer;
-    user-select: none;
-  }
-
-  .card-tr::before{
-    content:"";
-    position:absolute;
-    inset:0;
-    border-radius: inherit;
-    padding: 1.5px;
-    background: linear-gradient(135deg, rgba(255,255,255,0.55) 0%, rgba(255,255,255,0.06) 22%, rgba(255,255,255,0.02) 50%, rgba(255,255,255,0.16) 78%, rgba(255,255,255,0.5) 100%);
-    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-    -webkit-mask-composite: xor;
-    mask-composite: exclude;
-    pointer-events:none;
-    z-index: 5;
-  }
-
-  .card-tr::after{
-    content:"";
-    position:absolute;
-    top:-40%; left:-30%; width:60%; height:220%;
-    background: linear-gradient(115deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.05) 45%, rgba(255,255,255,0.12) 50%, rgba(255,255,255,0.05) 55%, rgba(255,255,255,0) 100%);
-    transform: rotate(8deg);
-    pointer-events:none;
-    z-index: 4;
-  }
-
-  .stars-tr{ position:absolute; inset:0; z-index:1; pointer-events:none; }
-  .stars-tr span{
-    position:absolute; width:3px; height:3px; border-radius:50%;
-    background: var(--cyan); box-shadow: 0 0 6px 1px var(--cyan);
-    opacity:0.85; animation: twinkleTr 2.6s ease-in-out infinite;
-  }
-  @keyframes twinkleTr{
-    0%,100%{ opacity:0.25; transform:scale(0.8); }
-    50%{ opacity:1; transform:scale(1.15); }
-  }
-
-  .content-tr{
-    position: relative; z-index: 3; height:100%;
-    display:flex; flex-direction: column; align-items:center; justify-content:center;
-    gap: 14px; padding: 20px;
-  }
-
-  .badge-icon-btn-tr{
-    position:relative; width: 84px; height: 84px; border-radius:50%;
-    background:#000; display:flex; align-items:center; justify-content:center;
-    border: none; outline: none; cursor: pointer; padding: 0; transition: transform 0.2s ease;
-    z-index: 10;
-  }
-  .badge-icon-btn-tr:active { transform: scale(0.95); }
-
-  .badge-icon-btn-tr .ring-tr{
-    position:absolute; inset:-6px; border-radius:50%;
-    background: conic-gradient(from 200deg, var(--cyan), var(--violet) 35%, var(--cyan) 55%, transparent 75%, var(--cyan) 100%);
-    filter: blur(3px); opacity:0.9; animation: spinTr 6s linear infinite; transition: opacity 0.3s ease;
-  }
-
-  .badge-icon-btn-tr .ring-mask-tr{ position:absolute; inset:2px; border-radius:50%; background:#000; }
-  @keyframes spinTr{ to{ transform: rotate(360deg); } }
-  .badge-icon-btn-tr svg{ position:relative; z-index:2; width: 50px; height: 50px; display: block !important; opacity: 1 !important; visibility: visible !important; }
-
-  .handle-tr{
-    display:flex; align-items:center; gap:6px; font-size: 22px; font-weight: 700;
-    color:#f2f4f7; letter-spacing: 0.2px; text-decoration: none; cursor: pointer;
-  }
-  .handle-tr:hover{ opacity: 0.85; }
-  .diamond-tr{ width:18px; height:18px; display:inline-block; }
-
-  /* Büyüteç (Türkçe) */
-  .loupe-tr{
-    position: absolute; width: 130px; height: 130px; border-radius: 50%;
-    pointer-events: none; z-index: 20; opacity: 0;
-    transform: translate(-50%, -50%) scale(0.6);
-    transition: opacity 0.16s ease, transform 0.16s cubic-bezier(.2,1.4,.4,1);
-    box-shadow: 0 0 0 1.5px rgba(255,255,255,0.55), 0 0 0 4px rgba(255,255,255,0.06), 0 18px 34px -8px rgba(0,0,0,0.65), inset 0 0 20px rgba(255,255,255,0.08);
-    overflow: hidden; background: #05060a;
-  }
-  .loupe-tr.active{ opacity: 1; transform: translate(-50%, -50%) scale(1); }
-  .loupe-tr::before{
-    content:""; position:absolute; inset:0; border-radius:50%;
-    background: radial-gradient(circle at 32% 28%, rgba(255,255,255,0.22), rgba(255,255,255,0) 45%);
-    z-index: 3; pointer-events:none;
-  }
-  .loupe-tr::after{
-    content:""; position:absolute; inset:-1.5px; border-radius:50%; padding: 1.5px;
-    background: linear-gradient(135deg, rgba(255,255,255,0.9), rgba(255,255,255,0.1) 40%, rgba(255,255,255,0.05) 60%, rgba(255,255,255,0.7));
-    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-    -webkit-mask-composite: xor; mask-composite: exclude; z-index: 4; pointer-events:none;
-  }
-  .loupe-inner-tr{ position:absolute; top:0; left:0; transform-origin: 0 0; z-index: 1; }
-</style>
-
-<!-- TÜRKÇE SAYFA İÇİN HTML YERLEŞİMİ (Başlığın Altı) -->
-<div class="hero-content">
-  <h1>Tradegram</h1>
-  
-  <!-- BURAYA YERLEŞTİRİYORUZ -->
-  <div class="stage-tr">
-    <div class="card-tr" id="cardTr">
-      <div class="stars-tr" id="starsTr"></div>
-      <div class="content-tr">
-        <button type="button" class="badge-icon-btn-tr" id="logoBtnTr" title="LED'i Aç/Kapat">
-          <div class="ring-tr"></div>
-          <div class="ring-mask-tr"></div>
-          <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-            <path d="M 30 20 A 32 32 0 1 0 70 20" fill="none" stroke="#f5c518" stroke-width="13" stroke-linecap="round"/>
-            <rect x="45" y="12" width="10" height="34" rx="2" fill="#34d97b"/>
-            <line x1="50" y1="6" x2="50" y2="52" stroke="#34d97b" stroke-width="3"/>
-          </svg>
-        </button>
-
-        <a href="https://tradegramapp.com/" target="_blank" class="handle-tr">
-          @tradegram
-          <svg class="diamond-tr" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path d="M12 2L4 9l8 13 8-13-8-7z" fill="#4fb2ff"/>
-            <path d="M4 9h16M8.5 9L12 2l3.5 7M12 22L8.5 9M12 22l3.5-13" stroke="#bfe6ff" stroke-width="0.6" fill="none"/>
-          </svg>
-        </a>
-      </div>
-    </div>
-  </div>
-
-  <h2>Dünyanın en büyük trader ve yatırımcı sosyal ağı</h2>
-</div>
-
-<div class="loupe-tr" id="loupeTr">
-  <div class="loupe-inner-tr" id="loupeInnerTr"></div>
-</div>
-
-<!-- JAVASCRIPT MANTIĞI (TÜRKÇE) -->
-<script>
-  const cardTr = document.getElementById('cardTr');
-  const loupeTr = document.getElementById('loupeTr');
-  const loupeInnerTr = document.getElementById('loupeInnerTr');
-  const logoBtnTr = document.getElementById('logoBtnTr');
-  const ZOOM_TR = 2.4;
-
-  if (logoBtnTr) {
-    logoBtnTr.addEventListener('click', (e) => {
-      e.preventDefault();
-      e.stopPropagation(); 
-      logoBtnTr.classList.toggle('led-off-tr');
-      document.body.classList.toggle('site-led-off-tr');
-      document.documentElement.classList.toggle('site-led-off-tr');
-    });
-  }
-
-  // Yıldızlar
-  const starsWrapTr = document.getElementById('starsTr');
-  if (starsWrapTr) {
-    const starPositionsTr = [[12,18],[85,10],[90,55],[8,60],[78,75],[20,82],[55,8],[65,90],[35,30],[92,30]];
-    starPositionsTr.forEach(([x,y])=>{
-      const s = document.createElement('span');
-      s.style.left = x+'%'; s.style.top = y+'%';
-      s.style.animationDelay = (Math.random()*2)+'s';
-      starsWrapTr.appendChild(s);
-    });
-  }
-
-  // Büyüteç Mekanizması
-  let cloneTr = null;
-  let activeTr = false;
-
-  function buildCloneTr(){
-    if(!cardTr) return;
-    cloneTr = cardTr.cloneNode(true);
-    cloneTr.style.width = cardTr.offsetWidth + 'px';
-    cloneTr.style.height = cardTr.offsetHeight + 'px';
-    cloneTr.style.cursor = 'default';
-    cloneTr.removeAttribute('id');
-    const cb = cloneTr.querySelector('#logoBtnTr');
-    if(cb) cb.removeAttribute('id');
-    loupeInnerTr.innerHTML = '';
-    loupeInnerTr.appendChild(cloneTr);
-  }
-
-  function updateLoupeTr(clientX, clientY){
-    if(!cardTr) return;
-    const rect = cardTr.getBoundingClientRect();
-    const x = clientX - rect.left;
-    const y = clientY - rect.top;
-    loupeTr.style.left = clientX + 'px';
-    loupeTr.style.top = (clientY - 90) + 'px';
-    const loupeSizeTr = loupeTr.offsetWidth;
-    loupeInnerTr.style.width = rect.width + 'px';
-    loupeInnerTr.style.height = rect.height + 'px';
-    loupeInnerTr.style.transform = `translate(${loupeSizeTr/2 - x*ZOOM_TR}px, ${loupeSizeTr/2 - y*ZOOM_TR}px) scale(${ZOOM_TR})`;
-  }
-
-  if (cardTr) {
-    cardTr.addEventListener('touchstart', (e)=>{
-      if(e.target.closest('#logoBtnTr') || e.target.closest('.handle-tr')) return;
-      e.preventDefault();
-      const t = e.touches[0];
-      buildCloneTr(); activeTr = true; loupeTr.classList.add('active'); updateLoupeTr(t.clientX, t.clientY);
-    }, {passive:false});
-
-    cardTr.addEventListener('touchmove', (e)=>{
-      if(!activeTr) return;
-      e.preventDefault();
-      const t = e.touches[0];
-      updateLoupeTr(t.clientX, t.clientY);
-    }, {passive:false});
-
-    cardTr.addEventListener('touchend', ()=>{ activeAr = false; activeTr = false; loupeTr.classList.remove('active'); });
-    cardTr.addEventListener('touchcancel', ()=>{ activeTr = false; loupeTr.classList.remove('active'); });
-
-    let mdTr = false;
-    cardTr.addEventListener('mousedown', (e)=>{
-      if(e.target.closest('#logoBtnTr') || e.target.closest('.handle-tr')) return;
-      mdTr = true; buildCloneTr(); activeTr = true; loupeTr.classList.add('active'); updateLoupeTr(e.clientX, e.clientY);
-    });
-    window.addEventListener('mousemove', (e)=>{ if(mdTr) updateLoupeTr(e.clientX, e.clientY); });
-    window.addEventListener('mouseup', ()=>{ mdTr = false; activeTr = false; loupeTr.classList.remove('active'); });
-    cardTr.addEventListener('mouseleave', ()=>{ if(mdTr){ mdTr = false; activeTr = false; loupeTr.classList.remove('active'); } });
-  }
-</script>
           <h1>Tradegram</h1>
           <h2>Dünyanın en büyük trader ve yatırımcı sosyal ağı</h2>
         </div>
