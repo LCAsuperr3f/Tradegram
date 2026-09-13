@@ -1412,7 +1412,7 @@ E-posta: support@tradegram.app
   
 </body>
 </html>
-<!-- TRADEGRAM BÜTÜNLEŞİK LED VE ROZET SİSTEMİ (GÜNCELLENMİŞ) -->
+<!-- TRADEGRAM BÜTÜNLEŞİK LED VE ROZET SİSTEMİ (GÜNCEL FİX) -->
 <style>
   :root{
     --cyan: #4de8ff;
@@ -1420,27 +1420,21 @@ E-posta: support@tradegram.app
     --diamond-blue: #4fb2ff;
   }
 
-  /* Sitenin Etrafındaki Tüm LED / Şerit / Border Efektlerini Kapatma Kuralları */
+  /* Sitenin Etrafındaki LED / Şerit / Border Efektlerini Kapatma Kuralları */
   body.site-led-off::before,
   body.site-led-off::after,
-  body.site-led-off *,
-  body.site-led-off *::before,
-  body.site-led-off *::after {
-    /* Eğer etraftaki şerit animasyon veya psödo-element ile yapıldıysa durdurur */
-  }
-
-  body.site-led-off::before,
-  body.site-led-off::after,
-  body.site-led-off [class*="led"],
-  body.site-led-off [class*="border"],
-  body.site-led-off [class*="strip"],
-  body.site-led-off [class*="glow"],
-  body.site-led-off [id*="led"],
-  body.site-led-off [id*="border"] {
+  html.site-led-off::before,
+  html.site-led-off::after {
     display: none !important;
     opacity: 0 !important;
     animation: none !important;
     visibility: hidden !important;
+  }
+
+  /* Rozet İçindeki LED / Halka Kapandığında */
+  .badge-icon-btn.led-off .ring { 
+    opacity: 0 !important; 
+    animation-play-state: paused !important; 
   }
 
   /* Kart İçi Tasarım */
@@ -1511,6 +1505,7 @@ E-posta: support@tradegram.app
     position:relative; width: 84px; height: 84px; border-radius:50%;
     background:#000; display:flex; align-items:center; justify-content:center;
     border: none; outline: none; cursor: pointer; padding: 0; transition: transform 0.2s ease;
+    z-index: 10;
   }
   .badge-icon-btn:active { transform: scale(0.95); }
 
@@ -1520,12 +1515,9 @@ E-posta: support@tradegram.app
     filter: blur(3px); opacity:0.9; animation: spin 6s linear infinite; transition: opacity 0.3s ease;
   }
 
-  /* Logodaki Halkayı Kapatma */
-  .badge-icon-btn.led-off .ring { opacity: 0 !important; animation-play-state: paused; }
-
   .badge-icon-btn .ring-mask{ position:absolute; inset:2px; border-radius:50%; background:#000; }
   @keyframes spin{ to{ transform: rotate(360deg); } }
-  .badge-icon-btn svg{ position:relative; z-index:2; width: 50px; height: 50px; }
+  .badge-icon-btn svg{ position:relative; z-index:2; width: 50px; height: 50px; display: block !important; opacity: 1 !important; visibility: visible !important; }
 
   .handle{
     display:flex; align-items:center; gap:6px; font-size: 20px; font-weight: 700;
@@ -1566,7 +1558,7 @@ E-posta: support@tradegram.app
   <div class="card" id="card">
     <div class="stars" id="stars"></div>
     <div class="content">
-      <button class="badge-icon-btn" id="logoBtn" title="LED Işığı Aç/Kapat">
+      <button type="button" class="badge-icon-btn" id="logoBtn" title="LED Işığı Aç/Kapat">
         <div class="ring"></div>
         <div class="ring-mask"></div>
         <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
@@ -1605,6 +1597,7 @@ E-posta: support@tradegram.app
 
   if (logoBtn) {
     logoBtn.addEventListener('click', (e) => {
+      e.preventDefault();
       e.stopPropagation(); 
       logoBtn.classList.toggle('led-off');
       document.body.classList.toggle('site-led-off');
