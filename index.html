@@ -1412,7 +1412,7 @@ E-posta: support@tradegram.app
   
 </body>
 </html>
-<!-- TRADEGRAM BÜTÜNLEŞİK LED VE ROZET SİSTEMİ -->
+<!-- TRADEGRAM BÜTÜNLEŞİK LED VE ROZET SİSTEMİ (GÜNCELLENMİŞ) -->
 <style>
   :root{
     --cyan: #4de8ff;
@@ -1420,16 +1420,30 @@ E-posta: support@tradegram.app
     --diamond-blue: #4fb2ff;
   }
 
-  /* Sitenin Etrafındaki LED Şerit Kapatma Sınıfı */
+  /* Sitenin Etrafındaki Tüm LED / Şerit / Border Efektlerini Kapatma Kuralları */
   body.site-led-off::before,
   body.site-led-off::after,
-  body.site-led-off .led-border,
-  body.site-led-off .led-strip {
-    display: none !important;
-    animation: none !important;
-    opacity: 0 !important;
+  body.site-led-off *,
+  body.site-led-off *::before,
+  body.site-led-off *::after {
+    /* Eğer etraftaki şerit animasyon veya psödo-element ile yapıldıysa durdurur */
   }
 
+  body.site-led-off::before,
+  body.site-led-off::after,
+  body.site-led-off [class*="led"],
+  body.site-led-off [class*="border"],
+  body.site-led-off [class*="strip"],
+  body.site-led-off [class*="glow"],
+  body.site-led-off [id*="led"],
+  body.site-led-off [id*="border"] {
+    display: none !important;
+    opacity: 0 !important;
+    animation: none !important;
+    visibility: hidden !important;
+  }
+
+  /* Kart İçi Tasarım */
   .stage{
     position:relative;
     width:340px;
@@ -1506,7 +1520,7 @@ E-posta: support@tradegram.app
     filter: blur(3px); opacity:0.9; animation: spin 6s linear infinite; transition: opacity 0.3s ease;
   }
 
-  /* Logodaki Işık Kapandığında */
+  /* Logodaki Halkayı Kapatma */
   .badge-icon-btn.led-off .ring { opacity: 0 !important; animation-play-state: paused; }
 
   .badge-icon-btn .ring-mask{ position:absolute; inset:2px; border-radius:50%; background:#000; }
@@ -1589,12 +1603,12 @@ E-posta: support@tradegram.app
   const logoBtn = document.getElementById('logoBtn');
   const ZOOM = 2.4;
 
-  // Logoya Tıklandığında Hem Kart Hem Sitenin LED'i Açılır / Kapanır
   if (logoBtn) {
     logoBtn.addEventListener('click', (e) => {
       e.stopPropagation(); 
       logoBtn.classList.toggle('led-off');
       document.body.classList.toggle('site-led-off');
+      document.documentElement.classList.toggle('site-led-off');
     });
   }
 
