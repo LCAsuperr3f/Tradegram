@@ -1884,3 +1884,42 @@ body.dark-mode .strip-item:hover {
   to { --angle: 360deg; }
 }
 /* ===== /LED ÇERÇEVE ===== */
+
+/* ===== Apple / Android indirme kartlarını küçültme ===== */
+.course-card.featured {
+  max-width: 280px;
+  margin: 10px auto;
+  padding: 12px;
+  transform: scale(0.85);
+  transform-origin: center;
+}
+
+.course-card.featured .course-header h3 {
+  font-size: 1.1rem;
+  margin: 4px 0;
+}
+
+.course-card.featured .course-price h4 {
+  font-size: 0.95rem;
+  margin: 4px 0;
+}
+
+.course-card.featured .course-details ul {
+  padding: 0;
+  margin: 6px 0;
+}
+
+.course-card.featured .course-details li {
+  font-size: 0.8rem;
+  margin: 2px 0;
+}
+
+.course-card.featured .course-actions .btn {
+  padding: 6px 14px;
+  font-size: 0.85rem;
+}
+
+.course-card.featured .course-badge {
+  font-size: 0.75rem;
+  padding: 3px 8px;
+}
