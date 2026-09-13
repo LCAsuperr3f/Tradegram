@@ -1412,12 +1412,22 @@ E-posta: support@tradegram.app
   
 </body>
 </html>
-<!-- TRADEGRAM ROZET KODLARI BAŞLANGICI -->
+<!-- TRADEGRAM BÜTÜNLEŞİK LED VE ROZET SİSTEMİ -->
 <style>
   :root{
     --cyan: #4de8ff;
     --violet: #8b7cff;
     --diamond-blue: #4fb2ff;
+  }
+
+  /* Sitenin Etrafındaki LED Şerit Kapatma Sınıfı */
+  body.site-led-off::before,
+  body.site-led-off::after,
+  body.site-led-off .led-border,
+  body.site-led-off .led-strip {
+    display: none !important;
+    animation: none !important;
+    opacity: 0 !important;
   }
 
   .stage{
@@ -1496,6 +1506,7 @@ E-posta: support@tradegram.app
     filter: blur(3px); opacity:0.9; animation: spin 6s linear infinite; transition: opacity 0.3s ease;
   }
 
+  /* Logodaki Işık Kapandığında */
   .badge-icon-btn.led-off .ring { opacity: 0 !important; animation-play-state: paused; }
 
   .badge-icon-btn .ring-mask{ position:absolute; inset:2px; border-radius:50%; background:#000; }
@@ -1512,6 +1523,7 @@ E-posta: support@tradegram.app
   .app-name{ font-size: 12.5px; color: rgba(255,255,255,0.45); letter-spacing: 0.4px; margin-top: 2px; }
   .hint{ margin-top: 22px; text-align:center; font-size: 12.5px; color: rgba(255,255,255,0.35); letter-spacing: 0.2px; }
 
+  /* Büyüteç */
   .loupe{
     position: absolute; width: 130px; height: 130px; border-radius: 50%;
     pointer-events: none; z-index: 20; opacity: 0;
@@ -1535,6 +1547,7 @@ E-posta: support@tradegram.app
   .loupe-inner{ position:absolute; top:0; left:0; transform-origin: 0 0; z-index: 1; }
 </style>
 
+<!-- ROZET HTML YAPISI -->
 <div class="stage">
   <div class="card" id="card">
     <div class="stars" id="stars"></div>
@@ -1568,6 +1581,7 @@ E-posta: support@tradegram.app
   <div class="loupe-inner" id="loupeInner"></div>
 </div>
 
+<!-- JAVASCRIPT MANTIĞI -->
 <script>
   const card = document.getElementById('card');
   const loupe = document.getElementById('loupe');
@@ -1575,13 +1589,16 @@ E-posta: support@tradegram.app
   const logoBtn = document.getElementById('logoBtn');
   const ZOOM = 2.4;
 
+  // Logoya Tıklandığında Hem Kart Hem Sitenin LED'i Açılır / Kapanır
   if (logoBtn) {
     logoBtn.addEventListener('click', (e) => {
       e.stopPropagation(); 
       logoBtn.classList.toggle('led-off');
+      document.body.classList.toggle('site-led-off');
     });
   }
 
+  // Yıldızlar
   const starsWrap = document.getElementById('stars');
   if (starsWrap) {
     const starPositions = [
@@ -1596,6 +1613,7 @@ E-posta: support@tradegram.app
     });
   }
 
+  // Büyüteç Mekanizması
   let clone = null;
   let active = false;
 
@@ -1686,4 +1704,3 @@ E-posta: support@tradegram.app
     });
   }
 </script>
-<!-- TRADEGRAM ROZET KODLARI BİTİŞİ -->
