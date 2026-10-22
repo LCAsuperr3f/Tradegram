@@ -1713,6 +1713,273 @@ E-posta: support@tradegram.app
 <div class="led-frame"></div>
   
 </body>
- 
+ <!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tradegram Chart - Analiz Paneli</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { background-color: #131722; color: #d1d4dc; font-family: sans-serif; margin: 0; padding: 0; }
+        .tool-btn { transition: all 0.2s; }
+        .tool-btn.active { background-color: #2a2e39; color: #2962ff; border-left: 3px solid #2962ff; }
+    </style>
+</head>
+<body class="w-screen h-screen flex flex-col">
+
+    <!-- Üst Menü -->
+    <header class="h-12 bg-[#1e222d] border-b border-[#2a2e39] flex items-center justify-between px-4 shrink-0">
+        <div class="flex items-center space-x-4">
+            <span class="font-bold text-white text-lg">Tradegram / XAUUSD</span>
+            <button onclick="toggleIndicator('sma')" id="btnSma" class="px-3 py-1 text-xs bg-[#2a2e39] rounded text-gray-300 hover:bg-[#363a45]">SMA İndikatörü</button>
+            <button onclick="toggleIndicator('rsi')" id="btnRsi" class="px-3 py-1 text-xs bg-[#2a2e39] rounded text-gray-300 hover:bg-[#363a45]">RSI İndikatörü</button>
+        </div>
+        <div>
+            <button onclick="calculatePoints()" class="px-3 py-1 text-xs bg-amber-600 hover:bg-amber-700 text-white rounded font-medium">Puan Hesapla</button>
+        </div>
+    </header>
+
+    <div class="flex flex-1 relative w-full h-full overflow-hidden">
+        <!-- Sol Araç Çubuğu -->
+        <aside class="w-14 bg-[#1e222d] border-r border-[#2a2e39] flex flex-col items-center py-4 space-y-3 shrink-0">
+            <button onclick="setTool('none', event)" class="tool-btn active p-2 text-gray-400 hover:text-white rounded" title="Seçim / Gezin">👆</button>
+            <button onclick="setTool('line', event)" class="tool-btn p-2 text-gray-400 hover:text-white rounded" title="Düz Çizgi">📈</button>
+            <button onclick="setTool('rectangle', event)" class="tool-btn p-2 text-gray-400 hover:text-white rounded" title="Dörtgen">⬜</button>
+            <button onclick="setTool('horizontal', event)" class="tool-btn p-2 text-gray-400 hover:text-white rounded" title="Yatay Çizgi">➖</button>
+            <button onclick="setTool('vertical', event)" class="tool-btn p-2 text-gray-400 hover:text-white rounded" title="Dikey Çizgi">❗</button>
+            <button onclick="setTool('brush', event)" class="tool-btn p-2 text-gray-400 hover:text-white rounded" title="Fırça">🖌️</button>
+            <hr class="w-8 border-[#2a2e39] my-2">
+            <button onclick="clearDrawings()" class="p-2 text-red-400 hover:bg-red-900/20 rounded" title="Temizle">🗑️</button>
+        </aside>
+
+        <!-- Grafik Alanı (Canvas) -->
+        <main class="flex-1 relative bg-[#131722] h-full" id="canvasContainer">
+            <canvas id="chartCanvas" class="absolute inset-0 w-full h-full cursor-crosshair"></canvas>
+            
+            <!-- Sağ Alt İşlem Paneli (OPEN, TP, SL) -->
+            <div class="absolute bottom-4 right-4 bg-[#1e222d] border border-[#2a2e39] p-3 rounded-lg shadow-xl flex items-center space-x-2 z-10">
+                <button onclick="openPosition()" class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1.5 rounded text-xs font-bold">OPEN</button>
+                <button onclick="setTP()" class="bg-emerald-600 hover:bg-emerald-700 text-white px-3 py-1.5 rounded text-xs font-bold">TP Ekle</button>
+                <button onclick="setSL()" class="bg-rose-600 hover:bg-rose-700 text-white px-3 py-1.5 rounded text-xs font-bold">SL Ekle</button>
+            </div>
+        </main>
+    </div>
+
+    <!-- JavaScript Mantığı -->
+    <script>
+        const canvas = document.getElementById('chartCanvas');
+        const ctx = canvas.getContext('2d');
+
+        let candles = [
+            { open: 4050, high: 4120, low: 4040, close: 4100 },
+            { open: 4100, high: 4150, low: 4080, close: 4090 },
+            { open: 4090, high: 4110, low: 4020, close: 4030 },
+            { open: 4030, high: 4080, low: 4010, close: 4070 },
+            { open: 4070, high: 4140, low: 4060, close: 4125 },
+        ];
+
+        let activeTool = 'none';
+        let drawings = [];
+        let currentDrawing = null;
+        let isDrawing = false;
+        let activeOrder = null;
+        let showSMA = false;
+        let showRSI = false;
+
+        function resizeCanvas() {
+            const container = document.getElementById('canvasContainer');
+            if (!container) return;
+            canvas.width = container.clientWidth;
+            canvas.height = container.clientHeight;
+            drawChart();
+        }
+
+        window.addEventListener('resize', resizeCanvas);
+        window.addEventListener('DOMContentLoaded', resizeCanvas);
+        // Garanti olsun diye birkaç milisaniye sonra tekrar tetikle
+        setTimeout(resizeCanvas, 100);
+
+        function setTool(tool, event) {
+            activeTool = tool;
+            document.querySelectorAll('.tool-btn').forEach(b => b.classList.remove('active'));
+            if (event && event.currentTarget) {
+                event.currentTarget.classList.add('active');
+            }
+        }
+
+        // Çizim Olayları (Mouse)
+        canvas.addEventListener('mousedown', (e) => {
+            if (activeTool === 'none') return;
+            isDrawing = true;
+            const rect = canvas.getBoundingClientRect();
+            currentDrawing = { 
+                type: activeTool, 
+                points: [{ x: e.clientX - rect.left, y: e.clientY - rect.top }], 
+                color: '#f0b90b' 
+            };
+        });
+
+        canvas.addEventListener('mousemove', (e) => {
+            if (!isDrawing || !currentDrawing) return;
+            const rect = canvas.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+
+            if (activeTool === 'brush') {
+                currentDrawing.points.push({x, y});
+            } else {
+                if (currentDrawing.points.length > 1) {
+                    currentDrawing.points[1] = {x, y};
+                } else {
+                    currentDrawing.points.push({x, y});
+                }
+            }
+            drawChart();
+        });
+
+        canvas.addEventListener('mouseup', () => {
+            if (isDrawing && currentDrawing) {
+                drawings.push(currentDrawing);
+                currentDrawing = null;
+                isDrawing = false;
+                drawChart();
+            }
+        });
+
+        function clearDrawings() {
+            drawings = [];
+            activeOrder = null;
+            drawChart();
+        }
+
+        function toggleIndicator(ind) {
+            if (ind === 'sma') {
+                showSMA = !showSMA;
+                document.getElementById('btnSma').classList.toggle('bg-blue-600', showSMA);
+            } else if (ind === 'rsi') {
+                showRSI = !showRSI;
+                document.getElementById('btnRsi').classList.toggle('bg-purple-600', showRSI);
+            }
+            drawChart();
+        }
+
+        function openPosition() {
+            const lastClose = candles[candles.length - 1].close;
+            activeOrder = {
+                entry: lastClose,
+                tp: lastClose * 1.02,
+                sl: lastClose * 0.98
+            };
+            drawChart();
+        }
+
+        function setTP() {
+            if (activeOrder) activeOrder.tp *= 1.01;
+            drawChart();
+        }
+
+        function setSL() {
+            if (activeOrder) activeOrder.sl *= 0.99;
+            drawChart();
+        }
+
+        function calculatePoints() {
+            const start = candles[0].close;
+            const end = candles[candles.length - 1].close;
+            const diff = (end - start).toFixed(2);
+            const pct = ((diff / start) * 100).toFixed(2);
+            alert(`Puan / Fark: ${diff > 0 ? '+' : ''}${diff} ($${pct}%)`);
+        }
+
+        function drawChart() {
+            if (!canvas.width || !canvas.height) return;
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            if (candles.length === 0) return;
+
+            let maxPrice = Math.max(...candles.map(c => c.high));
+            let minPrice = Math.min(...candles.map(c => c.low));
+            let range = maxPrice - minPrice || 1;
+            let chartHeight = showRSI ? canvas.height * 0.75 : canvas.height * 0.9;
+            let candleWidth = canvas.width / (candles.length + 2);
+
+            function priceToY(p) {
+                return chartHeight - ((p - minPrice) / range) * (chartHeight - 60) - 30;
+            }
+
+            // Mumları Çiz
+            candles.forEach((c, i) => {
+                let x = (i + 1) * candleWidth;
+                let isGreen = c.close >= c.open;
+                ctx.strokeStyle = isGreen ? '#089981' : '#f23645';
+                ctx.fillStyle = ctx.strokeStyle;
+                ctx.lineWidth = 1.5;
+
+                ctx.beginPath();
+                ctx.moveTo(x, priceToY(c.high));
+                ctx.lineTo(x, priceToY(c.low));
+                ctx.stroke();
+
+                let yOpen = priceToY(c.open);
+                let yClose = priceToY(c.close);
+                let bodyY = Math.min(yOpen, yClose);
+                let bodyHeight = Math.max(Math.abs(yOpen - yClose), 2);
+                ctx.fillRect(x - candleWidth * 0.3, bodyY, candleWidth * 0.6, bodyHeight);
+            });
+
+            // Çizimleri Çiz
+            [...drawings, ...(currentDrawing ? [currentDrawing] : [])].forEach(d => {
+                ctx.strokeStyle = d.color;
+                ctx.lineWidth = 2;
+                if (d.points.length === 0) return;
+
+                if (d.type === 'line' && d.points.length > 1) {
+                    ctx.beginPath();
+                    ctx.moveTo(d.points[0].x, d.points[0].y);
+                    ctx.lineTo(d.points[1].x, d.points[1].y);
+                    ctx.stroke();
+                } else if (d.type === 'rectangle' && d.points.length > 1) {
+                    let p1 = d.points[0], p2 = d.points[1];
+                    ctx.strokeRect(p1.x, p1.y, p2.x - p1.x, p2.y - p1.y);
+                } else if (d.type === 'horizontal') {
+                    ctx.beginPath();
+                    ctx.moveTo(0, d.points[0].y);
+                    ctx.lineTo(canvas.width, d.points[0].y);
+                    ctx.strokeStyle = '#00bcd4';
+                    ctx.stroke();
+                } else if (d.type === 'vertical') {
+                    ctx.beginPath();
+                    ctx.moveTo(d.points[0].x, 0);
+                    ctx.lineTo(d.points[0].x, canvas.height);
+                    ctx.strokeStyle = '#00bcd4';
+                    ctx.stroke();
+                } else if (d.type === 'brush') {
+                    ctx.beginPath();
+                    ctx.moveTo(d.points[0].x, d.points[0].y);
+                    d.points.forEach(p => ctx.lineTo(p.x, p.y));
+                    ctx.stroke();
+                }
+            });
+
+            // Pozisyon Çizgileri
+            if (activeOrder) {
+                let ey = priceToY(activeOrder.entry);
+                ctx.strokeStyle = '#2962ff'; ctx.setLineDash([5, 5]);
+                ctx.beginPath(); ctx.moveTo(0, ey); ctx.lineTo(canvas.width, ey); ctx.stroke();
+
+                let tpy = priceToY(activeOrder.tp);
+                ctx.strokeStyle = '#089981';
+                ctx.beginPath(); ctx.moveTo(0, tpy); ctx.lineTo(canvas.width, tpy); ctx.stroke();
+
+                let sly = priceToY(activeOrder.sl);
+                ctx.strokeStyle = '#f23645';
+                ctx.beginPath(); ctx.moveTo(0, sly); ctx.lineTo(canvas.width, sly); ctx.stroke();
+                ctx.setLineDash([]);
+            }
+        }
+    </script>
+</body>
+</html>
 
 </html>
