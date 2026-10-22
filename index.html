@@ -1711,7 +1711,58 @@ E-posta: support@tradegram.app
   </script>
   
 <div class="led-frame"></div>
+<!-- 1. Adım: Sitenin en altında görünecek grafik alanı -->
+<div id="alt-kisim-grafik" style="width: 100%; height: 350px; background-color: #131722; margin-top: 20px;"></div>
+
+<!-- TradingView Kütüphanesi -->
+<script src="https://unpkg.com/lightweight-charts/dist/lightweight-charts.standalone.production.js"></script>
+
+<script>
+  // 2. Adım: Grafiği oluşturup verileri yükleyen JavaScript kodları
+  const container = document.getElementById('alt-kisim-grafik');
+
+  const chart = LightweightCharts.createChart(container, {
+    width: container.clientWidth,
+    height: container.clientHeight,
+    layout: {
+      background: { color: '#131722' },
+      textColor: '#d1d4dc',
+    },
+    grid: {
+      vertLines: { color: '#1f293d' },
+      horzLines: { color: '#1f293d' },
+    },
+  });
+
+  const candlestickSeries = chart.addSeries(LightweightCharts.CandlestickSeries, {
+    upColor: '#26a69a',
+    downColor: '#ef5350',
+    borderVisible: false,
+    wickUpColor: '#26a69a',
+    wickDownColor: '#ef5350',
+  });
+
+  candlestickSeries.setData([
+    { time: '2026-10-19', open: 103.4, high: 108.0, low: 101.5, close: 106.8 },
+    { time: '2026-10-20', open: 106.8, high: 107.2, low: 99.0, close: 101.2 },
+    { time: '2026-10-21', open: 101.2, high: 112.5, low: 100.1, close: 110.0 },
+    { time: '2026-10-22', open: 110.0, high: 115.0, low: 108.5, close: 113.2 },
+  ]);
+
+  window.addEventListener('resize', () => {
+    chart.applyOptions({
+      width: container.clientWidth,
+      height: container.clientHeight,
+    });
+  });
+</script>
+
+    checkMaintenanceMode();
+  });
+</script>
   
-</body>
+<div class="led-frame"></div>
+
+</html>
 
 </html>
