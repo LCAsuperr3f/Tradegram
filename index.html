@@ -1711,62 +1711,67 @@ E-posta: support@tradegram.app
   </script>
   
 <div class="led-frame"></div>
-  
-</body>
 <!DOCTYPE html>
 <html lang="tr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tradegram Chart - Canlı XAU/USD</title>
+    <title>Tradegram - Canlı XAU/USD Grafik Analizi</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        body { background-color: #131722; color: #d1d4dc; font-family: sans-serif; margin: 0; padding: 0; overflow: hidden; }
+        body { background-color: #131722; color: #d1d4dc; font-family: sans-serif; margin: 0; padding: 0; }
         .tool-btn { transition: all 0.2s; }
         .tool-btn.active { background-color: #2a2e39; color: #2962ff; border-left: 3px solid #2962ff; }
     </style>
 </head>
-<body class="w-screen h-screen flex flex-col">
+<body class="min-h-screen flex flex-col">
 
     <!-- Üst Menü -->
-    <header class="h-12 bg-[#1e222d] border-b border-[#2a2e39] flex items-center justify-between px-4 shrink-0 z-20">
+    <header class="h-14 bg-[#1e222d] border-b border-[#2a2e39] flex items-center justify-between px-4 sticky top-0 z-30">
         <div class="flex items-center space-x-4">
-            <span class="font-bold text-white text-lg">Tradegram / XAUUSD <span id="livePrice" class="text-xs text-emerald-400 font-normal">Bağlanıyor...</span></span>
-            <button onclick="toggleIndicator('sma')" id="btnSma" class="px-3 py-1 text-xs bg-[#2a2e39] rounded text-gray-300 hover:bg-[#363a45]">SMA İndikatörü</button>
-            <button onclick="toggleIndicator('rsi')" id="btnRsi" class="px-3 py-1 text-xs bg-[#2a2e39] rounded text-gray-300 hover:bg-[#363a45]">RSI İndikatörü</button>
+            <span class="font-bold text-white text-base md:text-lg">Tradegram / XAUUSD <span id="livePrice" class="text-xs text-emerald-400 font-normal ml-2">Bağlanıyor...</span></span>
+            <button onclick="toggleIndicator('sma')" id="btnSma" class="px-2.5 py-1 text-xs bg-[#2a2e39] rounded text-gray-300 hover:bg-[#363a45]">SMA</button>
+            <button onclick="toggleIndicator('rsi')" id="btnRsi" class="px-2.5 py-1 text-xs bg-[#2a2e39] rounded text-gray-300 hover:bg-[#363a45]">RSI</button>
         </div>
         <div>
-            <button onclick="calculatePoints()" class="px-3 py-1 text-xs bg-amber-600 hover:bg-amber-700 text-white rounded font-medium">Puan Hesapla</button>
+            <button onclick="calculatePoints()" class="px-3 py-1.5 text-xs bg-amber-600 hover:bg-amber-700 text-white rounded font-medium">Puan Hesapla</button>
         </div>
     </header>
 
-    <div class="flex flex-1 relative w-full h-full overflow-hidden">
-        <!-- Sol Araç Çubuğu -->
-        <aside class="w-14 bg-[#1e222d] border-r border-[#2a2e39] flex flex-col items-center py-4 space-y-3 shrink-0 z-10">
-            <button onclick="setTool('none', event)" class="tool-btn active p-2 text-gray-400 hover:text-white rounded" title="Seçim / Gezin">👆</button>
-            <button onclick="setTool('line', event)" class="tool-btn p-2 text-gray-400 hover:text-white rounded" title="Düz Çizgi">📈</button>
-            <button onclick="setTool('rectangle', event)" class="tool-btn p-2 text-gray-400 hover:text-white rounded" title="Dörtgen">⬜</button>
-            <button onclick="setTool('horizontal', event)" class="tool-btn p-2 text-gray-400 hover:text-white rounded" title="Yatay Çizgi">➖</button>
-            <button onclick="setTool('vertical', event)" class="tool-btn p-2 text-gray-400 hover:text-white rounded" title="Dikey Çizgi">❗</button>
-            <button onclick="setTool('brush', event)" class="tool-btn p-2 text-gray-400 hover:text-white rounded" title="Fırça">🖌️</button>
-            <hr class="w-8 border-[#2a2e39] my-2">
-            <button onclick="clearDrawings()" class="p-2 text-red-400 hover:bg-red-900/20 rounded" title="Temizle">🗑️</button>
-        </aside>
-
-        <!-- Grafik Alanı -->
-        <main class="flex-1 relative bg-[#131722] h-full" id="canvasContainer">
-            <canvas id="chartCanvas" class="absolute inset-0 w-full h-full cursor-crosshair"></canvas>
+    <!-- Ana İçerik Alanı (Sayfanın kaydırılmasına izin verir) -->
+    <main class="flex-1 max-w-7xl w-full mx-auto p-4 flex flex-col">
+        <div class="text-sm text-gray-400 mb-2">Canlı Piyasa Grafiği ve Teknik Çizim Paneli</div>
+        
+        <!-- Grafik Konteyner Kutusu -->
+        <div class="relative w-full h-[550px] bg-[#1e222d] border border-[#2a2e39] rounded-xl overflow-hidden flex shadow-2xl" id="chartWrapper">
             
-            <!-- Sağ Alt İşlem Paneli (OPEN, TP, SL) -->
-            <div class="absolute bottom-4 right-4 bg-[#1e222d] border border-[#2a2e39] p-3 rounded-lg shadow-xl flex items-center space-x-2 z-20">
-                <button onclick="openPosition()" class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1.5 rounded text-xs font-bold">OPEN</button>
-                <button onclick="setTP()" class="bg-emerald-600 hover:bg-emerald-700 text-white px-3 py-1.5 rounded text-xs font-bold">TP Ekle</button>
-                <button onclick="setSL()" class="bg-rose-600 hover:bg-rose-700 text-white px-3 py-1.5 rounded text-xs font-bold">SL Ekle</button>
+            <!-- Sol Çizim Araçları -->
+            <div class="w-14 bg-[#1e222d] border-r border-[#2a2e39] flex flex-col items-center py-4 space-y-3 z-20">
+                <button onclick="setTool('none', event)" class="tool-btn active p-2 text-gray-400 hover:text-white rounded" title="İmleç">👆</button>
+                <button onclick="setTool('line', event)" class="tool-btn p-2 text-gray-400 hover:text-white rounded" title="Düz Çizgi">📈</button>
+                <button onclick="setTool('rectangle', event)" class="tool-btn p-2 text-gray-400 hover:text-white rounded" title="Dörtgen">⬜</button>
+                <button onclick="setTool('horizontal', event)" class="tool-btn p-2 text-gray-400 hover:text-white rounded" title="Yatay Çizgi">➖</button>
+                <button onclick="setTool('vertical', event)" class="tool-btn p-2 text-gray-400 hover:text-white rounded" title="Dikey Çizgi">❗</button>
+                <button onclick="setTool('brush', event)" class="tool-btn p-2 text-gray-400 hover:text-white rounded" title="Fırça">🖌️</button>
+                <hr class="w-8 border-[#2a2e39] my-2">
+                <button onclick="clearDrawings()" class="p-2 text-red-400 hover:bg-red-900/20 rounded" title="Temizle">🗑️</button>
             </div>
-        </main>
-    </div>
 
-    <!-- JavaScript & Canlı Veri Mantığı -->
+            <!-- Çizim Tuval Alanı -->
+            <div class="flex-1 relative h-full bg-[#131722]" id="canvasContainer">
+                <canvas id="chartCanvas" class="absolute inset-0 w-full h-full cursor-crosshair"></canvas>
+                
+                <!-- Sağ Alt İşlem Butonları -->
+                <div class="absolute bottom-4 right-4 bg-[#1e222d]/90 backdrop-blur border border-[#2a2e39] p-2.5 rounded-lg shadow-xl flex items-center space-x-2 z-20">
+                    <button onclick="openPosition()" class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1.5 rounded text-xs font-bold">OPEN</button>
+                    <button onclick="setTP()" class="bg-emerald-600 hover:bg-emerald-700 text-white px-3 py-1.5 rounded text-xs font-bold">TP Ekle</button>
+                    <button onclick="setSL()" class="bg-rose-600 hover:bg-rose-700 text-white px-3 py-1.5 rounded text-xs font-bold">SL Ekle</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- JavaScript Mantığı -->
     <script>
         const canvas = document.getElementById('chartCanvas');
         const ctx = canvas.getContext('2d');
@@ -1790,10 +1795,9 @@ E-posta: support@tradegram.app
 
         window.addEventListener('resize', resizeCanvas);
 
-        // Canlı Veri Çekme (Binance Klines API - PAXG/USDT Altın Endeksi)
+        // Canlı Veri (Binance PAXG/USDT Gold)
         async function fetchLiveCandles() {
             try {
-                // PAXG (Gold Token) verilerini çekiyoruz
                 const response = await fetch('https://api.binance.com/api/v3/klines?symbol=PAXGUSDT&interval=1h&limit=50');
                 const data = await response.json();
                 
@@ -1812,8 +1816,7 @@ E-posta: support@tradegram.app
 
                 resizeCanvas();
             } catch (error) {
-                console.error("Canlı veri alınamadı, yedek veriler yükleniyor...", error);
-                // Yedek statik veri
+                console.error("Canlı veri alınamadı, yedek veriler yüklendi.");
                 candles = [
                     { open: 4050, high: 4120, low: 4040, close: 4100 },
                     { open: 4100, high: 4150, low: 4080, close: 4090 },
@@ -1825,7 +1828,6 @@ E-posta: support@tradegram.app
             }
         }
 
-        // Sayfa açıldığında ve her 10 saniyede bir canlı veriyi güncelle
         fetchLiveCandles();
         setInterval(fetchLiveCandles, 10000);
 
@@ -1837,7 +1839,6 @@ E-posta: support@tradegram.app
             }
         }
 
-        // Çizim Olayları
         canvas.addEventListener('mousedown', (e) => {
             if (activeTool === 'none') return;
             isDrawing = true;
@@ -1923,7 +1924,6 @@ E-posta: support@tradegram.app
             alert(`Puan / Fark: ${diff > 0 ? '+' : ''}${diff} ($${pct}%)`);
         }
 
-        // Ana Çizim Motoru
         function drawChart() {
             if (!canvas.width || !canvas.height) return;
             ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -1939,7 +1939,7 @@ E-posta: support@tradegram.app
                 return chartHeight - ((p - minPrice) / range) * (chartHeight - 60) - 30;
             }
 
-            // Mumları Çiz
+            // Mumlar
             candles.forEach((c, i) => {
                 let x = (i + 1) * candleWidth;
                 let isGreen = c.close >= c.open;
@@ -1947,13 +1947,11 @@ E-posta: support@tradegram.app
                 ctx.fillStyle = ctx.strokeStyle;
                 ctx.lineWidth = 1.5;
 
-                // Fitil
                 ctx.beginPath();
                 ctx.moveTo(x, priceToY(c.high));
                 ctx.lineTo(x, priceToY(c.low));
                 ctx.stroke();
 
-                // Gövde
                 let yOpen = priceToY(c.open);
                 let yClose = priceToY(c.close);
                 let bodyY = Math.min(yOpen, yClose);
@@ -1961,7 +1959,7 @@ E-posta: support@tradegram.app
                 ctx.fillRect(x - candleWidth * 0.35, bodyY, candleWidth * 0.7, bodyHeight);
             });
 
-            // Kullanıcı Çizimlerini Çiz
+            // Çizimler
             [...drawings, ...(currentDrawing ? [currentDrawing] : [])].forEach(d => {
                 ctx.strokeStyle = d.color;
                 ctx.lineWidth = 2;
@@ -1995,7 +1993,7 @@ E-posta: support@tradegram.app
                 }
             });
 
-            // Pozisyon Çizgileri (OPEN, TP, SL)
+            // Pozisyonlar
             if (activeOrder) {
                 let ey = priceToY(activeOrder.entry);
                 ctx.strokeStyle = '#2962ff'; ctx.setLineDash([5, 5]);
@@ -2014,6 +2012,4 @@ E-posta: support@tradegram.app
     </script>
 </body>
 </html>
-</html>
-
 </html>
